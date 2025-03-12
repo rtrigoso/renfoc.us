@@ -1,7 +1,15 @@
-import type { NextConfig } from "next";
+import nextMdx from '@next/mdx'
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
+const withMdx = nextMdx({
+  // By default only the `.mdx` extension is supported.
+  extension: /\.mdx?$/,
+  options: {/* otherOptions… */}
+})
 
-export default nextConfig;
+const nextConfig = withMdx({
+  // Support MDX files as pages:
+  pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
+  transpilePackages: ['next-mdx-remote'],
+})
+
+export default nextConfig
