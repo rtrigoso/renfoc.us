@@ -8,6 +8,12 @@
     font-optical-sizing: auto;
 }
 
+@media only screen and (max-width: 350px) {
+  :root {
+    font-size: 8px;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -53,19 +59,21 @@ body {
 }
 
 body>* {
-  width: 350px;
-  margin: 4px;
+  width: 96%;
+  margin: 4%;
 }
 
-@media only screen and (min-width: 400px) {
+@media only screen and (min-width: 370px) {
   body>* {
-    width: 400px;
+    width: 30rem;
+    margin: 1rem;
   }
 }
 
 @media only screen and (min-width: 600px) {
   body>* {
-    width: 600px;
+    width: 50rem;
+    margin: 1rem;
   }
 }
 
@@ -80,6 +88,13 @@ header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+
+@media only screen and (max-width: 450px) {
+  main {
+    height: 300px;
+    overflow-y: auto;
+  }
 }
 
 main {
@@ -112,10 +127,28 @@ nav {
   border-radius: 3px 3px 0px 0px;
 }
 
+ul {
+  list-style: inside;
+}
+
 header h1 {
   align-items: center;
   margin: 0;
   font-size: small;
+}
+
+main > *:not(a) {
+  margin-top: 1rem;
+}
+
+main > article > * {
+  margin-top: 2rem;
+}
+
+main h1 {
+  font-size: xx-large;
+  font-weight: bolder;
+  margin-bottom: 2rem;
 }
 
 main h2 {
@@ -124,9 +157,17 @@ main h2 {
   margin-bottom: 2rem;
 }
 
+main > h3 {
+  margin-top: 3rem;
+}
+
+main > a, main > div > a {
+  display: block;
+}
+
 main a {
   color:rgb(19, 142, 187);
-  cursor: pointer
+  cursor: pointer;
 }
 
 main a:hover {
@@ -139,7 +180,7 @@ main a:visited {
 
 main h3 {
   font-size: x-large;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 main time {
@@ -147,4 +188,24 @@ main time {
   margin-bottom: 1rem;
   display: block;
   text-align: right;
+}
+
+main p, main > div > a, main > a {
+  line-height: 2rem;
+}
+
+pre {
+  background: #284646;
+  color: #fff;
+  font-family: monospaace;
+  line-height: 2rem;
+  padding: 1rem;
+  text-wrap: wrap;
+}
+
+.buymeacoffee_link {
+  display: flex;
+  justify-content: flex-start;
+  align-content: stretch;
+  margin: 2rem 0rem;
 }
