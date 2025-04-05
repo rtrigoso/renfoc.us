@@ -1,10 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap');
-
 :root {
   font-size: 12px;
   --background: #ffffff;
   --foreground: #171717;
-  font-family: "Victor Mono", monospace;
     font-optical-sizing: auto;
 }
 
