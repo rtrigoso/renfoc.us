@@ -27,7 +27,6 @@ export default async function Home() {
   
   return (
     <>
-      <h2>Metaphysics, tunes, and code.</h2>
       <h3>Latest Posts:</h3>
       <LinkList content={content} max={4} />
       <BuyMeACoffeeButton />
@@ -36,7 +35,7 @@ export default async function Home() {
         projects.map(({ link, label, description }) => (
           <div key={label}>
             <a href={link} target="_BLANK">{label}</a> 
-            <span> - {description}</span>
+            <span>{description}</span>
           </div>
         ))
       }

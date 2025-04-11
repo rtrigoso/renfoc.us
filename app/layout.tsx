@@ -21,6 +21,7 @@ export default function RootLayout({
           <a href="/">
             <h1>renfoc.us</h1>
           </a>
+          <h2>Metaphysics, tunes, and code</h2>
         </header>
         <main>
           {children}

@@ -1,20 +1,35 @@
 :root {
   font-size: 12px;
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #fcf0ed;
+  --background: #2A2D34;
     font-optical-sizing: auto;
 }
+
+a {
+  color: #c73e1d;
+}
+
+a:hover {
+  color:#c7371d;
+}
+
+a:visited {
+  color:#c7561d;
+}
+
+pre {
+  background: #1E3318;
+  color: #E69375;
+  font-family: monospaace;
+  line-height: 2rem;
+  padding: 1rem;
+  text-wrap: wrap;
+}
+
 
 @media only screen and (max-width: 350px) {
   :root {
     font-size: 8px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
   }
 }
 
@@ -76,15 +91,15 @@ body>* {
 
 
 header {
-  height: 4rem;
   flex-grow: 0;
   flex-shrink: 1;
   flex-basis: auto;
   align-self: auto;
   order: 0;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 @media only screen and (max-width: 450px) {
@@ -117,9 +132,6 @@ nav {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  -webkit-box-shadow: 0 -5px 8px -8px rgba(255, 255, 255, 0.78);
-  -moz-box-shadow: 0 -5px 8px -8px rgba(255, 255, 255, 0.78);
-  box-shadow: 0 -5px 8px -8px rgba(255, 255, 255, 0.78);
   z-index: 10;
   border-radius: 3px 3px 0px 0px;
 }
@@ -132,6 +144,12 @@ header h1 {
   align-items: center;
   margin: 0;
   font-size: small;
+}
+
+header h2 {
+  text-transform: lowercase;
+  letter-spacing: .5em;
+  font-size: smaller;
 }
 
 main > *:not(a) {
@@ -148,36 +166,18 @@ main h1 {
   margin-bottom: 2rem;
 }
 
-main h2 {
-  font-size: large;
-  font-weight: bolder;
-  margin-bottom: 2rem;
-}
-
-main > h3 {
-  margin-top: 3rem;
-}
-
 main > a, main > div > a {
   display: block;
 }
 
 main a {
-  color:rgb(19, 142, 187);
   cursor: pointer;
 }
 
-main a:hover {
-  color:rgb(134, 223, 255);
-}
-
-main a:visited {
-  color:rgb(0, 69, 94);
-}
-
 main h3 {
-  font-size: x-large;
-  margin-bottom: 1rem;
+  font-size: large;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 main time {
@@ -191,14 +191,6 @@ main p, main > div > a, main > a {
   line-height: 2rem;
 }
 
-pre {
-  background: #284646;
-  color: #fff;
-  font-family: monospaace;
-  line-height: 2rem;
-  padding: 1rem;
-  text-wrap: wrap;
-}
 
 .buymeacoffee_link {
   display: flex;

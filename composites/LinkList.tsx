@@ -16,11 +16,14 @@ export default async function LinkList ({ content, max } : LinkListParams ) {
 
     const links = filteredContent
         .map(({ filename, creationDateString }) => {
+            const title = filename.replaceAll('_', ' ');
+
             return (
                 <Link 
+                    className="link"
                     key={filename} 
                     href={`/posts/${filename}`}>
-                        {creationDateString} - {filename}
+                    {creationDateString} {title.charAt(0).toUpperCase() + title.slice(1)}
                 </Link>
             );
         });
