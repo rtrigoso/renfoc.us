@@ -1,8 +1,5 @@
 "use client";
 
-import { useEffect } from 'react';
-import Image from 'next/image';
-
 export default function BuyMeACoffeeButton() {
     return (
         <div className="buymeacoffee_link">

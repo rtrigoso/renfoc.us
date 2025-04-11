@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Victor_Mono } from 'next/font/google'
 import "./globals.css";
+import SocialLinks from "@/composites/SocialLinks";
 
 export const metadata: Metadata = {
   title: "renfoc.us",
@@ -28,7 +29,8 @@ export default function RootLayout({
         </main>
         <nav>
           <a href="/">Home</a> |
-          <a href="/posts">All Posts</a>
+          <a href="/posts">All Posts</a> |
+          <SocialLinks />
         </nav>
       </body>
     </html>

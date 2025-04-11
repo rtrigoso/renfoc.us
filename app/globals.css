@@ -1,11 +1,11 @@
-:root {
+html {
   font-size: 12px;
   --foreground: #fcf0ed;
   --background: #2A2D34;
     font-optical-sizing: auto;
 }
 
-a {
+a:not(:visited) {
   color: #c73e1d;
 }
 
@@ -15,6 +15,15 @@ a:hover {
 
 a:visited {
   color:#c7561d;
+}
+
+li {
+  padding-bottom: .75rem;
+  line-height: 2rem;
+}
+
+strong {
+  color: #E69375;
 }
 
 pre {
@@ -191,10 +200,17 @@ main p, main > div > a, main > a {
   line-height: 2rem;
 }
 
-
 .buymeacoffee_link {
   display: flex;
   justify-content: flex-start;
   align-content: stretch;
   margin: 2rem 0rem;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 2rem;
+  align-items: flex-end;
 }
