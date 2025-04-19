@@ -6,6 +6,12 @@ export default async function Home() {
   const content = await GetLinksDataFromContent()
   const projects = [
     {
+      key: 'hn-focus',
+      label: 'hn-focus',
+      description: 'top articles focusing on computer science.',
+      link: 'https://hn.renfoc.us/'
+    },
+    {
       key: 'covid-aggregator',
       label: 'covid aggregator',
       description: 'A simple news aggregator that follows coronavirus-related news auto updates every 15 minutes.',
