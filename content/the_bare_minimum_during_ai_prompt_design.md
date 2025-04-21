@@ -1,3 +1,4 @@
+###### 2-13-2025
 # The Bare Minimum During AI Prompt Design
 Generative AI services have surged in popularity. Models, like GPT-3, which generate text based on prompts, and Google's PaLM 2 Bison, are being incorporated into many SaaS offerings. Companies implementations has seen a significant rise, enhancing the capabilities and value proposition of these platforms.
 

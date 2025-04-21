@@ -19,7 +19,6 @@ export default async function Posts({ params }: PostsParams) {
  
     return (
         <article>
-            <time dateTime={creationDate}>{creationDate}</time>
             <MDXRemote source={`${data}`} />
         </article>
     )

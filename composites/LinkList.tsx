@@ -23,7 +23,7 @@ export default async function LinkList ({ content, max } : LinkListParams ) {
                     className="link"
                     key={filename} 
                     href={`/posts/${filename}`}>
-                    {creationDateString} {title.charAt(0).toUpperCase() + title.slice(1)}
+                    {title.charAt(0).toUpperCase() + title.slice(1)}
                 </Link>
             );
         });
