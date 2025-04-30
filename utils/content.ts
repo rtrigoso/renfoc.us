@@ -14,8 +14,8 @@ export function GetContentDirFullPath () {
 export function PrintContentReadableCreationTime (filename: string) : string {
     const postsDir = GetContentDirFullPath();
     const fp = resolve(postsDir, filename);
-    const stats = statSync(fp);
-    const creationDate = (new Date(stats.birthtimeMs))
+    const creationTimestamp = parseInt(filename.split('-')[0]);
+    const creationDate = new Date(creationTimestamp * 1000);
     const creationDateString = `${creationDate.getMonth()}-${creationDate.getDate()}-${creationDate.getFullYear()}`;
 
     return creationDateString;
@@ -49,16 +49,20 @@ export async function ReadContentDirectory(): Promise<ExtendedDirent[]> {
 export async function GetLinksDataFromContent () {
     const files = await ReadContentDirectory();
     const data = files
-        .sort((a,b) => a.creationTime - b.creationTime)
         .map(f => {
-            const filename = parse(f.name).name;
+            const filename = parse(f.name).name
+            const title = f.name.split('-')[1].replaceAll('_', ' ').replace('.md', '')
+            const creationDate = parseInt(f.name.split('-')[0]);
             const creationDateString = PrintContentReadableCreationTime(f.name);
 
             return ({
                 filename,
-                creationDateString
+                title: title,
+                creationDateString,
+                creationDate
             });
-        });
+        })
+        .sort((a, b) => b.creationDate - a.creationDate)
 
     return data;
 }

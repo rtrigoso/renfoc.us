@@ -8,17 +8,17 @@ interface PostsParams {
 }
 
 export default async function Posts({ params }: PostsParams) {
-    const { slug } = await params
+    const { slug, creationDate } = await params
 
     if (!process.env.PWD) return <></>;
 
     const filename = `${slug}.md`;
     const fp = resolve(process.env.PWD, `content/${filename}`);
-    const creationDate = PrintContentReadableCreationTime(filename);
     const data = await fs.readFile(fp, 'utf8');
  
     return (
         <article>
+            <time dateTime={creationDate}>{creationDate}</time>
             <MDXRemote source={`${data}`} />
         </article>
     )

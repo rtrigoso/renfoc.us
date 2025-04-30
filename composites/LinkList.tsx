@@ -1,8 +1,10 @@
 import Link from "next/link";
 
 interface LinkListItem {
-    filename: string,
+    filename: string
     creationDateString: string
+    title: string
+    creationDate: number
 }
 
 interface LinkListParams {
@@ -15,15 +17,14 @@ export default async function LinkList ({ content, max } : LinkListParams ) {
     if (max && max > 0) filteredContent = content.slice(0, max);
 
     const links = filteredContent
-        .map(({ filename, creationDateString }) => {
-            const title = filename.replaceAll('_', ' ');
-
+        .map(({ filename, creationDateString, title, creationDate }) => {
+            console.log(creationDate)
             return (
                 <Link 
                     className="link"
                     key={filename} 
                     href={`/posts/${filename}`}>
-                    {title.charAt(0).toUpperCase() + title.slice(1)}
+                    {creationDateString} - {title.charAt(0).toUpperCase() + title.slice(1)}
                 </Link>
             );
         });
