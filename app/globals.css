@@ -145,6 +145,15 @@ nav {
   border-radius: 3px 3px 0px 0px;
 }
 
+body nav {
+  height: auto;
+  margin: 0;
+  padding: 1rem;
+  box-shadow: 1px -6px 15px -4px rgba(0,0,0,0.78);
+  -webkit-box-shadow: 1px -6px 15px -4px rgba(0,0,0,0.78);
+  -moz-box-shadow: 1px -6px 15px -4px rgba(0,0,0,0.78);
+}
+
 ul {
   list-style: outside;
 }
