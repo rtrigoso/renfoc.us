@@ -6,9 +6,15 @@ export default async function Home() {
   const content = await GetLinksDataFromContent()
   const projects = [
     {
+      key: 'gameloop',
+      label: 'gameloop',
+      description: 'a very barebones game engine for the terminal, written in go.',
+      link: 'https://github.com/rtrigoso/gameloop'
+    },
+    {
       key: 'hn-focus',
       label: 'hn-focus',
-      description: 'top articles focusing on computer science.',
+      description: 'top articles focusing on computer science sorted by a custom low-interval wilson score',
       link: 'https://hn.renfoc.us/'
     },
     {
