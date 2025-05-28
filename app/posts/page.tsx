@@ -6,7 +6,7 @@ export default async function Posts() {
 
     return (
         <div>
-            <h2>all posts:</h2>
+            <h3>All posts:</h3>
             <LinkList content={content}/>
         </div>
     );

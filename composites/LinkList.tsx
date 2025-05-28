@@ -18,7 +18,6 @@ export default async function LinkList ({ content, max } : LinkListParams ) {
 
     const links = filteredContent
         .map(({ filename, creationDateString, title, creationDate }) => {
-            console.log(creationDate)
             return (
                 <Link 
                     className="link"
