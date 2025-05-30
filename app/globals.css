@@ -235,3 +235,19 @@ main p, main > div > a, main > a {
   gap: 1rem;
   flex-direction: row;
 }
+
+.tools {
+  list-style: none;
+  margin-top: 2rem;
+}
+
+.tools a {
+  background-color: #c7561d;
+  color: #fcf0ed;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.75rem;
+}
+
+.tools a:hover {
+  background-color: #1E3318;
+}

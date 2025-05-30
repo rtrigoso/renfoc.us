@@ -44,6 +44,7 @@ export default function RootLayout({
         </main>
         <nav>
           <a href="/">Home</a> |
+          <a href="/tools">Tools</a> |
           <a href="/posts">All Posts</a> |
           <SocialLinks />
         </nav>
