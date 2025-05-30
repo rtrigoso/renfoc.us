@@ -106,8 +106,8 @@ header {
   align-self: auto;
   order: 0;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -222,4 +222,32 @@ main p, main > div > a, main > a {
   gap: 0.5rem;
   height: 2rem;
   align-items: flex-end;
+}
+
+.header_image {
+  max-width: 100px;
+  height: 60px;
+  border-radius: 1rem;
+}
+
+.post_link {
+  display: flex;
+  gap: 1rem;
+  flex-direction: row;
+}
+
+.tools {
+  list-style: none;
+  margin-top: 2rem;
+}
+
+.tools a {
+  background-color: #c7561d;
+  color: #fcf0ed;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.75rem;
+}
+
+.tools a:hover {
+  background-color: #1E3318;
 }
