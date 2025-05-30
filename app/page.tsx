@@ -36,13 +36,19 @@ export default async function Home() {
       link: 'https://github.com/rtrigoso/readenobility'
     }
   ];
-  
+
+  while (projects.length > 4) {
+    const randomIndex = Math.floor(Math.random() * projects.length);
+    projects.splice(randomIndex, 1);
+  }
+  projects.sort(() => Math.random() - 0.5);
+
   return (
     <>
       <h3>Latest Posts:</h3>
       <LinkList content={content} max={4} />
       <BuyMeACoffeeButton />
-      <h3>Latest Projects:</h3>
+      <h3>Featured Projects:</h3>
       {
         projects.map(({ link, label, description }) => (
           <div key={label}>
