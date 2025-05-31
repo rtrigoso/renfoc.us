@@ -27,7 +27,6 @@ export default function RootLayout({
               alt="cropped picture of the blog owner made by ai"
               width={1019}
               height={620}
-              objectFit="contain"
               placeholder="blur"
               blurDataURL="/header_loading.webp"
             />
