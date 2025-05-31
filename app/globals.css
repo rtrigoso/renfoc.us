@@ -6,15 +6,15 @@ html {
 }
 
 a:not(:visited) {
-  color: #c73e1d;
+  color: #F2AD9C;
 }
 
-a:hover {
-  color:#c7371d;
+a:hover, a:visited:hover {
+  color:#A5CF9B;
 }
 
 a:visited {
-  color:#c7561d;
+  color:#E8B39C;
 }
 
 li {
@@ -23,12 +23,12 @@ li {
 }
 
 strong {
-  color: #E69375;
+  color: #F2F2F2;
 }
 
 pre {
   background: #1E3318;
-  color: #E69375;
+  color: #F0B59E;
   font-family: monospaace;
   line-height: 2rem;
   padding: 1rem;
@@ -223,7 +223,7 @@ main p, main > div > a, main > a {
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 1rem;
   height: 2rem;
   align-items: flex-end;
 }
@@ -246,7 +246,7 @@ main p, main > div > a, main > a {
 }
 
 .tools a {
-  background-color: #c7561d;
+  background-color: #7B320A;
   color: #fcf0ed;
   border-radius: 0.5rem;
   padding: 0.25rem 0.75rem;
