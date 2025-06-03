@@ -29,7 +29,7 @@ strong {
 pre {
   background: #1E3318;
   color: #F0B59E;
-  font-family: monospaace;
+  font-family: monospace;
   line-height: 2rem;
   padding: 1rem;
   text-wrap: wrap;
@@ -254,4 +254,12 @@ main p, main > div > a, main > a {
 
 .tools a:hover {
   background-color: #1E3318;
+}
+
+blockquote {
+  font-family: sans-serif;
+  font-weight: 100;
+  background-color: #12151c;
+  padding: 1rem;
+  border-radius: 5px;
 }
