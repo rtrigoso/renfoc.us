@@ -27,7 +27,9 @@ export async function generateMetadata({ params }: PostsParams) {
 
     return {
         title: title[0].toUpperCase() + title.slice(1),
-        description: data
+        description: data,
+        'twitter:title': data,
+        'og:title': title[0].toUpperCase() + title.slice(1)
     }
 }
 
