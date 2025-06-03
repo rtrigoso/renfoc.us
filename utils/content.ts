@@ -16,7 +16,11 @@ export function PrintContentReadableCreationTime (filename: string) : string {
     const fp = resolve(postsDir, filename);
     const creationTimestamp = parseInt(filename.split('-')[0]);
     const creationDate = new Date(creationTimestamp * 1000);
-    const creationDateString = `${creationDate.getMonth()}-${creationDate.getDate()}-${creationDate.getFullYear()}`;
+    const creationDateString = new Intl.DateTimeFormat('en-US', {
+        month: '2-digit',
+        day: '2-digit',
+        year: 'numeric'
+    }).format(creationDate);
 
     return creationDateString;
 }
