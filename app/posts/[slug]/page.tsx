@@ -22,7 +22,9 @@ export async function generateMetadata({ params }: PostsParams) {
     let data;
     if (process.env.PWD) {
         data = await readDataContent(slug, process.env.PWD);
-        data = `...${data.replace('#', '').slice(50, 150)}...`;
+        const firstIndex = data.indexOf(".", 50);
+        const lastIndex = data.indexOf(".", firstIndex + 50);
+        data = `...${data.replace('#', '').slice(firstIndex + 1, lastIndex)}...`;
     }
 
     return {
