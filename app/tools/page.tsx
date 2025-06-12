@@ -18,6 +18,9 @@ export default async function Posts() {
                 <li>
                     <a href="https://watchlist.renfoc.us" target="_BLANK">Media request server for my Plex instance</a>
                 </li>
+                <li>
+                    <a href="https://ollama.renfoc.us" target="_BLANK">Web UI for self-hosted ollama instance</a>
+                </li>
             </ul>
         </div>
     );
