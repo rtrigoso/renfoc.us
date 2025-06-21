@@ -174,7 +174,7 @@ main > *:not(a) {
   margin-top: 1rem;
 }
 
-main > article {
+main > *:last-child  {
   margin-bottom: 2rem;
 }
 
