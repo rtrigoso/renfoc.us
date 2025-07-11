@@ -1,5 +1,7 @@
 import { Dirent, readdirSync, statSync } from "fs";
 import { parse, resolve } from "path";
+import { promises as fs, writeFileSync } from "fs";
+import RSS from 'rss';
 
 class ExtendedDirent extends Dirent {
     creationTime: number = 0
@@ -13,7 +15,8 @@ export function GetContentDirFullPath () {
 
 export function PrintContentReadableCreationTime (filename: string) : string {
     const postsDir = GetContentDirFullPath();
-    const fp = resolve(postsDir, filename);
+    resolve(postsDir, filename);
+
     const creationTimestamp = parseInt(filename.split('-')[0]);
     const creationDate = new Date(creationTimestamp * 1000);
     const creationDateString = new Intl.DateTimeFormat('en-US', {
@@ -50,23 +53,73 @@ export async function ReadContentDirectory(): Promise<ExtendedDirent[]> {
     return mdFiles;
 }
 
+export async function readDataContent(slug: string, currentPath: string): Promise<string> {
+    const filename = `${slug}.md`;
+    const fp = resolve(currentPath, `content/${filename}`);
+    const data = await fs.readFile(fp, 'utf8');
+
+    return data;
+}
+
+export async function GetPostDescription(slug: string) {
+    let data = '';
+    if (process.env.PWD) {
+        data = await readDataContent(slug, process.env.PWD);
+        const firstIndex = data.indexOf(".", 50);
+        const lastIndex = data.indexOf(".", firstIndex + 50);
+        data = `...${data.replace('#', '').slice(firstIndex + 1, lastIndex)}...`;
+    }
+
+    return data;
+}
+
 export async function GetLinksDataFromContent () {
     const files = await ReadContentDirectory();
-    const data = files
-        .map(f => {
+    const dataPromise = files
+        .map(async f => {
             const filename = parse(f.name).name
             const title = f.name.split('-')[1].replaceAll('_', ' ').replace('.md', '')
             const creationDate = parseInt(f.name.split('-')[0]);
             const creationDateString = PrintContentReadableCreationTime(f.name);
+            const description = await GetPostDescription(f?.name?.split('.')?.at(0) || '')
 
             return ({
                 filename,
                 title: title,
                 creationDateString,
-                creationDate
+                creationDate,
+                description
             });
-        })
-        .sort((a, b) => b.creationDate - a.creationDate)
+        });
+    const data = await Promise.all(dataPromise)
+    data.sort((a, b) => b.creationDate - a.creationDate)
 
     return data;
+}
+
+export async function generateRSSFeed() {
+    const site_url = process.env.NODE_ENV === 'production' ? 'https://renfoc.us' : 'https://localhost:3000';
+    const feedOptions = {
+        title: "ren focus | RSS Feed",
+        description: "Metaphysics, tunes, and code",
+        site_url: site_url,
+        feed_url: `${site_url}/rss.xml`,
+        image_url: `${site_url}/header.webp`,
+        pubDate: new Date(),
+        copyright: `All rights reserved ${new Date().getFullYear()}`,
+    };
+
+    const feed = new RSS(feedOptions);
+    const posts = await GetLinksDataFromContent();
+
+    posts.map((post) => {
+        feed.item({
+            title: post.title,
+            description: post.description,
+            url: `${site_url}/posts/${post.filename}`,
+            date: new Date(post.creationDate),
+        });
+    });
+
+    writeFileSync("./public/rss.xml", feed.xml({ indent: true }));
 }

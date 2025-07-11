@@ -1,31 +1,15 @@
-import { ReadContentDirectory } from "@/utils/content";
-import { promises as fs } from "fs";
+import { GetPostDescription, ReadContentDirectory, readDataContent } from "@/utils/content";
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import { parse, resolve } from "path";
+import { parse } from "path";
 
 interface PostsParams {
     params: Promise<{ slug: string, creationDate: string }>
 }
 
-async function readDataContent(slug: string, currentPath: string): Promise<string> {
-    const filename = `${slug}.md`;
-    const fp = resolve(currentPath, `content/${filename}`);
-    const data = await fs.readFile(fp, 'utf8');
-
-    return data;
-}
-
 export async function generateMetadata({ params }: PostsParams) {
     const { slug } = await params;
     const title = slug.split('-')[1].split('_').join(' ');
-
-    let data;
-    if (process.env.PWD) {
-        data = await readDataContent(slug, process.env.PWD);
-        const firstIndex = data.indexOf(".", 50);
-        const lastIndex = data.indexOf(".", firstIndex + 50);
-        data = `...${data.replace('#', '').slice(firstIndex + 1, lastIndex)}...`;
-    }
+    const data = GetPostDescription(slug)
 
     return {
         title: title[0].toUpperCase() + title.slice(1),
