@@ -1,8 +1,9 @@
 import BuyMeACoffeeButton from "@/composites/BuyMeACoffeButton";
 import LinkList from "@/composites/LinkList";
-import { GetLinksDataFromContent } from "@/utils/content";
+import { GetLinksDataFromContent, generateRSSFeed } from "@/utils/content";
 
 export default async function Home() {
+  await generateRSSFeed();
   const content = await GetLinksDataFromContent()
   const projects = [
     {

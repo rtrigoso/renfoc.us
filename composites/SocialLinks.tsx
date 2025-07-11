@@ -3,6 +3,7 @@
 import EmailLink from './EmailLink';
 import GithubLink from './GithubLink';
 import LinkedinLink from './LinkedinLink';
+import RSSLink from './RSSLink';
 
 export default function SocialLinks() {
     return (
@@ -10,6 +11,7 @@ export default function SocialLinks() {
             <LinkedinLink />
             <GithubLink />
             <EmailLink />
+            <RSSLink />
         </div>
     );
 }
