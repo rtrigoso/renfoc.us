@@ -1,5 +1,5 @@
 html {
-  font-size: 12px;
+  font-size: 11px;
   --foreground: #fcf0ed;
   --background: #2A2D34;
     font-optical-sizing: auto;
@@ -120,7 +120,9 @@ header {
 
 main {
   min-height: 10rem;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   flex-grow: 1;
   flex-shrink: 1;
   flex-basis: auto;
@@ -185,7 +187,7 @@ main > article > * {
 main h1 {
   font-size: xx-large;
   font-weight: bolder;
-  margin-bottom: 2rem;
+  margin-bottom: 0rem;
 }
 
 main > a, main > div > a {
@@ -211,6 +213,10 @@ main time {
 
 main p, main > div > a, main > a {
   line-height: 2rem;
+}
+
+.m3 {
+  margin-top: 3rem;
 }
 
 .buymeacoffee_link {

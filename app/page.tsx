@@ -46,7 +46,7 @@ export default async function Home() {
 
   return (
     <>
-      <h3>Latest Posts:</h3>
+      <h3 className="m3">Latest Posts:</h3>
       <LinkList content={content} max={4} />
       <BuyMeACoffeeButton />
       <h3>Featured Projects:</h3>
