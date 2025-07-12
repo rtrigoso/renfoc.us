@@ -19,26 +19,26 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <header>
-          <a href="/">
-            <Image
-              className="header_image"
-              src="/header.webp"
-              alt="cropped picture of the blog owner made by ai"
-              width={1019}
-              height={620}
-              placeholder="blur"
-              blurDataURL="/header_loading.webp"
-            />
-          </a>
-          <div>
-            <a href="/">
-              <h1>renfoc.us</h1>
-            </a>
-            <h2>Metaphysics, tunes, and code</h2>
-          </div>
-        </header>
         <main>
+          <header>
+            <a href="/">
+              <Image
+                className="header_image"
+                src="/header.webp"
+                alt="cropped picture of the blog owner made by ai"
+                width={1019}
+                height={620}
+                placeholder="blur"
+                blurDataURL="/header_loading.webp"
+              />
+            </a>
+            <div>
+              <a href="/">
+                <h1>ren focus</h1>
+              </a>
+              <h2>Metaphysics, tunes, and code</h2>
+            </div>
+          </header>
           {children}
         </main>
         <nav>
