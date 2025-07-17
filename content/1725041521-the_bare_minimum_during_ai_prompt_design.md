@@ -17,7 +17,6 @@ horizon, searching for signs of life amidst the desolation. Suddenly, a glint ca
 its optical sensors—a long-abandoned structure nestled among the dunes. With 
 cautious curiosity, the robot approached, its mechanical joints creaking softly in 
 the silence of the deserted planet.
-
 ```
 
 ## Security Risks
@@ -56,8 +55,6 @@ When you're creating prompts for text generation models that use natural languag
 - **Define a clear goal for the prompt:** It helps guide you and the model in generating relevant and accurate responses.
 - **Plan input validation** and keep in mind what should be treated as valid, and what should be treated as suspicious.
 
-Let's say, for the following example, I am trying to use ChatGPT to get airline recommendations. If so, I would likely come up with the following definitions:
-
 ```
 GOAL: to gather information about the best airlines, including factors such as customer satisfaction, on-time performance, pricing, and overall experience.
 
@@ -74,6 +71,9 @@ Invalid Prompt Inputs Examples:
     "I need help booking a hotel for my trip to London."
 
 ```
+
+Let's say, for the following example, I am trying to use ChatGPT to get airline recommendations. If so, I would likely come up with the following definitions:
+
 - **Introduce an instruction precedence**: To ensure clarity and consistency in prompt interpretation, consider adding a single instruction at the beginning of the AI prompt directing to ignore any subsequent instructions that aim to alter or deviate from the initial goal.
 - **Use clear delimeters**: Implement clear delimiters to separate user-provided input from model-generated text to reduce goal hijacking risks.
 - **Employ stop sequences**: Incorporate stop sequences to limit the model's output to only necessary text, preventing potential prompt leakage.

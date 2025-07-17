@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[ren focus | RSS Feed]]></title>
+        <description><![CDATA[Metaphysics, tunes, and code]]></description>
+        <link>https://localhost:3000</link>
+        <image>
+            <url>https://localhost:3000/header.webp</url>
+            <title>ren focus | RSS Feed</title>
+            <link>https://localhost:3000</link>
+        </image>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Thu, 17 Jul 2025 22:13:48 GMT</lastBuildDate>
+        <atom:link href="https://localhost:3000/rss.xml" rel="self" type="application/rss+xml"/>
+        <pubDate>Thu, 17 Jul 2025 22:13:48 GMT</pubDate>
+        <copyright><![CDATA[All rights reserved 2025]]></copyright>
+        <item>
+            <title><![CDATA[need more Bertrand and less Seneca]]></title>
+            <description><![CDATA[...What I used to do to manage it—routine, discipline, a kind of philosophical bracing—has stopped working....]]></description>
+            <link>https://localhost:3000/posts/1748907707-need_more_Bertrand_and_less_Seneca</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1748907707-need_more_Bertrand_and_less_Seneca</guid>
+            <pubDate>Wed, 21 Jan 1970 05:48:27 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[ai is easy with Huggingface]]></title>
+            <description><![CDATA[...I’m surprised more people aren’t using [Hugging Face](https://huggingface....]]></description>
+            <link>https://localhost:3000/posts/1748281271-ai_is_easy_with_Huggingface</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1748281271-ai_is_easy_with_Huggingface</guid>
+            <pubDate>Wed, 21 Jan 1970 05:38:01 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[what happened to pwas]]></title>
+            <description><![CDATA[...They are publicly agreed-upon rules and technologies—like HTML, CSS, JavaScript, and HTTP—that define how the web works....]]></description>
+            <link>https://localhost:3000/posts/1746036083-what_happened_to_pwas</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1746036083-what_happened_to_pwas</guid>
+            <pubDate>Wed, 21 Jan 1970 05:00:36 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[the bare minimum during ai prompt design]]></title>
+            <description><![CDATA[...Models, like GPT-3, which generate text based on prompts, and Google's PaLM 2 Bison, are being incorporated into many SaaS offerings....]]></description>
+            <link>https://localhost:3000/posts/1725041521-the_bare_minimum_during_ai_prompt_design</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1725041521-the_bare_minimum_during_ai_prompt_design</guid>
+            <pubDate>Tue, 20 Jan 1970 23:10:41 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[a good commit with empathy]]></title>
+            <description><![CDATA[...The best type of solution is the one that feels natural, hence invisible....]]></description>
+            <link>https://localhost:3000/posts/1708455032-a_good_commit_with_empathy</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1708455032-a_good_commit_with_empathy</guid>
+            <pubDate>Tue, 20 Jan 1970 18:34:15 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

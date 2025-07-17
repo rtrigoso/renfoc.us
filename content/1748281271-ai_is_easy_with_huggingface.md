@@ -34,19 +34,12 @@ One small note for people testing out the code: dtype stands for data type. It r
 In Huggingface, a pipeline type refers to the specific kind of task or use case that a pipeline is designed to handle. Each pipeline type corresponds to a particular machine learning problem, like text classification, translation, or image recognition, and comes with a pre-configured model and processing steps tailored for that task.
 
 Some common pipeline types available to developers in Huggingface include:
-
 - Text Classification: Categorizes text into labels like sentiment analysis (positive/negative).
-
 - Question Answering: Finds answers to questions based on a given text.
-
 - Text Generation: Creates new text based on a prompt, like writing stories or code.
-
 - Translation: Translates text from one language to another.
-
 - Token Classification: Identifies specific parts of text, like named entities (names, places).
-
 - Fill-Mask: Predicts missing words in a sentence.
-
 - Summarization: Creates a short summary of a longer text (the one that we used on the example above).
 
 These pipeline types let developers easily plug in powerful AI features without needing to handle the low-level details of model loading and processing. 

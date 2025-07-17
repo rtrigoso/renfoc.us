@@ -19,15 +19,23 @@ export default async function LinkList ({ content, max } : LinkListParams ) {
     const links = filteredContent
         .map(({ filename, creationDateString, title, creationDate }) => {
             return (
-                <Link 
-                    className="link post_link"
-                    key={filename} 
-                    href={`/posts/${filename}`}>
-                    <span>{creationDateString}</span>
-                    <span>{title.charAt(0).toUpperCase() + title.slice(1)}</span>
-                </Link>
+                <div className="post_link" key={`post-${creationDate}`}>
+                    <div className="date">{creationDateString}</div>
+                    <Link
+                        className="link post_link"
+                        key={filename}
+                        href={`/posts/${filename}`}>
+                        {title.charAt(0).toUpperCase() + title.slice(1)}
+                    </Link>
+                </div>
             );
         });
     
-    return (<>{links}</>)
+    return (
+        <div className="latest_posts">
+            {max && <h3>Latest Posts:</h3>}
+            {!max && <h3>All Posts:</h3>}
+            {links}
+        </div>
+    );
 }

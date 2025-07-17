@@ -3,7 +3,7 @@ import { GetLinksDataFromContent } from "@/utils/content";
 
 export default async function Posts() {
     return (
-        <div>
+        <>
             <h3>Tools:</h3>
             <p>
                 This page showcases tools I've personally host. Access is limited to select users. If you need access or think you should have it, feel free to email me!
@@ -22,6 +22,6 @@ export default async function Posts() {
                     <a href="https://ollama.renfoc.us" target="_BLANK">Web UI for self-hosted ollama instance</a>
                 </li>
             </ul>
-        </div>
+        </>
     );
 }
