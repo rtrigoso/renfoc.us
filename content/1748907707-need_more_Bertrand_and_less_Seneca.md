@@ -10,9 +10,7 @@ I’ve long been drawn to Stoicism, especially in hard times. There’s somethin
 The Stoic prescription is emotionally minimalist:
 
 1. External things (wealth, health, even pleasure) are indifferent.
-
 2. Emotional pain stems from faulty judgments.
-
 3. Master yourself, and you can endure anything.
 
 Epictetus puts it cleanly:

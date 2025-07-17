@@ -1,4 +1,3 @@
-import BuyMeACoffeeButton from "@/composites/BuyMeACoffeButton";
 import LinkList from "@/composites/LinkList";
 import { GetLinksDataFromContent, generateRSSFeed } from "@/utils/content";
 
@@ -46,18 +45,18 @@ export default async function Home() {
 
   return (
     <>
-      <h3 className="m3">Latest Posts:</h3>
       <LinkList content={content} max={4} />
-      <BuyMeACoffeeButton />
-      <h3>Featured Projects:</h3>
-      {
-        projects.map(({ link, label, description }) => (
-          <div key={label}>
-            <a href={link} target="_BLANK">{label}</a> 
-            <span>{description}</span>
-          </div>
-        ))
-      }
+      <div className="featured_projects">
+        <h3>Featured Projects:</h3>
+        {
+          projects.map(({ link, label, description }) => (
+            <div className="featured_project_link" key={label}>
+              <a href={link} target="_BLANK">{label}</a>
+              <div className="featured_project_description" >{description}</div>
+            </div>
+          ))
+        }
+      </div>
     </>
   );
 }

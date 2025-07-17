@@ -7,7 +7,7 @@ import RSSLink from './RSSLink';
 
 export default function SocialLinks() {
     return (
-        <div className="social-links">
+        <div className="social_links">
             <LinkedinLink />
             <GithubLink />
             <EmailLink />
