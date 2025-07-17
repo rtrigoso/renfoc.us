@@ -10,7 +10,7 @@ export default async function Posts() {
             </p>
             <ul className="tools">
                 <li>
-                    <a href="https://photos.renfoc.us" target="_BLANK">Photo sharing and storage</a>
+                    <a href="https://app.plex.tv" target="_BLANK">For media sharing and storage</a>
                 </li>
                 <li>
                     <a href="https://ntfy.renfoc.us" target="_BLANK">HTTP based pub-sub notification service</a>
@@ -19,7 +19,7 @@ export default async function Posts() {
                     <a href="https://watchlist.renfoc.us" target="_BLANK">Media request server for my Plex instance</a>
                 </li>
                 <li>
-                    <a href="https://ollama.renfoc.us" target="_BLANK">Web UI for self-hosted ollama instance</a>
+                    <a href="https://code.renfoc.us" target="_BLANK">personal online IDE</a>
                 </li>
             </ul>
         </>
