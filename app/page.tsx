@@ -37,15 +37,11 @@ export default async function Home() {
     }
   ];
 
-  while (projects.length > 4) {
-    const randomIndex = Math.floor(Math.random() * projects.length);
-    projects.splice(randomIndex, 1);
-  }
   projects.sort(() => Math.random() - 0.5);
 
   return (
     <>
-      <LinkList content={content} max={4} />
+      <LinkList content={content} max={10} />
       <div className="featured_projects">
         <h3>Featured Projects:</h3>
         {

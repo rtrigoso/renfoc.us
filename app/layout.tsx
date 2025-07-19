@@ -36,7 +36,6 @@ export default function RootLayout({ children }: RootLayoutArgs) {
           <h2>Metaphysics, tunes, and code</h2>
           <nav>
             <a href="/tools">Tools</a>
-            <a href="/posts">All Posts</a>
             <a href='https://www.buymeacoffee.com/renrocks' target='_BLANK'>Buy me coffee</a>
             <SocialLinks />
           </nav>

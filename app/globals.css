@@ -17,8 +17,8 @@ html h1 {
   font-size: 2rem;
 }
 
-html h2 {
-  font-size: .75rem;
+html h3 {
+  font-size: 1.5rem;
 }
 
 html h1,
@@ -47,7 +47,7 @@ body, header, header nav, body main, .latest_posts, .featured_projects, .feature
 }
 
 header {
-  padding: 1rem 0px;
+  padding: 2rem 0px;
   min-width: 250px;
 }
 
@@ -61,8 +61,8 @@ main {
   flex-grow: 3; 
   flex-shrink: 1; 
   flex-basis: auto;
-  padding: 1rem 1rem;
-  gap: 2rem;
+  padding: 2rem 1rem;
+  gap: 2.5rem;
 }
 
 header img {
@@ -90,28 +90,23 @@ header, header nav {
 }
 
 body, .featured_project_link {
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .latest_posts, .featured_projects {
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
-.featured_project_description {
-  line-height: 1.5rem;
+.featured_project_description, .date {
+  line-height: 1.05rem;
 }
 
 .post_link, .social_links {
   gap: 0.5rem;
   display: flex;
   flex-direction: row;
-  line-height: 1.25rem;
-}
-
-.date {
-  font-weight: 600;
-  font-size: smaller;
-  line-height: 1.25rem;
+  line-height: 1.05rem;
+  align-items: flex-start;
 }
 
 article {
