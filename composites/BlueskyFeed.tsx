@@ -43,7 +43,7 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
 
     const feed = await res.json();
 
-    return feed.feed.map(({ post }: BlueskyFeed) => {
+    return feed.feed.map(({ post }) => {
         return {
             link: `https://bsky.app/profile/ren-rocks.bsky.social/post/${post.uri.split('/').at(-1)}`,
             avatar: post.author.avatar,
