@@ -1,3 +1,4 @@
+import BlueskyFeed from "@/composites/BlueskyFeed";
 import LinkList from "@/composites/LinkList";
 import { GetLinksDataFromContent, generateRSSFeed } from "@/utils/content";
 
@@ -53,6 +54,7 @@ export default async function Home() {
           ))
         }
       </div>
+      <BlueskyFeed />
     </>
   );
 }
