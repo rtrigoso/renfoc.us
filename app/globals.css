@@ -33,8 +33,12 @@ html h6 {
 }
 
 html a {
-  color: var(--tertiary-fg-color);
   text-decoration: none;
+  color: var(--main-fg-color);
+}
+
+html a:not(.bluesky_post_link) {
+  color: var(--tertiary-fg-color);
 }
 
 html img {
@@ -68,6 +72,10 @@ main {
 header img {
   height: 5rem;
   width: 8.8rem;
+}
+
+strong {
+  font-weight: 900;
 }
 
 code {
@@ -159,4 +167,48 @@ article ol > li + li, article ul > li + li {
 article li {
   padding-left: 1rem;
   line-height: 1.5rem;
+}
+
+.bluesky_posts, .bluesky_post, .bluesky_post_header > div, .bluesky_post_embeds, .bluesky_post_content {
+  display: flex;
+  flex-direction: column;
+}
+
+.bluesky_post_header > div {
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.bluesky_post_header, .bluesky_post_body {
+  display: flex;
+  flex-direction: row;
+}
+
+.bluesky_post_body > div:first-child {
+  flex: 2
+}
+
+.bluesky_posts, .bluesky_post_content, .bluesky_post_header {
+  gap: 1rem;
+}
+
+.bluesky_post {
+  max-width: 500px;
+  align-items: stretch;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--secondary-fg-color);
+  border-radius: 5px;
+}
+
+.bluesky_post_link {
+  max-width: 500px;
+}
+
+.bluesky_post_embeds {
+  align-items: center;
+}
+
+.bluesky_post_embeds img, .bluesky_post_header img {
+  border: 1px solid var(--tertiary-fg-color);
 }
