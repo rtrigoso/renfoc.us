@@ -50,7 +50,7 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
             displayName: post.author.displayName,
             content: post.record.text,
             createdAt: new Date(post.indexedAt),
-            embeds: post.embed.images?.map(image => ({
+            embeds: post.embed?.images?.map(image => ({
                 alt: image.alt,
                 aspectRatio: `${image.aspectRatio.width}/${image.aspectRatio.height}`,
                 link: image.thumb
@@ -150,20 +150,23 @@ interface PostCardPost {
 
 export default async function BlueskyFeed() {
     const posts: PostCardPost[] = await GetFeedPosts('ren-rocks.bsky.social');
+
     return (
         <div className="bluesky_posts">
             <h3>Bluesky Feed</h3>
-            {posts.map(({ avatar, displayName, content, createdAt, embeds, link }) => (
-                <PostCard
-                    key={`bluesky_post_${createdAt.getUTCDate()}`}
-                    link={link}
-                    avatar={avatar}
-                    displayName={displayName}
-                    content={content}
-                    createdAt={createdAt}
-                    embeds={embeds}
-                />
-            ))}
+            {
+                posts.map(({ avatar, displayName, content, createdAt, embeds, link }) => (
+                    <PostCard
+                        key={`bluesky_post_${createdAt.getUTCDate()}`}
+                        link={link}
+                        avatar={avatar}
+                        displayName={displayName}
+                        content={content}
+                        createdAt={createdAt}
+                        embeds={embeds}
+                    />
+                ))
+            }
         </div>
     );
 }
