@@ -1,4 +1,41 @@
-async function GetFeedPosts(username: string): Promise<void> {
+interface BlueskyRecord {
+    text: string,
+    displayName: string
+}
+
+interface BlueskyImageAspectRatio {
+    width: number
+    height: number
+}
+
+interface BlueskyImage {
+    alt: string
+    aspectRatio: BlueskyImageAspectRatio
+    thumb: string
+}
+
+interface BlueskyEmbed {
+    images: BlueskyImage[]
+}
+
+interface BlueskyAuthor {
+    avatar: string,
+    displayName: string
+}
+
+interface BlueskyPost {
+    uri: string
+    author: BlueskyAuthor
+    indexedAt: string
+    record: BlueskyRecord
+    embed: BlueskyEmbed
+}
+
+interface BlueskyFeed {
+    post: BlueskyPost
+}
+
+async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
     const res = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${username}&limit=3`);
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
@@ -102,8 +139,17 @@ function PostCard({ link, avatar, displayName, content, createdAt, embeds = [] }
     );
 }
 
+interface PostCardPost {
+    avatar: string
+    displayName: string
+    content: string
+    createdAt: Date
+    embeds: PostCardEmbed[]
+    link: string
+}
+
 export default async function BlueskyFeed() {
-    const posts = await GetFeedPosts('ren-rocks.bsky.social');
+    const posts: PostCardPost[] = await GetFeedPosts('ren-rocks.bsky.social');
     return (
         <div className="bluesky_posts">
             <h3>Bluesky Feed</h3>
