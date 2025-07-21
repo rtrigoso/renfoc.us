@@ -48,8 +48,10 @@ export default async function Home() {
         {
           projects.map(({ link, label, description }) => (
             <div className="featured_project_link" key={label}>
-              <a href={link} target="_BLANK">{label}</a>
-              <div className="featured_project_description" >{description}</div>
+              <a href={link} target="_BLANK" tabIndex={0}>
+                <div className="featured_project_name">{label}</div>
+                <div className="featured_project_description">{description}</div>
+              </a>
             </div>
           ))
         }

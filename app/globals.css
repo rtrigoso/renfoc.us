@@ -6,10 +6,29 @@
   --tertiary-fg-color: #870D38;
 }
 
+.skip_link {
+  background: var(--tertiary-fg-color);
+  color: var(--main-bg-color);
+  left: 50%;
+  padding: 1rem;
+  position: absolute;
+  transform: translateY(-200%);
+  transition: transform 0.3s;
+  border-radius: 5px;
+}
+
+.skip_link:focus {
+  transform: translateY(0%);
+}
+
 html {
   background-color: var(--main-bg-color);
   color: var(--main-fg-color);
-  font-size: 11px;
+  font-size: 12px;
+}
+
+html * {
+  line-height: 14px;
   letter-spacing: -0.25px;
 }
 
@@ -29,16 +48,20 @@ html h5,
 html h6 {
   color: var(--secondary-fg-color);
   font-weight: 900;
-  line-height: 1.25rem;
+  line-height: 2rem;
 }
 
 html a {
   text-decoration: none;
+  color: var(--tertiary-fg-color);
+}
+
+html .featured_project_description, html .bluesky_post_message {
   color: var(--main-fg-color);
 }
 
-html a:not(.bluesky_post_link) {
-  color: var(--tertiary-fg-color);
+html a:hover {
+  cursor: pointer
 }
 
 html img {
@@ -105,15 +128,10 @@ body, .featured_project_link {
   gap: 1rem;
 }
 
-.featured_project_description, .date {
-  line-height: 1.05rem;
-}
-
 .post_link, .social_links {
   gap: 0.5rem;
   display: flex;
   flex-direction: row;
-  line-height: 1.05rem;
   align-items: flex-start;
 }
 
@@ -122,7 +140,6 @@ article {
   flex-direction: column;
   gap: 1rem;
   padding-bottom: 5rem;
-  line-height: 1.5rem;
 }
 
 article blockquote, article pre {
@@ -134,10 +151,6 @@ article blockquote, article pre {
 
 article blockquote a {
   color: var(--secondary-bg-color);
-}
-
-article h1 {
-  line-height: 2.5rem;
 }
 
 article h2 {
@@ -188,7 +201,7 @@ article li {
   flex: 2
 }
 
-.bluesky_posts, .bluesky_post_content, .bluesky_post_header {
+.bluesky_posts, .bluesky_post_content, .bluesky_post_header, .bluesky_post_body {
   gap: 1rem;
 }
 

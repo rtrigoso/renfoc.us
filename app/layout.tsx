@@ -20,6 +20,7 @@ export default function RootLayout({ children }: RootLayoutArgs) {
     <html lang="en">
       <body className={font.className}>
         <header>
+          <a href="#main_content" className="skip_link" tabIndex={0}>Skip to main content</a>
           <a href="/">
             <Image
               src="/header.webp"
@@ -34,13 +35,13 @@ export default function RootLayout({ children }: RootLayoutArgs) {
             <h1>ren focus</h1>
           </a>
           <h2>Metaphysics, tunes, and code</h2>
-          <nav>
+          <nav role="navigation">
             <a href="/tools">Tools</a>
             <a href='https://www.buymeacoffee.com/renrocks' target='_BLANK'>Buy me coffee</a>
             <SocialLinks />
           </nav>
         </header>
-        <main>
+        <main id="main_content">
           {children}
         </main>
       </body>
