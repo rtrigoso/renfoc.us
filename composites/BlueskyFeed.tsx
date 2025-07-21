@@ -98,7 +98,7 @@ function PostCardEmbed({ alt, link, aspectRatio, type }: PostCardEmbed) {
 
 function PostCard({ link, avatar, displayName, content, createdAt, embeds = [] }: PostCardProps) {
     return (
-        <a href={link} target="_BLANK" className="bluesky_post_link" >
+        <a href={link} target="_BLANK" className="bluesky_post_link" tabIndex={0}>
             <div className="bluesky_post">
                 <div className="bluesky_post_body">
                     <div className="bluesky_post_content">

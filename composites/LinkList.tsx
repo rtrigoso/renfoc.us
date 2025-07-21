@@ -22,6 +22,7 @@ export default async function LinkList ({ content, max } : LinkListParams ) {
                 <div className="post_link" key={`post-${creationDate}`}>
                     <div className="date">{creationDateString}</div>
                     <Link
+                        tabIndex={0}
                         className="link post_link"
                         key={filename}
                         href={`/posts/${filename}`}>
