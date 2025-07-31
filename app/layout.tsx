@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Victor_Mono } from 'next/font/google'
 import SocialLinks from "@/composites/SocialLinks";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "renfoc.us",
@@ -21,7 +22,7 @@ export default function RootLayout({ children }: RootLayoutArgs) {
       <body className={font.className}>
         <header>
           <a href="#main_content" className="skip_link" tabIndex={0}>Skip to main content</a>
-          <a href="/">
+          <Link href="/">
             <Image
               src="/header.webp"
               alt="cropped picture of the blog owner made by ai"
@@ -30,10 +31,10 @@ export default function RootLayout({ children }: RootLayoutArgs) {
               placeholder="blur"
               blurDataURL="/header_loading.webp"
             />
-          </a>
-          <a href="/">
+          </Link>
+          <Link href="/">
             <h1>ren focus</h1>
-          </a>
+          </Link>
           <h2>Metaphysics, tunes, and code</h2>
           <nav role="navigation">
             <a href="/tools">Tools</a>
