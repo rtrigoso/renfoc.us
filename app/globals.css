@@ -6,6 +6,14 @@
   --tertiary-fg-color: #870D38;
 }
 
+@media (prefers-color-scheme: dark) {
+  --main-fg-color: #E8DED9;
+  --secondary-fg-color: #F093ED;
+  --tertiary-fg-color: #78f2c7;
+  --main-bg-color: #212121;
+  --secondary-bg-color: #005230;
+}
+
 .skip_link {
   background: var(--tertiary-fg-color);
   color: var(--main-bg-color);
