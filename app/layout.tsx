@@ -37,8 +37,8 @@ export default function RootLayout({ children }: RootLayoutArgs) {
           </Link>
           <h2>Metaphysics, tunes, and code</h2>
           <nav role="navigation">
-            <a href="/tools">Tools</a>
-            <a href='https://www.buymeacoffee.com/renrocks' target='_BLANK'>Buy me coffee</a>
+            <a href="/tools">Tools</a><br/>
+            <a href="https://www.buymeacoffee.com/renrocks" target="_BLANK">Buy me coffee</a><br />
             <SocialLinks />
           </nav>
         </header>
