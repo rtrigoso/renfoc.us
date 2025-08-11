@@ -1,7 +1,7 @@
 :root {
   --main-bg-color: #E8DED9;
   --secondary-bg-color: #F093ED;
-  --main-fg-color: #212121;
+  --main-fg-color: #161616;
   --secondary-fg-color: #005230;
   --tertiary-fg-color: #870D38;
 }
@@ -16,9 +16,18 @@
   }
 }
 
+a {
+  color: var(--tertiary-fg-color);
+  background-color: var(--main-bg-color);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+strong {
+  font-weight: 900;
+}
+
 .skip_link {
-  background: var(--tertiary-fg-color);
-  color: var(--main-bg-color);
   left: 50%;
   padding: 1rem;
   position: absolute;
@@ -31,221 +40,179 @@
   transform: translateY(0%);
 }
 
+.hidden {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
+  clip: rect(1px, 1px, 1px, 1px); /*maybe deprecated but we need to support legacy browsers */
+  clip-path: inset(50%); /*modern browsers, clip-path works inwards from each corner*/
+  white-space: nowrap; 
+}
+
 html {
   background-color: var(--main-bg-color);
   color: var(--main-fg-color);
-  font-size: 12px;
+  font-size: 14px;
 }
 
-html * {
-  line-height: 14px;
-  letter-spacing: -0.25px;
-}
-
-html h1 {
-  font-size: 2rem;
-}
-
-html h3 {
-  font-size: 1.5rem;
-}
-
-html h1,
-html h2,
-html h3,
-html h4,
-html h5,
-html h6 {
-  color: var(--secondary-fg-color);
-  font-weight: 900;
-  line-height: 2rem;
-}
-
-html a {
-  text-decoration: none;
-  color: var(--tertiary-fg-color);
-}
-
-html .featured_project_description, html .bluesky_post_message {
-  color: var(--main-fg-color);
-}
-
-html a:hover {
-  cursor: pointer
-}
-
-html img {
-  border-radius: 8px;
-}
-
-body, header, header nav, body main, .latest_posts, .featured_projects, .featured_project_link {
+/* header section */
+header, nav {
   display: flex;
   flex-direction: column;
-}
-
-header {
-  padding: 2rem 0px;
-  min-width: 250px;
-}
-
-header, header nav {
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
   align-items: center;
-  flex: 1;
-  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
 }
 
-main {
-  flex-grow: 3; 
-  flex-shrink: 1; 
-  flex-basis: auto;
-  padding: 2rem 1rem;
-  gap: 2.5rem;
-}
-
-header img {
-  height: 5rem;
-  width: 8.8rem;
-}
-
-strong {
-  font-weight: 900;
-}
-
-code {
-  text-wrap: wrap;
-}
-
-header, header nav {
-  gap: 1.5rem;
-}
-
-@media (min-aspect-ratio: 1/1) {
-  body {
-    display: flex;
-    flex-direction: row;
-  }
-
-  main {
-    max-width: 75%;
-  }
-}
-
-body, .featured_project_link {
-  gap: 0.25rem;
-}
-
-.latest_posts, .featured_projects {
-  gap: 1rem;
-}
-
-.post_link, .social_links {
-  gap: 0.5rem;
+header > nav > section {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-}
-
-article {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding-bottom: 5rem;
-}
-
-article blockquote, article pre {
-  color: var(--main-bg-color);
-  background-color: var(--main-fg-color);
-  padding: 1rem;
-  max-width: 100%;
-}
-
-article blockquote a {
-  color: var(--secondary-bg-color);
-}
-
-article h2 {
-  padding-top: 2rem;
-  font-size: 1.25rem;
-}
-
-ol {
-  list-style: decimal-leading-zero;
-  list-style-position: inside;
-}
-
-ul {
-  list-style: square;
-  list-style-position: inside;
-}
-
-article ol, article ul {
-  position: relative;
-  top: -0.75rem;
-}
-
-article ol > li + li, article ul > li + li {
-  padding-top: 0.5rem;
-}
-
-article li {
-  padding-left: 1rem;
+  flex-wrap: nowrap;
+  justify-content: center;
   line-height: 1.5rem;
 }
 
-.bluesky_posts, .bluesky_post, .bluesky_post_header > div, .bluesky_post_embeds, .bluesky_post_content {
-  display: flex;
-  flex-direction: column;
-}
-
-.bluesky_post_header > div {
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.bluesky_post_header, .bluesky_post_body {
-  display: flex;
-  flex-direction: row;
-}
-
-.bluesky_post_body > div:first-child {
-  flex: 2
-}
-
-.bluesky_posts, .bluesky_post_content, .bluesky_post_header, .bluesky_post_body {
-  gap: 1rem;
-}
-
-.bluesky_post {
-  max-width: 500px;
-  align-items: stretch;
-  gap: 1rem;
-  padding: 1rem;
-  border: 1px solid var(--secondary-fg-color);
+header img {
+  width: 14rem;
+  height: 8rem;
   border-radius: 5px;
 }
 
-.bluesky_post_link {
-  max-width: 500px;
+/* headers */
+h1 { 
+  font-size: 2.5rem; 
+  padding-top: .75rem; 
+  line-height: 2.5rem;
+  padding-bottom: .5rem; 
+}
+h2 { 
+  font-size: 1.25rem; 
+  line-height: 1.25rem;
+}
+h3 { 
+  font-size: 1.5rem; 
+  padding-bottom: .5rem;
+  line-height: 1.5rem;
+}
+h4 { 
+  font-size: 1.75rem; 
+  line-height: 1.75rem;
 }
 
-.bluesky_post_embeds {
+/* main section */
+main {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
   align-items: center;
 }
 
-.bluesky_post_embeds img, .bluesky_post_header img {
-  border: 1px solid var(--tertiary-fg-color);
+main > section {
+  width: 250px;
+  padding-bottom: 2rem;
+  line-height: 1.5rem;
 }
 
-.hidden {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px 1px 1px 1px); /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-    clip: rect(1px, 1px, 1px, 1px); /*maybe deprecated but we need to support legacy browsers */
-    clip-path: inset(50%); /*modern browsers, clip-path works inwards from each corner*/
-    white-space: nowrap; 
+@media screen and (max-width: 250px) {
+  main > section {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  main > section {
+    width: 400px;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: -1px -6px 5px -5px rgba(0,0,0,0.71);
+  -webkit-box-shadow: -1px -6px 5px -5px rgba(0,0,0,0.71);
+  -moz-box-shadow: -1px -6px 5px -5px rgba(0,0,0,0.71);
+  border: solid 1px var(--secondary-fg-color);
+  margin-bottom: 1rem;
+}
+
+.card .avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 20px;
+}
+
+/* article */
+main > article {
+  width: 250px;
+  padding-bottom: 2rem;
+}
+
+@media screen and (max-width: 250px) {
+  main > article {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  main > article {
+    width: 400px;
+  }
+}
+
+article p, article ul, article ol {
+  line-height: 1.25rem;
+  padding-bottom: .5rem;
+}
+
+article ol {
+  list-style-type: upper-roman;
+  list-style-position: inside;
+}
+
+article ul {
+  list-style-type: circle;
+  list-style-position: inside;
+}
+
+article li {
+  padding-bottom: .5rem;
+}
+
+article h1, article h2 {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+}
+
+article em {
+  color: var(--secondary-fg-color);
+}
+
+article blockquote {
+  color: var(--secondary-fg-color);
+}
+
+article pre {
+  background-color: var(--secondary-bg-color);
+  padding: 1rem;
+  overflow: scroll;
+  margin-bottom: 1rem;
+}
+
+article pre code {
+  font-family: monospace;
+  letter-spacing: 0.1rem;
+  font-size: 0.75rem;
 }

@@ -1,4 +1,4 @@
-import LinkList from "@/composites/LinkList";
+import LinkList from "@/composites/PostsList";
 import { GetLinksDataFromContent } from "@/utils/content";
 
 export default async function Posts() {
