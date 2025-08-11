@@ -7,6 +7,14 @@ class ExtendedDirent extends Dirent {
     creationTime: number = 0
 }
 
+export interface PostItem {
+    path: string
+    creationDateString: string
+    title: string
+    creationDate: number
+    description?: string
+}
+
 export function GetContentDirFullPath () {
     if (!process.env.PWD) throw new Error('process.env.PWD is not set');
 
@@ -73,7 +81,7 @@ export async function GetPostDescription(slug: string) {
     return data;
 }
 
-export async function GetLinksDataFromContent () {
+export async function GetLinksDataFromContent(): Promise<PostItem[]> {
     const files = await ReadContentDirectory();
     const dataPromise = files
         .map(async f => {
@@ -84,7 +92,7 @@ export async function GetLinksDataFromContent () {
             const description = await GetPostDescription(f?.name?.split('.')?.at(0) || '')
 
             return ({
-                filename,
+                path: `/posts/${filename}`,
                 title: title,
                 creationDateString,
                 creationDate,
@@ -97,7 +105,7 @@ export async function GetLinksDataFromContent () {
     return data;
 }
 
-export async function generateRSSFeed() {
+export function generateRSSFeed(posts: PostItem[]): void {
     const site_url = process.env.NODE_ENV === 'production' ? 'https://renfoc.us' : 'https://localhost:3000';
     const feedOptions = {
         title: "ren focus | RSS Feed",
@@ -110,13 +118,12 @@ export async function generateRSSFeed() {
     };
 
     const feed = new RSS(feedOptions);
-    const posts = await GetLinksDataFromContent();
 
     posts.map((post) => {
         feed.item({
             title: post.title,
-            description: post.description,
-            url: `${site_url}/posts/${post.filename}`,
+            description: post.description || '',
+            url: `${site_url}${post.path}`,
             date: new Date(post.creationDate),
         });
     });

@@ -1,3 +1,5 @@
+import Card from "./Card"
+
 interface BlueskyRecord {
     text: string,
     displayName: string
@@ -59,84 +61,11 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
     });
 }
 
-interface PostCardProps {
-    avatar: string
-    displayName: string
-    createdAt: Date
-    content: string
-    link: string
-    embeds: PostCardEmbed[]
-}
-
 interface PostCardEmbed {
     alt: string
     type: 'image'
     link: string
     aspectRatio: string
-}
-
-function PostCardEmbed({ alt, link, aspectRatio, type }: PostCardEmbed) {
-    switch (type) {
-        case 'image':
-            const w = parseInt(aspectRatio.split('/')[0]);
-            const h = parseInt(aspectRatio.split('/')[1]);
-            return (
-                <div className="bluesky_post_embed_image">
-                    <img
-                        src={link}
-                        alt={alt}
-                        width={75}
-                        height={75 * h / w}
-                    />
-                </div>
-            )
-        default:
-            return null;
-    }
-
-}
-
-function PostCard({ link, avatar, displayName, content, createdAt, embeds = [] }: PostCardProps) {
-    return (
-        <a href={link} target="_BLANK" className="bluesky_post_link" tabIndex={0}>
-            <div className="bluesky_post">
-                <div className="bluesky_post_body">
-                    <div className="bluesky_post_content">
-                        <div className="bluesky_post_header">
-                            <img
-                                src={avatar}
-                                alt={`avatar for ${displayName}`}
-                                width={25}
-                                height={25}
-                            />
-                            <div>
-                                <strong>{displayName}</strong>
-                                {createdAt.toLocaleDateString("en-US")}
-                            </div>
-                        </div>
-                        <div className="bluesky_post_message">{content}</div>
-                    </div>
-                    {
-                        embeds && (
-                            <div className="bluesky_post_embeds">
-                                {
-                                    embeds.slice(0, 1).map((embed, index) => (
-                                        <PostCardEmbed
-                                            key={`bluesky_post_embed_${index}_${createdAt.getUTCDate()}`}
-                                            type='image'
-                                            alt={embed.alt}
-                                            link={embed.link}
-                                            aspectRatio={embed.aspectRatio}
-                                        />
-                                    ))
-                                }
-                            </div>
-                        )
-                    }
-                </div>
-            </div>
-        </a>
-    );
 }
 
 interface PostCardPost {
@@ -152,21 +81,33 @@ export default async function BlueskyFeed() {
     const posts: PostCardPost[] = await GetFeedPosts('ren-rocks.bsky.social');
 
     return (
-        <div className="bluesky_posts">
-            <h3>Bluesky Feed</h3>
+        <>
             {
-                posts.map(({ avatar, displayName, content, createdAt, embeds, link }) => (
-                    <PostCard
-                        key={`bluesky_post_${createdAt.getUTCDate()}`}
-                        link={link}
-                        avatar={avatar}
-                        displayName={displayName}
-                        content={content}
-                        createdAt={createdAt}
-                        embeds={embeds}
-                    />
-                ))
+                posts.map(({ avatar, displayName, content, createdAt, embeds, link }) => {
+                    const firstEmbed = embeds?.at(0);
+
+                    let embedAlt, embedLink, embedAspectRatio;
+                    if (firstEmbed) {
+                        embedAlt = firstEmbed.alt;
+                        embedLink = firstEmbed.link;
+                        embedAspectRatio = firstEmbed.aspectRatio;
+                    }
+
+                    return (
+                        <Card
+                            key={`bluesky_post_${createdAt.getUTCDate()}`}
+                            postURL={link}
+                            avatarURL={avatar}
+                            username={displayName}
+                            content={content}
+                            date={createdAt}
+                            embedAlt={embedAlt}
+                            embedImgURL={embedLink}
+                            embedAspectRatio={embedAspectRatio}
+                        />
+                    )
+                })
             }
-        </div>
+        </>
     );
 }
