@@ -28,7 +28,7 @@ export default function RootLayout({ children }: RootLayoutArgs) {
           </a>
         </div>
         <Header />
-        <main>
+        <main id="main_content">
           {children}
         </main>
       </body>
