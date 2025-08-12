@@ -27,7 +27,7 @@ export default function Header() {
                     <a href="https://www.buymeacoffee.com/renrocks" target="_BLANK">Buy me coffee</a>
                     <br />
                 </section>
-                <section>
+                <section id="social_links">
                     <LinkedinLink /> |{` `}
                     <GithubLink /> |{` `}
                     <EmailLink /> |{` `}
