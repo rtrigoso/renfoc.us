@@ -5,8 +5,9 @@ export default async function Posts() {
     const content = await GetLinksDataFromContent()
 
     return (
-        <>
+        <section>
+            <h3>All Posts:</h3>
             <LinkList content={content}/>
-        </>
+        </section>
     );
 }
