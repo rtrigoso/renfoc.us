@@ -80,6 +80,6 @@ Like turning a kaleidoscope, learning the Subharmonicon takes patience. You have
 - Accept that “weird” can be beautiful
 
 ## Final Thoughts
-The Moog Subharmonicon isn’t about making safe, familiar music. It’s about exploring new sound worlds, where math, rhythm, and tone come together in unexpected ways.
+The Moog Subharmonicon isn’t about making safe, familiar music. It’s about exploring new sound worlds, where math, rhythm, and tone come together in unexpected ways. [I wrote a quick JS tool to demo these subharmonics](https://renfoc.us/tools/subharmonics). I hope it paints a better picture than a description.
 
-Sometimes you’ll find a perfect, sweet spot. Other times you’ll stumble into strange, alien chords. Either way, this Moog might go back to storage if I can't find a pretty pattern soon.
+Sometimes you’ll find a perfect, sweet spot. Other times you’ll stumble into strange, alien chords. Either way, this Moog might go back to storage if I can't find a pretty pattern soon. 
