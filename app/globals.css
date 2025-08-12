@@ -85,6 +85,10 @@ header img {
   border-radius: 5px;
 }
 
+header .social-link {
+  line-height: 2.25rem;
+}
+
 /* headers */
 h1 { 
   font-size: 2.5rem; 

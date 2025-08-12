@@ -6,13 +6,13 @@ import Link from "next/link";
 
 export default async function Home() {
   const posts = await GetLinksDataFromContent();
-  await generateRSSFeed(posts.slice(0, 5));
+  await generateRSSFeed(posts);
 
   return (
     <>
       <section>
         <h3>Latest Posts</h3>
-        <LinkList content={posts} />
+        <LinkList content={posts.slice(0, 5)} />
         <div>
           <Link href={'/posts'}>{`>> `}view all posts</Link>
         </div>
