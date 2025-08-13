@@ -9,7 +9,7 @@ interface PostsParams {
 export async function generateMetadata({ params }: PostsParams) {
     const { slug } = await params;
     const title = slug.split('-')[1].split('_').join(' ');
-    const data = GetPostDescription(slug)
+    const data = await GetPostDescription(slug)
 
     return {
         title: title[0].toUpperCase() + title.slice(1),
