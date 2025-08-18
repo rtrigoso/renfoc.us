@@ -4,6 +4,7 @@ import EmailLink from './EmailLink';
 import GithubLink from './GithubLink';
 import LinkedinLink from './LinkedinLink';
 import RSSLink from './RSSLink';
+import Upwork from './Upwork';
 
 export default function Header() {
     return (
@@ -31,6 +32,7 @@ export default function Header() {
                     <LinkedinLink /> |{` `}
                     <GithubLink /> |{` `}
                     <EmailLink /> |{` `}
+                    <Upwork /> |{` `}
                     <RSSLink />
                 </section>
             </nav>
