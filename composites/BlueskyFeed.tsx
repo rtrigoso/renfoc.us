@@ -95,7 +95,7 @@ export default async function BlueskyFeed() {
 
                     return (
                         <Card
-                            key={`bluesky_post_${createdAt.getUTCDate()}`}
+                            key={`bluesky_post_${createdAt.getUTCDate()}_${encodeURI(link)}`}
                             postURL={link}
                             avatarURL={avatar}
                             username={displayName}
