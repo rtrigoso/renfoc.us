@@ -87,7 +87,7 @@ export async function GetLinksDataFromContent(): Promise<PostItem[]> {
         .map(async f => {
             const filename = parse(f.name).name
             const title = f.name.split('-')[1].replaceAll('_', ' ').replace('.md', '')
-            const creationDate = parseInt(f.name.split('-')[0]);
+            const creationDate = parseInt(f.name.split('-')[0]) * 1000;
             const creationDateString = PrintContentReadableCreationTime(f.name);
             const description = await GetPostDescription(f?.name?.split('.')?.at(0) || '')
 
