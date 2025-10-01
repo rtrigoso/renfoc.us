@@ -9,44 +9,67 @@
             <link>https://localhost:3000</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 04 Aug 2025 15:08:52 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 01 Oct 2025 18:59:40 GMT</lastBuildDate>
         <atom:link href="https://localhost:3000/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 04 Aug 2025 15:08:52 GMT</pubDate>
+        <pubDate>Wed, 01 Oct 2025 18:59:40 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2025]]></copyright>
+        <item>
+            <title><![CDATA[from chaos to clarity]]></title>
+            <description><![CDATA[...She reaches out to the engineering team hoping for an easy solution....]]></description>
+            <link>https://localhost:3000/posts/1759258235-from_chaos_to_clarity</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1759258235-from_chaos_to_clarity</guid>
+            <pubDate>Tue, 30 Sep 2025 18:50:35 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[the poison within patriotism]]></title>
+            <description><![CDATA[...
+
+During a group date, my date's friend wanted to go to a bar....]]></description>
+            <link>https://localhost:3000/posts/1755103186-the_poison_within_patriotism</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1755103186-the_poison_within_patriotism</guid>
+            <pubDate>Wed, 13 Aug 2025 16:39:46 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[a haunting musical kaleidoscope]]></title>
+            <description><![CDATA[...The pieces didn’t change — only their arrangement did — yet the results could be beautiful, strange, or chaotic....]]></description>
+            <link>https://localhost:3000/posts/1755014540-a_haunting_musical_kaleidoscope</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1755014540-a_haunting_musical_kaleidoscope</guid>
+            <pubDate>Tue, 12 Aug 2025 16:02:20 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[need more Bertrand and less Seneca]]></title>
             <description><![CDATA[...What I used to do to manage it—routine, discipline, a kind of philosophical bracing—has stopped working....]]></description>
             <link>https://localhost:3000/posts/1748907707-need_more_Bertrand_and_less_Seneca</link>
             <guid isPermaLink="true">https://localhost:3000/posts/1748907707-need_more_Bertrand_and_less_Seneca</guid>
-            <pubDate>Wed, 21 Jan 1970 05:48:27 GMT</pubDate>
+            <pubDate>Mon, 02 Jun 2025 23:41:47 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[ai is easy with huggingface]]></title>
             <description><![CDATA[...I’m surprised more people aren’t using [Hugging Face](https://huggingface....]]></description>
             <link>https://localhost:3000/posts/1748281271-ai_is_easy_with_huggingface</link>
             <guid isPermaLink="true">https://localhost:3000/posts/1748281271-ai_is_easy_with_huggingface</guid>
-            <pubDate>Wed, 21 Jan 1970 05:38:01 GMT</pubDate>
+            <pubDate>Mon, 26 May 2025 17:41:11 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[what happened to pwas]]></title>
             <description><![CDATA[...They are publicly agreed-upon rules and technologies—like HTML, CSS, JavaScript, and HTTP—that define how the web works....]]></description>
             <link>https://localhost:3000/posts/1746036083-what_happened_to_pwas</link>
             <guid isPermaLink="true">https://localhost:3000/posts/1746036083-what_happened_to_pwas</guid>
-            <pubDate>Wed, 21 Jan 1970 05:00:36 GMT</pubDate>
+            <pubDate>Wed, 30 Apr 2025 18:01:23 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[the bare minimum during ai prompt design]]></title>
             <description><![CDATA[...Models, like GPT-3, which generate text based on prompts, and Google's PaLM 2 Bison, are being incorporated into many SaaS offerings....]]></description>
             <link>https://localhost:3000/posts/1725041521-the_bare_minimum_during_ai_prompt_design</link>
             <guid isPermaLink="true">https://localhost:3000/posts/1725041521-the_bare_minimum_during_ai_prompt_design</guid>
-            <pubDate>Tue, 20 Jan 1970 23:10:41 GMT</pubDate>
+            <pubDate>Fri, 30 Aug 2024 18:12:01 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[a good commit with empathy]]></title>
             <description><![CDATA[...The best type of solution is the one that feels natural, hence invisible....]]></description>
             <link>https://localhost:3000/posts/1708455032-a_good_commit_with_empathy</link>
             <guid isPermaLink="true">https://localhost:3000/posts/1708455032-a_good_commit_with_empathy</guid>
-            <pubDate>Tue, 20 Jan 1970 18:34:15 GMT</pubDate>
+            <pubDate>Tue, 20 Feb 2024 18:50:32 GMT</pubDate>
         </item>
     </channel>
 </rss>
