@@ -12,10 +12,11 @@ function PostCardEmbed({ alt, link, aspectRatio, type }: PostCardEmbed) {
             const h = parseInt(aspectRatio.split('/')[1]);
             return (
                 <img
+                    className="card_embed_img"
                     src={link}
                     alt={alt}
-                    width={75}
-                    height={75 * h / w}
+                    width={100}
+                    height={100 * h / w}
                 />
             )
         default:
@@ -38,20 +39,24 @@ interface CardProps {
 export default function Card(props: CardProps) {
     return (
         <div className="card">
-            <div>
-                <img
+            <div className="card_header">
+                 <img
                     className="avatar"
                     src={props.avatarURL}
                     alt={`image: avatar for ${props.username}`}
-                    width={25}
-                    height={25}
+                    width={50}
+                    height={50}
                 />
-            </div>
-            <div>
                 <div>
-                    <strong>{props.username}</strong> - {props.date.toLocaleDateString("en-US")}
+                    <strong>{props.username}</strong>
                 </div>
                 <div>
+                    {props.date.toLocaleDateString("en-US", { month: 'numeric', day: 'numeric' })}
+                </div>
+
+            </div>
+            <div className="card_content">
+               <div>
                     {props.content}
                 </div>
                 {
@@ -62,8 +67,7 @@ export default function Card(props: CardProps) {
                         link={props.embedImgURL}
                         aspectRatio={props.embedAspectRatio || ''}
                     />
-                }
-                <div>
+                }                <div>
                     <a href={props.postURL} target="_BLANK">view post</a>
                 </div>
             </div>

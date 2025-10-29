@@ -1,7 +1,7 @@
 import './reset.css';
 import "./globals.css";
 import type { Metadata } from "next";
-import { Overlock } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 import Header from '@/composites/Header';
 
 export const metadata: Metadata = {
@@ -9,10 +9,7 @@ export const metadata: Metadata = {
   description: "Metaphysics, tunes, and code.",
 };
 
-const victorMono = Overlock({
-  subsets: ['latin-ext'],
-  weight: '400'
-});
+const victorMono = Roboto({});
 
 type RootLayoutArgs = Readonly<{
   children: React.ReactNode;
@@ -28,9 +25,11 @@ export default function RootLayout({ children }: RootLayoutArgs) {
           </a>
         </div>
         <Header />
-        <main id="main_content">
-          {children}
-        </main>
+        <div id="main_content">
+          <main>
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
