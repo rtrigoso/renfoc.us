@@ -9,10 +9,17 @@
             <link>https://localhost:3000</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sat, 01 Nov 2025 21:57:22 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 01 Oct 2025 18:59:40 GMT</lastBuildDate>
         <atom:link href="https://localhost:3000/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sat, 01 Nov 2025 21:57:22 GMT</pubDate>
+        <pubDate>Wed, 01 Oct 2025 18:59:40 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2025]]></copyright>
+        <item>
+            <title><![CDATA[from chaos to clarity]]></title>
+            <description><![CDATA[...She reaches out to the engineering team hoping for an easy solution....]]></description>
+            <link>https://localhost:3000/posts/1759258235-from_chaos_to_clarity</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1759258235-from_chaos_to_clarity</guid>
+            <pubDate>Tue, 30 Sep 2025 18:50:35 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[the poison within patriotism]]></title>
             <description><![CDATA[...
