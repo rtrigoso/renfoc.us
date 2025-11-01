@@ -159,6 +159,10 @@ main > section, main > article {
   line-height: 1.5rem;
 }
 
+article pre {
+  max-width: 350px;
+}
+
 @media screen and (max-width: 250px) {
   main > section, main > article {
     width: 95%;
@@ -169,6 +173,10 @@ main > section, main > article {
   main > section, main > article {
     width: 450px;
   }
+
+  article pre {
+    max-width: 100%
+  } 
 }
 
 .card {
@@ -245,7 +253,10 @@ article pre {
   background-color: var(--secondary-bg-color);
   padding: 1rem;
   overflow: scroll;
+  overflow-wrap: break-word;
   margin-bottom: 1rem;
+  white-space: pre-wrap; /* Allows wrapping of preformatted text */
+  word-wrap: break-word; /* Breaks words if they are too long to fit on a line */
 }
 
 article pre code {
