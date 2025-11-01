@@ -9,18 +9,10 @@
             <link>https://localhost:3000</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 28 Oct 2025 18:53:13 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 01 Nov 2025 21:57:22 GMT</lastBuildDate>
         <atom:link href="https://localhost:3000/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 28 Oct 2025 18:53:13 GMT</pubDate>
+        <pubDate>Sat, 01 Nov 2025 21:57:22 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2025]]></copyright>
-        <item>
-            <title><![CDATA[vanilla js does the heavy lifting]]></title>
-            <description><![CDATA[...
-Here's what happened. In every single interview, at some point the conversation shifted away from frameworks and libraries....]]></description>
-            <link>https://localhost:3000/posts/1761416106-vanilla_js_does_the_heavy_lifting</link>
-            <guid isPermaLink="true">https://localhost:3000/posts/1761416106-vanilla_js_does_the_heavy_lifting</guid>
-            <pubDate>Sat, 25 Oct 2025 18:15:06 GMT</pubDate>
-        </item>
         <item>
             <title><![CDATA[the poison within patriotism]]></title>
             <description><![CDATA[...

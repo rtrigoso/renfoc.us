@@ -173,9 +173,9 @@ main > section, main > article {
 
 .card {
   display: flex;
-  flex-direction: row;
+/*  flex-direction: row; */
   gap: 1rem;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: flex-start;
   padding: 1rem;
   border-radius: 0px 5px 0px 0px;
@@ -199,7 +199,7 @@ main > section, main > article {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50px;
+  /* width: 50px; */
 }
 
 .card_header .avatar {
