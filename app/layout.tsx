@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Metaphysics, tunes, and code.",
 };
 
-const victorMono = Roboto({});
+const victorMono = Roboto({ subsets: [ "latin"]});
 
 type RootLayoutArgs = Readonly<{
   children: React.ReactNode;
