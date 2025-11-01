@@ -9,15 +9,15 @@
             <link>https://localhost:3000</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 01 Oct 2025 18:59:40 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 01 Nov 2025 22:32:54 GMT</lastBuildDate>
         <atom:link href="https://localhost:3000/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Wed, 01 Oct 2025 18:59:40 GMT</pubDate>
+        <pubDate>Sat, 01 Nov 2025 22:32:54 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2025]]></copyright>
         <item>
-            <title><![CDATA[from chaos to clarity]]></title>
-            <description><![CDATA[...She reaches out to the engineering team hoping for an easy solution....]]></description>
-            <link>https://localhost:3000/posts/1759258235-from_chaos_to_clarity</link>
-            <guid isPermaLink="true">https://localhost:3000/posts/1759258235-from_chaos_to_clarity</guid>
+            <title><![CDATA[from ad chaos to clarity]]></title>
+            <description><![CDATA[...One day, she receives a complaint: a reader has spotted malicious ads on the homepage....]]></description>
+            <link>https://localhost:3000/posts/1759258235-from_ad_chaos_to_clarity</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1759258235-from_ad_chaos_to_clarity</guid>
             <pubDate>Tue, 30 Sep 2025 18:50:35 GMT</pubDate>
         </item>
         <item>
