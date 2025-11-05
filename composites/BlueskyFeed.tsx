@@ -10,6 +10,11 @@ interface BlueskyImageAspectRatio {
     height: number
 }
 
+interface BlueskyExternal {
+    alt: string
+    uri?: string
+}
+
 interface BlueskyImage {
     alt: string
     aspectRatio: BlueskyImageAspectRatio
@@ -18,6 +23,7 @@ interface BlueskyImage {
 
 interface BlueskyEmbed {
     images: BlueskyImage[]
+    external: BlueskyExternal
 }
 
 interface BlueskyAuthor {
@@ -46,13 +52,31 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
     const feed = await res.json();
 
     return feed.feed.map(({ post }: BlueskyFeed) => {
-        return {
+        const embeds = post.embed?.images || [];
+        const external = post.embed?.external;
+        const gifURL = external?.uri || '';
+
+        if (external && gifURL.includes('gif')) {
+            const params = new URL(gifURL).searchParams;
+            const hh = params.get('hh');
+            const ww = params.get('ww')
+            embeds.push({
+               alt: external.alt,
+               thumb: gifURL,
+               aspectRatio: {
+                   width: parseInt(ww || '4', 10),
+                   height: parseInt(hh || '3', 10)
+               }
+           });
+        }
+        
+       return {
             link: `https://bsky.app/profile/ren-rocks.bsky.social/post/${post.uri.split('/').at(-1)}`,
             avatar: post.author.avatar,
             displayName: post.author.displayName,
             content: post.record.text,
             createdAt: new Date(post.indexedAt),
-            embeds: post.embed?.images?.map(image => ({
+            embeds: embeds?.map(image => ({
                 alt: image.alt,
                 aspectRatio: `${image.aspectRatio.width}/${image.aspectRatio.height}`,
                 link: image.thumb
