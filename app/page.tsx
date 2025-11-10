@@ -3,6 +3,7 @@ import LinkList from "@/composites/PostsList";
 import ProjectList from "@/composites/ProjectsList";
 import { GetLinksDataFromContent, generateRSSFeed } from "@/utils/content";
 import Link from "next/link";
+import Synthesizer from "@/composites/Synthesizer"; 
 
 export default async function Home() {
   const posts = await GetLinksDataFromContent();
@@ -10,6 +11,9 @@ export default async function Home() {
 
   return (
     <>
+      <section>
+        <Synthesizer />
+      </section>
       <section>
         <h3>Latest Posts</h3>
         <LinkList content={posts.slice(0, 4)} />

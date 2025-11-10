@@ -264,3 +264,16 @@ article pre code {
   letter-spacing: 0.1rem;
   font-size: 0.75rem;
 }
+
+/* synthesizer */
+#synthesizer {
+  display: flex;
+  justify-content: center;
+}
+
+#synthesizer > canvas {
+  width: 250px;
+  height: 125px;
+  border-radius: 10px;
+  background-color: #CCE5FF;
+}
