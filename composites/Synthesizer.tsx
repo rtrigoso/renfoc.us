@@ -47,7 +47,7 @@ class Point extends EventTarget {
 }
 
 class Patch extends Point {
-	radius = 10;
+	radius = 15;
 	id: string;
 	isInput = false;
 
@@ -65,45 +65,18 @@ class Patch extends Point {
 		this.id = crypto.randomUUID();
 	}
 
-	private isInsidePatchArea (p: Point) {
+	isInsidePatchArea (p: Point) {
 		const xAxisDiff = Math.abs(p.x - this.x);
 		const yAxisDiff = Math.abs(p.y - this.y);
 
 		return xAxisDiff <= this.radius && yAxisDiff <= this.radius;	
 	}
-
-	handleGrab (e: MouseEvent) {
-		if (!this.isInput) return;
-		const { offsetX: x, offsetY: y } = e;
-		const p = new Point(x, y);
-
-		if (!this.isInsidePatchArea(p)) return;
-		log(`line 81`, this.id);
-		const customEvent = new CustomEvent (Patch.EVENT_TYPE_PATCH_INPUT_SELECTED, {
-			detail: {}
-		});
-		this.dispatchEvent(customEvent);
-	}
-
-	handleDrop (e: MouseEvent) {
-		if (!this.isInput) return;
-
-		const { offsetX: x, offsetY: y } = e;
-		const p = new Point(x, y);
-
-		if (!this.isInsidePatchArea(p)) return;
-		log(`line 89`, this.id);
-
-		const customEvent = new CustomEvent (Patch.EVENT_TYPE_PATCH_OUTPUT_SELECTED, {
-			detail: {}
-		});
-		this.dispatchEvent(customEvent);
-	}
 }
 
 interface Connection {
 	to?: Patch
-	from?: Patch
+	from?: Patch,
+	color: string
 }
 
 class EurorackCanvas {
@@ -123,16 +96,33 @@ class EurorackCanvas {
 		if (!ctx) throw new Error('canvas ctx is not available but required');
 		this.ctx = ctx;
 		this.patches = patches;
+
+		const redraw = this.redraw.bind(this);
+		const handleMouseDown = this.handleMouseDown.bind(this);
+		const handleMouseUp = this.handleMouseUp.bind(this);
+		
+		this.canvas.addEventListener('mousedown', function(e) {
+			handleMouseDown(e);
+			redraw();
+		});
+
+		this.canvas.addEventListener('mouseup', function(e) {
+			handleMouseUp(e)
+			redraw();
+		});
+		
 	}
 
 	private drawPatchIO (p: Patch) {
 		const arcStart = 0;
 		const arcEnd = 2 * Math.PI;
-		this.ctx.lineWidth = 5;
-		this.ctx.strokeStyle = 'black';
+		this.ctx.lineWidth = 7;
+		this.ctx.strokeStyle = p.isInput? 'black' : '#5e5c5c';
 		this.ctx.beginPath();
 		this.ctx.moveTo(p.x + p.radius, p.y);
 		this.ctx.arc(p.x, p.y, p.radius, arcStart, arcEnd);
+		this.ctx.fillStyle = "#dbd9d9";
+		this.ctx.fill();
 		this.ctx.stroke();
 	}
 
@@ -140,105 +130,66 @@ class EurorackCanvas {
 		return this.currentlyPatchingInput instanceof Patch;
 	}
 
-	private clearActiveConnection () {
+	private handleMouseDown (e: MouseEvent) {
+		const { offsetX: x, offsetY: y } = e;
+		const p = new Point(x, y);
+
+		for (const patch of this.patches) {
+			if (!patch.isInput) continue;
+			if (!patch.isInsidePatchArea(p)) continue;
+
+			this.connections.delete(patch.id);
+			this.selectedColorIndex = this.connections.size % this.colors.length;
+			this.currentlyPatchingInput = patch;
+			break;
+		}
+	}
+
+	private handleMouseUp (e: MouseEvent) {
+		if (!this.currentlyPatchingInput) return;
+		
+		const input = this.currentlyPatchingInput;
 		this.currentlyPatchingInput = null;
-	}
+		
+		const { offsetX: x, offsetY: y } = e;
+		const p = new Point(x, y);
 
-	private deleteFromConnectionsById (id: string) {
-		if (!this.connections.has(id)) return;
-		this.connections.delete(id);
-		this.redraw();
-	}
+		for (const patch of this.patches) {
+			if (patch.isInput) continue;
+			if (!patch.isInsidePatchArea(p)) continue;
 
-	private addNewConnection(input: Patch) {
-		this.connections.set(input.id, {
-			from: input
-		});
-		this.redraw();
-	}
+			this.selectedColorIndex = this.connections.size % this.colors.length;
+			this.connections.set(input.id, {
+				from: input,
+				to: patch,
+				color: this.colors[this.selectedColorIndex]
+			});			
 
-	private updateConnection(output: Patch) {
-		const { currentlyPatchingInput: input } = this;
-		if (!input) return;
-
-		this.connections.set(input.id, {
-			from: input,
-			to: output
-		})
-
-		this.redraw();
-	}
-
-	private setCurrentlyPatchingInput (patch: Patch) {
-		this.currentlyPatchingInput = patch;
-	}
-
-	private getConnection (id: string) {
-		return this.connections.get(id);
+			break;
+		}
 	}
 
   redraw () {
  		this.ctx.reset();
-		this.canvas.removeEventListener('mousedown');
-		this.canvas.removeEventListener('mouseup');
  		
 		for (let i = 0; i < this.patches.length; i++) {
 			const patch = this.patches[i]
 		  this.drawPatchIO(patch);
+	  }
 
-			const clearActiveConnection = this.clearActiveConnection.bind(this);
-			const deleteFromConnectionsIfFound = this.deleteFromConnectionsById.bind(this, patch.id);
-			const addToConnections = this.addNewConnection.bind(this, patch);
-			const selectPatchToConnect = this.setCurrentlyPatchingInput.bind(this, patch);		
-			const getConnection = this.getConnection.bind(this, patch.id)
-			const completeConnection = this.updateConnection.bind(this, patch);
-			const isCurrentlyPatching = this.isCurrentlyPatching.bind(this);
-			const handleDrop = patch.handleDrop.bind(patch);
-			const handleGrab = patch.handleGrab.bind(patch);
-			
-		  if (patch.isInput) this.canvas.addEventListener('mousedown', function(e) {
-		  	log('line 199', this)
-		  	handleGrab(e);
-		  });
-		  if (!patch.isInput) this.canvas.addEventListener('mouseup', function (e) {
-		  	handleDrop(e);
-		  	clearActiveConnection();
-		  });
-
-			patch.addEventListener(Patch.EVENT_TYPE_PATCH_INPUT_SELECTED, function (e) {
-				console.log('started connection');
-	  		clearActiveConnection();
-  		  deleteFromConnectionsIfFound();
-				addToConnections();
-	  		selectPatchToConnect();
-			});
-
-			patch.addEventListener(Patch.EVENT_TYPE_PATCH_OUTPUT_SELECTED, function (e) {
-				log('completed connection');
-				if (!isCurrentlyPatching) return;
-				
-  			const connection = getConnection();
-  			if (!connection) return;
-		
-  			const { from } = connection;
-  			if (!from) return;
-
-  			completeConnection();
-			});
-		}
-
+		let i = 0;
 		for (const [ _k, connection ] of this.connections.entries()) {
 			if (!connection.from || !connection.to) continue;
-			this.drawPatch(connection.from, connection.to);
+			this.drawPatch(connection);
+			i = (i + 1) % this.colors.length;
 		}
 	}	
 
-	private drawPatch (from: Point, to: Point) {
+	private drawPatch (connection: Connection) {
+		const { from, to } = connection;
 		if (!from || !to) throw new Error('connection requires "from" and "to" properties to be set to patches')
 
-		this.ctx.strokeStyle = this.colors[this.selectedColorIndex];
-		this.selectedColorIndex = (this.selectedColorIndex + 1) % this.colors.length;
-		
+		this.ctx.strokeStyle = connection.color;		
 		this.ctx.lineWidth = 10;
 		this.ctx.beginPath();
 	  this.ctx.moveTo(from.x, from.y);
@@ -255,10 +206,12 @@ export default function Synthesizer() {
 		const ctx = current?.getContext("2d");
 		if (!current || !ctx) return;
 
-		const patches: Patch[] = [
-			new Patch(25, 60, true),
-			new Patch(25, 25, false)
-		]
+		const patches: Patch[] = [];
+		patches.push(new Patch(70, 100, false));
+		patches.push(new Patch(70, 50, true));
+		patches.push(new Patch(70 + 50, 100, false));
+		patches.push(new Patch(70 + 50, 50, true));
+		
 		const eurorack = new EurorackCanvas(current, patches);
 		eurorack.redraw();
 	});
