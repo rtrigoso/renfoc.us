@@ -41,4 +41,4 @@ yarn-error.log*
 next-env.d.ts
 
 # rss updates
-public/rss.xml
+rss.xml
