@@ -9,10 +9,32 @@
             <link>https://localhost:3000</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sat, 01 Nov 2025 22:32:54 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 18 Nov 2025 17:33:38 GMT</lastBuildDate>
         <atom:link href="https://localhost:3000/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sat, 01 Nov 2025 22:32:54 GMT</pubDate>
+        <pubDate>Tue, 18 Nov 2025 17:33:38 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2025]]></copyright>
+        <item>
+            <title><![CDATA[starting a supabase project]]></title>
+            <description><![CDATA[...After a few minutes, I decided on (supabase)[https://supabase....]]></description>
+            <link>https://localhost:3000/posts/1763486231-starting_a_supabase_project</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1763486231-starting_a_supabase_project</guid>
+            <pubDate>Tue, 18 Nov 2025 17:17:11 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[call bind or apply]]></title>
+            <description><![CDATA[...
+These three methods control what `this` refers to inside a function....]]></description>
+            <link>https://localhost:3000/posts/1762973191-call_bind_or_apply</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1762973191-call_bind_or_apply</guid>
+            <pubDate>Wed, 12 Nov 2025 18:46:31 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[this quirky javascript]]></title>
+            <description><![CDATA[...My code worked. The tests passed. But his question made me pause, because I knew exactly what he was testing....]]></description>
+            <link>https://localhost:3000/posts/1762298703-this_quirky_javascript</link>
+            <guid isPermaLink="true">https://localhost:3000/posts/1762298703-this_quirky_javascript</guid>
+            <pubDate>Tue, 04 Nov 2025 23:25:03 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[from ad chaos to clarity]]></title>
             <description><![CDATA[...One day, she receives a complaint: a reader has spotted malicious ads on the homepage....]]></description>
