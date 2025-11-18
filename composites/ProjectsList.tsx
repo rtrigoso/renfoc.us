@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Fragment } from "react";
 
 const projects = [
     {
@@ -37,19 +38,23 @@ export default async function ProjectList() {
         } = project;
 
         return (
-            <li key={`project-${key}`}>
-                <Link
-                    tabIndex={0}
-                    className="link post_link"
-                    href={link}>
-                    {`${label.charAt(0).toUpperCase() + label.slice(1)}: `}
-                </Link>
-                {description}
-            </li>
+            <Fragment key={`project-${key}`}>
+                <dt>
+                    <Link
+                        tabIndex={0}
+                        className="link post_link"
+                        href={link}>
+                        {`${label.charAt(0).toUpperCase() + label.slice(1)}: `}
+                    </Link>
+                </dt>
+                <dd>
+                    {description}
+                </dd>
+            </Fragment>
         );
     });
 
     return (
-        <ul>{links}</ul>
+        <dl>{links}</dl>
     );
 }

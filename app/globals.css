@@ -36,7 +36,8 @@ h1 {
   font-size: 2.5rem; 
   padding-top: .75rem; 
   line-height: 2.5rem;
-  padding-bottom: .5rem; 
+  padding-bottom: .5rem;
+  font-weight: 900
 }
 h2 { 
   font-size: 1.25rem; 
@@ -103,6 +104,14 @@ strong {
   width: 10rem;
 }
 
+.nav-link {
+  padding: 0.25rem;
+  border-radius: 5%;
+  margin: 0.15rem 0 0;
+  display: inline-block;
+  font-weight: bold;
+}
+
 .social-link {
   
 }
@@ -141,13 +150,14 @@ header > section > nav {
   flex-wrap: nowrap;
   justify-content: space-evenly;
   align-items: center;
-  padding: 6rem 0px 0px;
+  padding: 3rem 0px 0px;
 }
 
 #main_content > main {
   padding: 1rem;
   background-color: var(--main-bg-color);  
   border-radius: 0rem 1rem 0rem 0rem;
+  min-height: 100vh;
 }
 
 /* homepage */
@@ -160,6 +170,10 @@ main > section, main > article {
   width: 90%;
   padding-bottom: 2rem;
   line-height: 1.5rem;
+}
+
+section dt + dd {
+  padding-bottom: 0.5rem;
 }
 
 article pre {
@@ -184,14 +198,15 @@ article pre {
 
 .card {
   display: flex;
-/*  flex-direction: row; */
   gap: 1rem;
-  /* justify-content: space-around; */
   align-items: flex-start;
   padding: 1rem;
   border-radius: 0px 5px 0px 0px;
-  margin-bottom: 0.25rem;
   background-color: var(--tertiary-bg-color);
+}
+
+.card + .card {
+  margin-top: 1.25rem;
 }
 
 .card_content {
@@ -253,8 +268,9 @@ article blockquote {
 }
 
 article pre {
-  background-color: var(--secondary-bg-color);
+  background-color: var(--tertiary-bg-color);
   padding: 1rem;
+  border-radius: 0 10px 0 0;
   overflow: scroll;
   overflow-wrap: break-word;
   margin-bottom: 1rem;
@@ -263,7 +279,9 @@ article pre {
 }
 
 article pre code {
-  font-family: monospace;
+  font-family: "Courier New", monospace;
   letter-spacing: 0.1rem;
   font-size: 0.75rem;
+  font-weight: 300;
+  color: #000000;
 }

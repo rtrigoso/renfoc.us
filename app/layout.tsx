@@ -1,7 +1,7 @@
 import './reset.css';
 import "./globals.css";
 import type { Metadata } from "next";
-import { Roboto } from 'next/font/google';
+import { Syne_Mono } from 'next/font/google';
 import Header from '@/composites/Header';
 
 export const metadata: Metadata = {
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "Metaphysics, tunes, and code.",
 };
 
-const victorMono = Roboto({ subsets: [ "latin"]});
+const googlefont = Syne_Mono({ weight: '400', subsets: ['latin']});
 
 type RootLayoutArgs = Readonly<{
   children: React.ReactNode;
@@ -17,7 +17,7 @@ type RootLayoutArgs = Readonly<{
 
 export default function RootLayout({ children }: RootLayoutArgs) {
   return (
-    <html lang="en" className={victorMono.className}>
+    <html lang="en" className={googlefont.className}>
       <body>
         <div className="skip_link">
           <a href="#main_content" tabIndex={0}>
