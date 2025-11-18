@@ -9,17 +9,10 @@
             <link>https://localhost:3000</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Tue, 18 Nov 2025 17:33:38 GMT</lastBuildDate>
+        <lastBuildDate>Tue, 18 Nov 2025 18:30:11 GMT</lastBuildDate>
         <atom:link href="https://localhost:3000/rss.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 18 Nov 2025 17:33:38 GMT</pubDate>
+        <pubDate>Tue, 18 Nov 2025 18:30:11 GMT</pubDate>
         <copyright><![CDATA[All rights reserved 2025]]></copyright>
-        <item>
-            <title><![CDATA[starting a supabase project]]></title>
-            <description><![CDATA[...After a few minutes, I decided on (supabase)[https://supabase....]]></description>
-            <link>https://localhost:3000/posts/1763486231-starting_a_supabase_project</link>
-            <guid isPermaLink="true">https://localhost:3000/posts/1763486231-starting_a_supabase_project</guid>
-            <pubDate>Tue, 18 Nov 2025 17:17:11 GMT</pubDate>
-        </item>
         <item>
             <title><![CDATA[call bind or apply]]></title>
             <description><![CDATA[...
