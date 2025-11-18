@@ -156,7 +156,7 @@ header > section > nav {
 #main_content > main {
   padding: 1rem;
   background-color: var(--main-bg-color);  
-  border-radius: 0rem 1rem 0rem 0rem;d
+  border-radius: 0rem 1rem 0rem 0rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
