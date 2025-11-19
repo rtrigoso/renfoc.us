@@ -55,7 +55,7 @@ export default function Header() {
                 </Link>
                 <h2>Metaphysics, tunes, and code</h2>    
                 <nav id="social_links">
-                    Social Links: 
+                    <span className="hide_on_mobile">Connect: </span>
                     <LinkedinLink />
                     <GithubLink />
                     <EmailLink />
