@@ -62,6 +62,11 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  color: var(--tertiary-fg-color);
+  cursor: pointer;
+}
+
 strong {
   font-weight: 900;
 }
@@ -112,10 +117,6 @@ strong {
   font-weight: bold;
 }
 
-.social-link {
-  
-}
-
 /* header */
 header {
   display: flex;
@@ -138,9 +139,14 @@ header > section {
 header > section > nav {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   gap: 0.25rem;
+  padding: 0.10rem;
+  border-radius: 5px;
+  background-color: var(--main-fg-color);
+  width: fit-content;
+  color: var(--main-bg-color);
 }
 
 /* main content */
@@ -164,6 +170,9 @@ header > section > nav {
 }
 
 /* homepage */
+.buymecoffee_wrapper {
+  text-align: right;
+}
 
 /* posts */
 

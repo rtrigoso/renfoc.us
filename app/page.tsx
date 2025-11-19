@@ -19,7 +19,6 @@ export default async function Home() {
       <section>
         <h3>Active Projects</h3>
         <ProjectList />
-        {/* <Link href={'/projects'}>{`>> `}view all projects</Link> */}
       </section>
       <section>
         <h3>Bluesky Feed</h3>
