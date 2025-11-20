@@ -109,6 +109,10 @@ strong {
   width: 10rem;
 }
 
+.social_links {
+  padding: 0 0.2rem;
+}
+
 .nav-link {
   padding: 0.25rem;
   border-radius: 5%;
@@ -235,6 +239,7 @@ article pre {
   justify-content: flex-start;
   align-items: stretch;
   flex: 3;
+  white-space: pre-line;
 }
 
 .card_embed_img {
