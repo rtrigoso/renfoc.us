@@ -234,6 +234,7 @@ article pre {
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
+  flex: 3;
 }
 
 .card_embed_img {
@@ -245,7 +246,7 @@ article pre {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* width: 50px; */
+  flex: 1;
 }
 
 .card_header .avatar {

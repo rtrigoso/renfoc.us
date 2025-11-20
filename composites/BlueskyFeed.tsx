@@ -73,7 +73,7 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
        return {
             link: `https://bsky.app/profile/ren-rocks.bsky.social/post/${post.uri.split('/').at(-1)}`,
             avatar: post.author.avatar,
-            displayName: post.author.displayName,
+            displayName: post.author.displayName.split(/\s/).at(0),
             content: post.record.text,
             createdAt: new Date(post.indexedAt),
             embeds: embeds?.map(image => ({
