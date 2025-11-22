@@ -179,6 +179,11 @@ header > section > nav {
   padding-right: 1rem;
 }
 
+/* other pages */
+#game_container {
+  background-color: var(--main-fg-color);
+}
+
 /* posts */
 
 /* main section */
