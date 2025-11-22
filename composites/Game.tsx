@@ -67,16 +67,15 @@ function setup (canvas: HTMLCanvasElement) {
     const x = left + (width / 2);
     const y = top + (height / 2);
 
-    canvas.addEventListener('mousedown', (e) => {
+    function handleClick (e: MouseEvent) {
+        e.preventDefault();
         const { layerX, layerY } = e;
 
         switch(true) {
             case layerX >= left && layerX <= x:
-                console.log('left click');
                 state.direction = 'left';
                 break;
             case layerX >= x && layerX <= (left + width):
-                console.log('right click');
                 state.direction = 'right';
         }
 
@@ -84,11 +83,15 @@ function setup (canvas: HTMLCanvasElement) {
             isGameOver = false;
             setup(canvas);            
         }
-    });
+    }
 
-    canvas.addEventListener('mouseup', (e) => {
-       state.direction = ''; 
-    });
+    function clearState (e: MouseEvent) {
+        e.preventDefault();
+        state.direction = '';
+    }
+
+    canvas.addEventListener('pointerdown', handleClick);
+    canvas.addEventListener('pointerup', clearState);
 
     function drawPlayer (ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
