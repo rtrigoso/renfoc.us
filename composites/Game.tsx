@@ -183,8 +183,8 @@ function setup (canvas: HTMLCanvasElement) {
 
     const gl = new GameLoop(
         function () {
-            if (state.direction === DIRECTION_RIGHT) state.position.x += SPEED_AMOUNT_IN_PX;
-            if (state.direction === DIRECTION_LEFT) state.position.x -= SPEED_AMOUNT_IN_PX;
+            if (state.direction === DIRECTION_RIGHT && state.position.x < canvas.width - 10) state.position.x += SPEED_AMOUNT_IN_PX;
+            if (state.direction === DIRECTION_LEFT && state.position.x >= 0) state.position.x -= SPEED_AMOUNT_IN_PX;
             if (!ctx) return;
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
