@@ -8,6 +8,7 @@ interface Position {
     y: number;
     w: number;
     h: number;
+    speed?: number;
     shouldRemove: boolean;
     isPowerup?: boolean
 }
@@ -54,14 +55,16 @@ function setup (canvas: HTMLCanvasElement) {
         direction: '',
         position: {
             x: canvas.width / 2 - 1,
-            y: canvas.height - 10
+            y: canvas.height - 10,
+            w: 10,
+            h: 10
         },
-        score: 0
+        score: 0,
+        speed: 3
     };
     
     const DIRECTION_RIGHT = 'right';
     const DIRECTION_LEFT = 'left';
-    const SPEED_AMOUNT_IN_PX = 3;
     
     const ctx = canvas.getContext('2d');
     const { width, height, left, top } = canvas.getBoundingClientRect();
@@ -98,7 +101,17 @@ function setup (canvas: HTMLCanvasElement) {
         ctx.beginPath();
         ctx.fillStyle = 'red';
         ctx.moveTo(state.position.x, state.position.y);
-        ctx.fillRect(state.position.x, state.position.y, 10, 10);
+        ctx.fillRect(state.position.x, state.position.y, state.position.w, state.position.h);
+        ctx.fillStyle = 'black';
+
+        const leftEyeLocation = state.position.x + (state.direction === DIRECTION_RIGHT ? 6 : state.direction === DIRECTION_LEFT ? 0: 6);
+        const rightEyeLocation = state.position.x + (state.direction === DIRECTION_RIGHT ? 9 : state.direction === DIRECTION_LEFT ? 3 : 3);
+        const shouldBlink = state.score % 20 <= 5 ? 1 : 4;
+
+        ctx.moveTo(leftEyeLocation, state.position.y + 5);
+        ctx.fillRect(leftEyeLocation, state.position.y + 5, 2, shouldBlink);
+        ctx.moveTo(rightEyeLocation, state.position.y + 5);
+        ctx.fillRect(rightEyeLocation, state.position.y + 5, 2, shouldBlink);
     }
 
     function createObstacle (isPowerup = false) {
@@ -106,8 +119,9 @@ function setup (canvas: HTMLCanvasElement) {
         const randomY = Math.floor(Math.random() * 20);
         const w = Math.floor(Math.random() * 25) + 10;
         const h = Math.floor(Math.random() * 25) + 10;
+        const speed = Math.floor(Math.random() * 5) + 1;
         obstacles.push(
-          { x: randomX, y: -randomY, w, h, shouldRemove: false, isPowerup }  
+          { x: randomX, y: -randomY, w, h, shouldRemove: false, isPowerup, speed }  
         );
     }
 
@@ -139,7 +153,18 @@ function setup (canvas: HTMLCanvasElement) {
         const By1 = position.y;
         const By2 = position.y + position.h;
 
-        return (Ax2 > Bx1 && Ax1 < Bx2 && Ay2 > By1 && Ay1 < By2) && !position.isPowerup;
+        const hitBox =  (Ax2 > Bx1 && Ax1 < Bx2 && Ay2 > By1 && Ay1 < By2);
+        if (hitBox && !position.isPowerup) return true;
+        if (hitBox && position.isPowerup) {
+            state.position.w = 5;
+            state.position.h = 5;
+            setTimeout(function() {
+                state.position.w = 10;
+                state.position.h = 10;
+            }, 1000 * 2); // half a second
+        }
+        
+        return false;
     }
 
     function writeScore (ctx: CanvasRenderingContext2D) {
@@ -159,7 +184,7 @@ function setup (canvas: HTMLCanvasElement) {
         createObstacles(maxObstacles - obstacles.length);
         
         for (const obstacle of obstacles) {
-            obstacle.y += SPEED_AMOUNT_IN_PX;
+            obstacle.y += obstacle?.speed || 3;
 
             if (obstacle.y > canvas.height) {
                 obstacle.shouldRemove = true;
@@ -183,8 +208,8 @@ function setup (canvas: HTMLCanvasElement) {
 
     const gl = new GameLoop(
         function () {
-            if (state.direction === DIRECTION_RIGHT && state.position.x < canvas.width - 10) state.position.x += SPEED_AMOUNT_IN_PX;
-            if (state.direction === DIRECTION_LEFT && state.position.x >= 0) state.position.x -= SPEED_AMOUNT_IN_PX;
+            if (state.direction === DIRECTION_RIGHT && state.position.x < canvas.width - 10) state.position.x += state.speed;
+            if (state.direction === DIRECTION_LEFT && state.position.x >= 0) state.position.x -= state.speed;
             if (!ctx) return;
             
             ctx.clearRect(0, 0, canvas.width, canvas.height);
