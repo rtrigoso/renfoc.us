@@ -109,6 +109,10 @@ strong {
   width: 10rem;
 }
 
+.social_links {
+  padding: 0 0.2rem;
+}
+
 .nav-link {
   padding: 0.25rem;
   border-radius: 5%;
@@ -125,7 +129,7 @@ header {
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 3rem 0px 0px;
+  padding: 3rem 0px 3rem;
 }
 
 header > section {
@@ -156,7 +160,7 @@ header > section > nav {
   flex-wrap: nowrap;
   justify-content: space-evenly;
   align-items: center;
-  padding: 3rem 0px 0px;
+  padding: 0px 0px 0px;
 }
 
 #main_content > main {
@@ -173,6 +177,31 @@ header > section > nav {
 .buymecoffee_wrapper {
   text-align: right;
   padding-right: 1rem;
+}
+
+/* other pages */
+.game_wrapper_toggle {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.game_wrapper.open {
+  max-height: 400px;
+}
+
+.game_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+  height: 180px;
+}
+
+#game_container {
+  background-color: var(--main-fg-color);
 }
 
 /* posts */
@@ -235,6 +264,7 @@ article pre {
   justify-content: flex-start;
   align-items: stretch;
   flex: 3;
+  white-space: pre-line;
 }
 
 .card_embed_img {
