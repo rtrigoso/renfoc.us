@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Syne_Mono } from 'next/font/google';
 import Header from '@/composites/Header';
+import Game from '@/composites/Game';
 
 export const metadata: Metadata = {
   title: "renfoc.us",
@@ -15,7 +16,7 @@ type RootLayoutArgs = Readonly<{
   children: React.ReactNode;
 }>
 
-export default function RootLayout({ children }: RootLayoutArgs) {
+export default function RootLayout({ children }: RootLayoutArgs) { 
   return (
     <html lang="en" className={googlefont.className}>
       <body>
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: RootLayoutArgs) {
           </a>
         </div>
         <Header />
+        <Game />
         <div id="main_content">
           <main>
             {children}

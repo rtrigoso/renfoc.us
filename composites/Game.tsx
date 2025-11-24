@@ -9,6 +9,7 @@ interface Position {
     w: number;
     h: number;
     shouldRemove: boolean;
+    isPowerup?: boolean
 }
 
 class GameLoop {
@@ -100,19 +101,20 @@ function setup (canvas: HTMLCanvasElement) {
         ctx.fillRect(state.position.x, state.position.y, 10, 10);
     }
 
-    function createObstacle () {
+    function createObstacle (isPowerup = false) {
         const randomX = Math.floor(Math.random() * canvas.width - 1) + 1;
-        const w = Math.floor(Math.random() * 50);
-        const h = Math.floor(Math.random() * 50);
+        const randomY = Math.floor(Math.random() * 20);
+        const w = Math.floor(Math.random() * 25) + 10;
+        const h = Math.floor(Math.random() * 25) + 10;
         obstacles.push(
-          { x: randomX, y: 0, w, h, shouldRemove: false }  
+          { x: randomX, y: -randomY, w, h, shouldRemove: false, isPowerup }  
         );
     }
 
     function drawObstacles (ctx: CanvasRenderingContext2D) {
         for (const obstacle of obstacles) {
             ctx.beginPath();
-            ctx.fillStyle = 'green';
+            ctx.fillStyle = obstacle?.isPowerup ? 'yellow' : 'green';
             ctx.moveTo(obstacle.x, obstacle.y);
             ctx.fillRect(obstacle.x, obstacle.y, obstacle.w, obstacle.h);
         }
@@ -121,8 +123,10 @@ function setup (canvas: HTMLCanvasElement) {
     function finish (ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
         ctx.fillStyle = 'red';
-        ctx.font = "14px monospace";
+        ctx.font = "bold 14px monospace";
         ctx.fillText("GAME OVER", canvas.width / 2 - 40, canvas.height / 2);
+        ctx.font = "normal 14px monospace";
+        ctx.fillText("click to restart", canvas.width / 2 - 72, canvas.height / 2 + 16);
     }
 
     function checkForGameOver ( position: Position ) {
@@ -135,18 +139,25 @@ function setup (canvas: HTMLCanvasElement) {
         const By1 = position.y;
         const By2 = position.y + position.h;
 
-        return (Ax2 > Bx1 && Ax1 < Bx2 && Ay2 > By1 && Ay1 < By2);
+        return (Ax2 > Bx1 && Ax1 < Bx2 && Ay2 > By1 && Ay1 < By2) && !position.isPowerup;
     }
 
     function writeScore (ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
         ctx.fillStyle = 'red';
-        ctx.font = "14px monospace";
+        ctx.font = "bold 14px monospace";
         ctx.fillText(`${state.score}`, 10, 20);
     }
 
+    function getObstaclesMaxCount () {
+        if (state.score < 100) return 10;
+        return 10 + (state.score / 100);
+    }
+
     function moveObstacles (ctx: CanvasRenderingContext2D) {
-        createObstacles(10 - obstacles.length);
+        const maxObstacles = getObstaclesMaxCount();
+        createObstacles(maxObstacles - obstacles.length);
+        
         for (const obstacle of obstacles) {
             obstacle.y += SPEED_AMOUNT_IN_PX;
 
@@ -163,7 +174,8 @@ function setup (canvas: HTMLCanvasElement) {
 
     function createObstacles (x: number) {
         for (let i = 0; i < x; i++) {
-            createObstacle();
+            const r = Math.floor(Math.random() * 20);
+            createObstacle(r === 10);
         }
     }
 
@@ -200,10 +212,29 @@ export default function Game() {
 
         setup(ref.current); 
     }, []);
+
+    function toggleGameView () {
+        const x = document.querySelector('.game_wrapper');
+        const isOpen = x?.classList.contains('open');
+
+        if (isOpen) x?.classList.remove('open');
+        else x?.classList.add('open');
+    }
     
     return (
-        <canvas ref={ref} id="game_container">
-        </canvas>
+        <>
+            <button
+              className="game_wrapper_toggle"
+              title="wanna play?"
+              onClick={toggleGameView}
+              aria-label="JS enabled? play a game by clicking on this button">
+              &#x1F3AE;
+            </button>
+            <div className="game_wrapper">
+                <canvas ref={ref} id="game_container">
+                </canvas>
+            </div>
+        </>
     );
 }
 
