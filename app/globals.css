@@ -205,6 +205,16 @@ header > section > nav {
 }
 
 /* posts */
+.post_link {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 2;
+}
+
+.post_link span:first-child {
+  min-width: 110px;
+  max-width: 110px;
+}
 
 /* main section */
 

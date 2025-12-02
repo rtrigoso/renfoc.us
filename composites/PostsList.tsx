@@ -18,8 +18,10 @@ export default async function LinkList({ content }: LinkListParams) {
 
         return (
             <li className="post_link" key={`post-${creationDate}`}>
-                {creationDateString}
-                {` - `}
+                <span>
+                    {creationDateString}
+                    {` - `}
+                </span>
                 <Link
                     tabIndex={0}
                     className="link post_link"
