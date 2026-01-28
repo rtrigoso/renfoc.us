@@ -1,5 +1,8 @@
 ###### 1-23-2026
 # The Backlog and Existence
+
+![screenshot of metroid fusion](https://www.pngkey.com/png/full/157-1578933_samus-aran-metroid-fusion-pixel-art.png)
+
 There is something very human about accumulating more books/games/music than one could consume over our remaining lifetime. Every hour, new media pops up and our schedule forces us into a pact with our own happiness: I will make time for this later. We believe that the backlog is formed to give us a fighting chance against our finitude. We want to experience everyting that we might find meaningful, but we can't, and then we realize the backlog is simple a monument to the imposible.
 
 I called the backlog a "monument to impossibility" because monuments commemorate something that's already happened or lost. Our Steam libraries with 300 unplayed games, our Goodreads "to-read" shelves with 500 books are monuments to:
