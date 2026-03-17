@@ -54,6 +54,7 @@ class GameLoop {
 function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
     let obstacles: Position[] = [];
     let isGameOver = false;
+    let gameOverClickables: { bounds: { x: number; y: number; w: number; h: number }; onClick: () => void }[] = [];
     let state = {
         direction: '',
         position: { x: canvas.width / 2 - 1, y: canvas.height - 10, w: PLAYER_SIZE, h: PLAYER_SIZE },
@@ -83,8 +84,13 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
         }
 
         if (isGameOver) {
-            isGameOver = false;
-            setup(canvas, true);
+            for (const { bounds: { x, y, w, h }, onClick } of gameOverClickables) {
+                if (e.offsetX >= x && e.offsetX <= x + w && e.offsetY >= y && e.offsetY <= y + h) {
+                    onClick();
+                    break;
+                }
+            }
+            return;
         }
     }
 
@@ -183,13 +189,23 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
         ctx.fillText(`${state.score}`, 10, 20);
     }
 
+    function drawClickableText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, onClick: () => void) {
+        ctx.fillText(text, x, y);
+        const { width } = ctx.measureText(text);
+        gameOverClickables.push({ bounds: { x, y: y - 14, w: width, h: 18 }, onClick });
+    }
+
     function drawGameOver(ctx: CanvasRenderingContext2D) {
+        gameOverClickables = [];
         ctx.beginPath();
         ctx.fillStyle = 'red';
         ctx.font = "bold 14px monospace";
         ctx.fillText("GAME OVER", canvas.width / 2 - 40, canvas.height / 2);
         ctx.font = "normal 14px monospace";
-        ctx.fillText("click to restart", canvas.width / 2 - 72, canvas.height / 2 + 16);
+        drawClickableText(ctx, "click to restart", canvas.width / 2 - 72, canvas.height / 2 + 16, () => {
+            isGameOver = false;
+            setup(canvas, true);
+        });
     }
 
     createObstacles(BASE_MAX_OBSTACLES);
