@@ -92,13 +92,14 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         activeClickables.push({ bounds: { x, y: y - 14, w: width, h: 18 }, onClick });
     }
 
-    function checkClickables(e: MouseEvent) {
+    function checkClickables(e: MouseEvent): boolean {
         for (const { bounds: { x, y, w, h }, onClick } of activeClickables) {
             if (e.offsetX >= x && e.offsetX <= x + w && e.offsetY >= y && e.offsetY <= y + h) {
                 onClick();
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     function drawStartScreen(ctx: CanvasRenderingContext2D) {
@@ -106,6 +107,10 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         ctx.fillStyle = 'red';
         ctx.font = "bold 14px monospace";
         ctx.fillText("click to start", canvas.width / 2 - 54, canvas.height / 2);
+        ctx.font = "normal 14px monospace";
+        drawClickableText(ctx, "scoreboard", canvas.width / 2 - 42, canvas.height / 2 + 16, () => {
+            window.location.href = '/scoreboard';
+        });
     }
 
     function drawSubmitScreen(ctx: CanvasRenderingContext2D) {
@@ -151,6 +156,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         state.direction = (e.offsetX < midX) ? DIRECTION_LEFT : DIRECTION_RIGHT;
 
         if (!hasStarted) {
+            if (checkClickables(e)) return;
             hasStarted = true;
             gl.run();
             return;
@@ -288,6 +294,9 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         drawClickableText(ctx, "submit score", canvas.width / 2 - 55, canvas.height / 2 + 32, () => {
             canvasScreen = 'submit-score';
             if (ctx) drawSubmitScreen(ctx);
+        });
+        drawClickableText(ctx, "scoreboard", canvas.width / 2 - 42, canvas.height / 2 + 48, () => {
+            window.location.href = '/scoreboard';
         });
     }
 
