@@ -1,33 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import EmailLink from './EmailLink';
-import GithubLink from './GithubLink';
-import LinkedinLink from './LinkedinLink';
-import RSSLink from './RSSLink';
-import Upwork from './Upwork';
-
-const coffeeCup = (
-<svg fill="currentColor" height="11px" width="11px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
-	 viewBox="0 0 489.9 489.9" xmlSpace="preserve" aria-label="coffee">
-    <g>
-    	<g>
-    		<g>
-    			<path d="M318.9,411.9c17.1-23.7,32.3-53.3,43.9-86.7c12.4,7,26.4,10.9,40.4,10.9c47.8,0,86.7-42,86.7-93.3s-38.9-93.3-86.7-93.3
-    				c-3.5,0-6.6,0.4-10.1,0.8c0-5.4,0.4-10.9,0.4-16.3H25.7c0,113.9,29.6,215.1,74.7,278.1h218.5V411.9z M392.4,170
-    				c3.5-0.8,7.4-1.2,10.9-1.2c36.9,0,66.9,33.1,66.9,73.5s-30,73.6-66.9,73.6c-12.4,0-24.1-3.5-34.2-10.5
-    				C381.5,264.9,389.7,219,392.4,170z"/>
-    			<polygon points="22.9,484.3 464.7,484.3 487.3,431.4 0,431.4 			"/>
-    			<path d="M116.7,102.8c5.4,0,9.7-4.3,9.7-9.7V52.6c0-5.4-4.3-9.7-9.7-9.7c-5.4,0-9.7,4.3-9.7,9.7V93
-    				C106.6,98.1,111.2,102.8,116.7,102.8z"/>
-    			<path d="M209.6,102.8c5.4,0,9.7-4.3,9.7-9.7V15.3c0-5.4-4.3-9.7-9.7-9.7s-9.7,4.3-9.7,9.7v77.8
-    				C199.9,98.1,204.2,102.8,209.6,102.8z"/>
-    			<path d="M302.6,102.8c5.4,0,9.7-4.3,9.7-9.7V52.6c0-5.4-4.3-9.7-9.7-9.7s-9.7,4.3-9.7,9.7V93C292.8,98.1,297.1,102.8,302.6,102.8
-    				z"/>
-    		</g>
-    	</g>
-    </g>
-</svg>    
-);
+import SocialLink from './SocialLink';
+import CoffeeCupIcon from './icons/CoffeeCupIcon';
+import LinkedinIcon from './icons/LinkedinIcon';
+import GithubIcon from './icons/GithubIcon';
+import EmailIcon from './icons/EmailIcon';
+import UpworkIcon from './icons/UpworkIcon';
+import RSSIcon from './icons/RSSIcon';
 
 export default function Header() {
     return (
@@ -47,20 +26,30 @@ export default function Header() {
             </Link>
             <section>
                 <div className="buymecoffee_wrapper">
-                    <a href="https://www.buymeacoffee.com/renrocks" target="_BLANK">Buy me {coffeeCup}</a>
+                    <a href="https://www.buymeacoffee.com/renrocks" target="_BLANK">Buy me <CoffeeCupIcon /></a>
                     <br />
                 </div>
                 <Link href="/">
                     <h1>Ren's blog</h1>
                 </Link>
-                <h2>Metaphysics, tunes, and code</h2>    
+                <h2>Metaphysics, tunes, and code</h2>
                 <nav id="social_links">
                     <span className="hide_on_mobile">Connect: </span>
-                    <LinkedinLink />
-                    <GithubLink />
-                    <EmailLink />
-                    <Upwork />
-                    <RSSLink />
+                    <SocialLink href="https://www.linkedin.com/in/ren-trigoso-a36609186/" ariaLabel="my linkedin" hiddenText="visit my linkedin">
+                        <LinkedinIcon />
+                    </SocialLink>
+                    <SocialLink href="https://github.com/rtrigoso/" ariaLabel="my github" hiddenText="visit my github">
+                        <GithubIcon />
+                    </SocialLink>
+                    <SocialLink href="mailto:resume@renrocks.mozmail.com" ariaLabel="send me an email" hiddenText="send me an email">
+                        <EmailIcon />
+                    </SocialLink>
+                    <SocialLink href="https://www.upwork.com/freelancers/~0101ffe1f36d5b9159" ariaLabel="upwork" hiddenText="hire me for freelancing">
+                        <UpworkIcon />
+                    </SocialLink>
+                    <SocialLink href="https://renfoc.us/rss.xml" ariaLabel="rss feed" hiddenText="rss feed link">
+                        <RSSIcon />
+                    </SocialLink>
                 </nav>
              </section>
         </header>

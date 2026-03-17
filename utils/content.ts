@@ -1,4 +1,4 @@
-import { Dirent, readdirSync, statSync } from "fs";
+import { Dirent, readdirSync } from "fs";
 import { parse, resolve } from "path";
 import { promises as fs, writeFileSync } from "fs";
 import RSS from 'rss';
@@ -22,9 +22,6 @@ export function GetContentDirFullPath () {
 }
 
 export function PrintContentReadableCreationTime (filename: string) : string {
-    const postsDir = GetContentDirFullPath();
-    resolve(postsDir, filename);
-
     const creationTimestamp = parseInt(filename.split('-')[0]);
     const creationDate = new Date(creationTimestamp * 1000);
     const creationDateString = new Intl.DateTimeFormat('en-US', {
@@ -69,16 +66,18 @@ export async function readDataContent(slug: string, currentPath: string): Promis
     return data;
 }
 
-export async function GetPostDescription(slug: string) {
-    let data = '';
-    if (process.env.PWD) {
-        data = await readDataContent(slug, process.env.PWD);
-        const firstIndex = data.indexOf(".", 50);
-        const lastIndex = data.indexOf(".", firstIndex + 50);
-        data = `...${data.replace('#', '').slice(firstIndex + 1, lastIndex)}...`;
-    }
+export async function GetPostDescription(slug: string): Promise<string> {
+    if (!process.env.PWD) return '';
 
-    return data;
+    const raw = await readDataContent(slug, process.env.PWD);
+    // Strip markdown headings, then extract the first complete sentence
+    const text = raw.replace(/^#{1,6}\s+.+$/gm, '').trim();
+    const first = text.indexOf('. ');
+    if (first === -1) return '';
+    const second = text.indexOf('. ', first + 1);
+    const excerpt = text.slice(first + 2, second === -1 ? undefined : second + 1).trim();
+
+    return `...${excerpt}...`;
 }
 
 export async function GetLinksDataFromContent(): Promise<PostItem[]> {
@@ -86,10 +85,11 @@ export async function GetLinksDataFromContent(): Promise<PostItem[]> {
     const dataPromise = files
         .map(async f => {
             const filename = parse(f.name).name
-            const title = f.name.split('-')[1].replaceAll('_', ' ').replace('.md', '')
+            const titleMatch = f.name.match(/^\d+-(.+)\.md$/);
+            const title = titleMatch ? titleMatch[1].replaceAll('_', ' ') : filename;
             const creationDate = parseInt(f.name.split('-')[0]) * 1000;
             const creationDateString = PrintContentReadableCreationTime(f.name);
-            const description = await GetPostDescription(f?.name?.split('.')?.at(0) || '')
+            const description = await GetPostDescription(filename)
 
             return ({
                 path: `/posts/${filename}`,
