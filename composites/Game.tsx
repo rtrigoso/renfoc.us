@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 
 interface Position {
     x: number;
@@ -12,11 +12,30 @@ interface Position {
     isPowerup?: boolean;
 }
 
+interface OverlayScreenProps {
+    data: Record<string, unknown>;
+    onRestart: () => void;
+}
+
+interface OverlayScreenConfig {
+    id: string;
+    component: React.ComponentType<OverlayScreenProps>;
+}
+
+// --- Overlay screen registry: add React overlay screens here ---
+
+const OVERLAY_SCREENS: OverlayScreenConfig[] = [];
+
+// --- Canvas game ---
+
 const DIRECTION_RIGHT = 'right';
 const DIRECTION_LEFT = 'left';
 const PLAYER_SIZE = 10;
 const BASE_MAX_OBSTACLES = 10;
 const POWERUP_SHRINK_MS = 2000;
+
+type ShowScreenFn = (id: string, data: Record<string, unknown>) => void;
+type CanvasScreen = 'gameplay' | 'submit-score';
 
 class GameLoop {
     private lastFrameTime = 0;
@@ -51,10 +70,12 @@ class GameLoop {
     }
 }
 
-function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
+function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn) {
     let obstacles: Position[] = [];
     let isGameOver = false;
-    let gameOverClickables: { bounds: { x: number; y: number; w: number; h: number }; onClick: () => void }[] = [];
+    let canvasScreen: CanvasScreen = 'gameplay';
+    let submitName = '';
+    let activeClickables: { bounds: { x: number; y: number; w: number; h: number }; onClick: () => void }[] = [];
     let state = {
         direction: '',
         position: { x: canvas.width / 2 - 1, y: canvas.height - 10, w: PLAYER_SIZE, h: PLAYER_SIZE },
@@ -65,6 +86,21 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
     const ctx = canvas.getContext('2d');
     let hasStarted = skipStartScreen;
 
+    function drawClickableText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, onClick: () => void) {
+        ctx.fillText(text, x, y);
+        const { width } = ctx.measureText(text);
+        activeClickables.push({ bounds: { x, y: y - 14, w: width, h: 18 }, onClick });
+    }
+
+    function checkClickables(e: MouseEvent) {
+        for (const { bounds: { x, y, w, h }, onClick } of activeClickables) {
+            if (e.offsetX >= x && e.offsetX <= x + w && e.offsetY >= y && e.offsetY <= y + h) {
+                onClick();
+                break;
+            }
+        }
+    }
+
     function drawStartScreen(ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
         ctx.fillStyle = 'red';
@@ -72,8 +108,45 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
         ctx.fillText("click to start", canvas.width / 2 - 54, canvas.height / 2);
     }
 
+    function drawSubmitScreen(ctx: CanvasRenderingContext2D) {
+        activeClickables = [];
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'red';
+
+        ctx.font = "bold 14px monospace";
+        ctx.fillText("SUBMIT SCORE", canvas.width / 2 - 54, canvas.height / 2 - 32);
+
+        ctx.font = "normal 14px monospace";
+        ctx.fillText(`score: ${state.score}`, canvas.width / 2 - 35, canvas.height / 2 - 16);
+
+        const inputX = canvas.width / 2 - 60;
+        const inputY = canvas.height / 2 + 2;
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(inputX, inputY, 120, 18);
+        ctx.fillText(`${submitName}|`, inputX + 4, inputY + 13);
+
+        drawClickableText(ctx, "submit", canvas.width / 2 - 24, canvas.height / 2 + 36, () => {
+            // wire up score submission here
+            canvasScreen = 'gameplay';
+            isGameOver = false;
+            setup(canvas, true, onShowScreen);
+        });
+        drawClickableText(ctx, "restart", canvas.width / 2 - 28, canvas.height / 2 + 52, () => {
+            canvasScreen = 'gameplay';
+            isGameOver = false;
+            setup(canvas, true, onShowScreen);
+        });
+    }
+
     function handleClick(e: MouseEvent) {
         e.preventDefault();
+
+        if (canvasScreen === 'submit-score') {
+            checkClickables(e);
+            return;
+        }
+
         const midX = canvas.width / 2;
         state.direction = (e.offsetX < midX) ? DIRECTION_LEFT : DIRECTION_RIGHT;
 
@@ -84,14 +157,25 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
         }
 
         if (isGameOver) {
-            for (const { bounds: { x, y, w, h }, onClick } of gameOverClickables) {
-                if (e.offsetX >= x && e.offsetX <= x + w && e.offsetY >= y && e.offsetY <= y + h) {
-                    onClick();
-                    break;
-                }
-            }
+            checkClickables(e);
             return;
         }
+    }
+
+    function handleKeyDown(e: KeyboardEvent) {
+        if (canvasScreen !== 'submit-score' || !ctx) return;
+        if (e.key === 'Backspace') {
+            submitName = submitName.slice(0, -1);
+        } else if (e.key === 'Enter') {
+            // wire up score submission here
+            canvasScreen = 'gameplay';
+            isGameOver = false;
+            setup(canvas, true, onShowScreen);
+            return;
+        } else if (e.key.length === 1 && submitName.length < 20) {
+            submitName += e.key;
+        }
+        drawSubmitScreen(ctx);
     }
 
     function clearState(e: MouseEvent) {
@@ -101,6 +185,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
 
     canvas.addEventListener('pointerdown', handleClick);
     canvas.addEventListener('pointerup', clearState);
+    window.addEventListener('keydown', handleKeyDown);
 
     function drawPlayer(ctx: CanvasRenderingContext2D) {
         const { x, y, w, h } = state.position;
@@ -189,14 +274,8 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
         ctx.fillText(`${state.score}`, 10, 20);
     }
 
-    function drawClickableText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, onClick: () => void) {
-        ctx.fillText(text, x, y);
-        const { width } = ctx.measureText(text);
-        gameOverClickables.push({ bounds: { x, y: y - 14, w: width, h: 18 }, onClick });
-    }
-
     function drawGameOver(ctx: CanvasRenderingContext2D) {
-        gameOverClickables = [];
+        activeClickables = [];
         ctx.beginPath();
         ctx.fillStyle = 'red';
         ctx.font = "bold 14px monospace";
@@ -204,7 +283,11 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
         ctx.font = "normal 14px monospace";
         drawClickableText(ctx, "click to restart", canvas.width / 2 - 72, canvas.height / 2 + 16, () => {
             isGameOver = false;
-            setup(canvas, true);
+            setup(canvas, true, onShowScreen);
+        });
+        drawClickableText(ctx, "submit score", canvas.width / 2 - 55, canvas.height / 2 + 32, () => {
+            canvasScreen = 'submit-score';
+            if (ctx) drawSubmitScreen(ctx);
         });
     }
 
@@ -235,11 +318,21 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
 export default function Game() {
     const ref = useRef<HTMLCanvasElement>(null);
     const [isOpen, setIsOpen] = useState(false);
+    const [activeScreen, setActiveScreen] = useState<{ id: string; data: Record<string, unknown> } | null>(null);
 
-    useEffect(() => {
+    const startGame = useCallback((skipStart: boolean) => {
         if (!ref.current) return;
-        setup(ref.current);
+        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }));
     }, []);
+
+    useEffect(() => { startGame(false); }, [startGame]);
+
+    function handleRestart() {
+        setActiveScreen(null);
+        startGame(true);
+    }
+
+    const activeScreenConfig = OVERLAY_SCREENS.find(s => s.id === activeScreen?.id);
 
     return (
         <>
@@ -252,6 +345,12 @@ export default function Game() {
             </button>
             <div className={`game_wrapper${isOpen ? ' open' : ''}`}>
                 <canvas ref={ref} id="game_container" />
+                {activeScreen && activeScreenConfig && (
+                    <activeScreenConfig.component
+                        data={activeScreen.data}
+                        onRestart={handleRestart}
+                    />
+                )}
             </div>
         </>
     );
