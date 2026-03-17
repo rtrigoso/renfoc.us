@@ -32,27 +32,30 @@ body {
 }
 
 /* general tags */
-h1 { 
-  font-size: 2.5rem; 
-  padding-top: .75rem; 
+h1 {
+  font-size: 2.5rem;
+  padding-top: .75rem;
   line-height: 2.5rem;
   padding-bottom: .5rem;
   font-weight: 900
 }
-h2 { 
-  font-size: 1.25rem; 
+
+h2 {
+  font-size: 1.25rem;
   line-height: 1.25rem;
   padding-bottom: .5rem;
   font-weight: 700;
 }
-h3 { 
+
+h3 {
   font-size: 1.5rem;
-  padding-top: 0.5rem; 
+  padding-top: 0.5rem;
   padding-bottom: 1rem;
   line-height: 1.5rem;
 }
-h4 { 
-  font-size: 1.75rem; 
+
+h4 {
+  font-size: 1.75rem;
   line-height: 1.75rem;
 }
 
@@ -93,10 +96,13 @@ strong {
   height: 1px;
   width: 1px;
   overflow: hidden;
-  clip: rect(1px 1px 1px 1px); /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-  clip: rect(1px, 1px, 1px, 1px); /*maybe deprecated but we need to support legacy browsers */
-  clip-path: inset(50%); /*modern browsers, clip-path works inwards from each corner*/
-  white-space: nowrap; 
+  clip: rect(1px 1px 1px 1px);
+  /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
+  clip: rect(1px, 1px, 1px, 1px);
+  /*maybe deprecated but we need to support legacy browsers */
+  clip-path: inset(50%);
+  /*modern browsers, clip-path works inwards from each corner*/
+  white-space: nowrap;
 }
 
 .crop_circle {
@@ -132,7 +138,7 @@ header {
   padding: 3rem 0px 3rem;
 }
 
-header > section {
+header>section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -140,7 +146,7 @@ header > section {
   gap: 0.35rem;
 }
 
-header > section > nav {
+header>section>nav {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -163,9 +169,9 @@ header > section > nav {
   padding: 0px 0px 0px;
 }
 
-#main_content > main {
+#main_content>main {
   padding: 1rem;
-  background-color: var(--main-bg-color);  
+  background-color: var(--main-bg-color);
   border-radius: 0rem 1rem 0rem 0rem;
   min-height: 100vh;
   display: flex;
@@ -218,13 +224,14 @@ header > section > nav {
 
 /* main section */
 
-main > section, main > article {
+main>section,
+main>article {
   width: 90%;
   padding-bottom: 2rem;
   line-height: 1.5rem;
 }
 
-section dt + dd {
+section dt+dd {
   padding-bottom: 0.5rem;
 }
 
@@ -233,7 +240,9 @@ article pre {
 }
 
 @media screen and (max-width: 250px) {
-  main > section, main > article {
+
+  main>section,
+  main>article {
     width: 95%;
   }
 }
@@ -245,13 +254,15 @@ article pre {
 }
 
 @media screen and (min-width: 500px) {
-  main > section, main > article {
+
+  main>section,
+  main>article {
     width: 450px;
   }
 
   article pre {
     max-width: 100%
-  } 
+  }
 }
 
 .card {
@@ -264,7 +275,7 @@ article pre {
   max-width: 100%;
 }
 
-.card + .card {
+.card+.card {
   margin-top: 1.25rem;
 }
 
@@ -296,12 +307,14 @@ article pre {
 }
 
 /* article */
-article p, article ul, article ol {
+article p,
+article ul,
+article ol {
   line-height: 1.35rem;
   padding-bottom: .5rem;
 }
 
-article p > img {
+article p>img {
   max-width: 200px;
   margin: 10px auto;
   display: block;
@@ -321,7 +334,8 @@ article li {
   padding-bottom: .5rem;
 }
 
-article h1, article h2 {
+article h1,
+article h2 {
   padding-top: 2rem;
   padding-bottom: 1rem;
 }
@@ -341,8 +355,10 @@ article pre {
   overflow: scroll;
   overflow-wrap: break-word;
   margin-bottom: 1rem;
-  white-space: pre-wrap; /* Allows wrapping of preformatted text */
-  word-wrap: break-word; /* Breaks words if they are too long to fit on a line */
+  white-space: pre-wrap;
+  /* Allows wrapping of preformatted text */
+  word-wrap: break-word;
+  /* Breaks words if they are too long to fit on a line */
 }
 
 article pre code {
@@ -351,4 +367,22 @@ article pre code {
   font-size: 0.75rem;
   font-weight: 300;
   color: #000000;
+}
+
+/* scoreboard table */
+#scoreboard {
+  max-width: 450px;
+  width: 100vh;
+}
+
+#scoreboard th,
+#scoreboard td {
+  vertical-align: middle;
+  height: 2rem;
+  text-align: center;
+}
+
+#scoreboard th {
+  font-weight: 900;
+  text-decoration: underline;
 }

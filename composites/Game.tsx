@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from "react";
+import { saveScore } from "@/utils/scoreboard";
 
 interface Position {
     x: number;
@@ -70,7 +71,7 @@ class GameLoop {
     }
 }
 
-function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn) {
+function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => void) {
     let obstacles: Position[] = [];
     let isGameOver = false;
     let canvasScreen: CanvasScreen = 'gameplay';
@@ -132,15 +133,15 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         ctx.fillText(`${submitName}|`, inputX + 4, inputY + 13);
 
         drawClickableText(ctx, "submit", canvas.width / 2 - 24, canvas.height / 2 + 36, () => {
-            // wire up score submission here
+            if (submitName.trim()) onSaveScore?.(submitName.trim(), state.score);
             canvasScreen = 'gameplay';
             isGameOver = false;
-            setup(canvas, true, onShowScreen);
+            setup(canvas, true, onShowScreen, onSaveScore);
         });
         drawClickableText(ctx, "restart", canvas.width / 2 - 28, canvas.height / 2 + 52, () => {
             canvasScreen = 'gameplay';
             isGameOver = false;
-            setup(canvas, true, onShowScreen);
+            setup(canvas, true, onShowScreen, onSaveScore);
         });
     }
 
@@ -173,10 +174,10 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         if (e.key === 'Backspace') {
             submitName = submitName.slice(0, -1);
         } else if (e.key === 'Enter') {
-            // wire up score submission here
+            if (submitName.trim()) onSaveScore?.(submitName.trim(), state.score);
             canvasScreen = 'gameplay';
             isGameOver = false;
-            setup(canvas, true, onShowScreen);
+            setup(canvas, true, onShowScreen, onSaveScore);
             return;
         } else if (e.key.length === 1 && submitName.length < 20) {
             submitName += e.key;
@@ -289,7 +290,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         ctx.font = "normal 14px monospace";
         drawClickableText(ctx, "click to restart", canvas.width / 2 - 72, canvas.height / 2 + 16, () => {
             isGameOver = false;
-            setup(canvas, true, onShowScreen);
+            setup(canvas, true, onShowScreen, onSaveScore);
         });
         drawClickableText(ctx, "submit score", canvas.width / 2 - 55, canvas.height / 2 + 32, () => {
             canvasScreen = 'submit-score';
@@ -331,7 +332,7 @@ export default function Game() {
 
     const startGame = useCallback((skipStart: boolean) => {
         if (!ref.current) return;
-        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }));
+        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }), saveScore);
     }, []);
 
     useEffect(() => { startGame(false); }, [startGame]);
