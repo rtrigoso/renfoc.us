@@ -1,7 +1,6 @@
 'use client';
 
-import Link from "next/link";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 interface Position {
     x: number;
@@ -10,36 +9,40 @@ interface Position {
     h: number;
     speed?: number;
     shouldRemove: boolean;
-    isPowerup?: boolean
+    isPowerup?: boolean;
 }
+
+const DIRECTION_RIGHT = 'right';
+const DIRECTION_LEFT = 'left';
+const PLAYER_SIZE = 10;
+const BASE_MAX_OBSTACLES = 10;
+const POWERUP_SHRINK_MS = 2000;
 
 class GameLoop {
     private lastFrameTime = 0;
     private FPS = 30;
     private FrameInterval = 1000 / this.FPS;
-    private state = {};
-    private render: Function;
+    private render: () => void;
     private isDone = false;
 
-    constructor ( renderCallback: Function) {
+    constructor(renderCallback: () => void) {
         if (!window) throw new Error('global window object is required but not found');
-
         this.render = renderCallback;
     }
 
     run() {
-        window.requestAnimationFrame(this.loop.bind(this));        
+        window.requestAnimationFrame(this.loop.bind(this));
     }
 
-    stop () {
+    stop() {
         this.isDone = true;
     }
 
-    loop (currentTime: number) {
+    loop(currentTime: number) {
         if (this.isDone) return;
-        
+
         this.run();
-        
+
         const deltaTime = currentTime - this.lastFrameTime;
         if (deltaTime >= this.FrameInterval) {
             this.lastFrameTime = currentTime - (deltaTime % this.FrameInterval);
@@ -48,48 +51,44 @@ class GameLoop {
     }
 }
 
-function setup (canvas: HTMLCanvasElement) {
+function setup(canvas: HTMLCanvasElement, skipStartScreen = false) {
     let obstacles: Position[] = [];
     let isGameOver = false;
     let state = {
         direction: '',
-        position: {
-            x: canvas.width / 2 - 1,
-            y: canvas.height - 10,
-            w: 10,
-            h: 10
-        },
+        position: { x: canvas.width / 2 - 1, y: canvas.height - 10, w: PLAYER_SIZE, h: PLAYER_SIZE },
         score: 0,
         speed: 3
     };
-    
-    const DIRECTION_RIGHT = 'right';
-    const DIRECTION_LEFT = 'left';
-    
+
     const ctx = canvas.getContext('2d');
-    const { width, height, left, top } = canvas.getBoundingClientRect();
-    const x = left + (width / 2);
-    const y = top + (height / 2);
+    let hasStarted = skipStartScreen;
 
-    function handleClick (e: MouseEvent) {
+    function drawStartScreen(ctx: CanvasRenderingContext2D) {
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        ctx.font = "bold 14px monospace";
+        ctx.fillText("click to start", canvas.width / 2 - 54, canvas.height / 2);
+    }
+
+    function handleClick(e: MouseEvent) {
         e.preventDefault();
-        const { layerX, layerY } = e;
+        const midX = canvas.width / 2;
+        state.direction = (e.offsetX < midX) ? DIRECTION_LEFT : DIRECTION_RIGHT;
 
-        switch(true) {
-            case layerX >= left && layerX <= x:
-                state.direction = 'left';
-                break;
-            case layerX >= x && layerX <= (left + width):
-                state.direction = 'right';
+        if (!hasStarted) {
+            hasStarted = true;
+            gl.run();
+            return;
         }
 
         if (isGameOver) {
             isGameOver = false;
-            setup(canvas);            
+            setup(canvas, true);
         }
     }
 
-    function clearState (e: MouseEvent) {
+    function clearState(e: MouseEvent) {
         e.preventDefault();
         state.direction = '';
     }
@@ -97,44 +96,94 @@ function setup (canvas: HTMLCanvasElement) {
     canvas.addEventListener('pointerdown', handleClick);
     canvas.addEventListener('pointerup', clearState);
 
-    function drawPlayer (ctx: CanvasRenderingContext2D) {
+    function drawPlayer(ctx: CanvasRenderingContext2D) {
+        const { x, y, w, h } = state.position;
+
         ctx.beginPath();
         ctx.fillStyle = 'red';
-        ctx.moveTo(state.position.x, state.position.y);
-        ctx.fillRect(state.position.x, state.position.y, state.position.w, state.position.h);
+        ctx.fillRect(x, y, w, h);
         ctx.fillStyle = 'black';
 
-        const leftEyeLocation = state.position.x + (state.direction === DIRECTION_RIGHT ? 6 : state.direction === DIRECTION_LEFT ? 0: 6);
-        const rightEyeLocation = state.position.x + (state.direction === DIRECTION_RIGHT ? 9 : state.direction === DIRECTION_LEFT ? 3 : 3);
-        const shouldBlink = state.score % 20 <= 5 ? 1 : 4;
+        const eyeOffset = state.direction === DIRECTION_RIGHT ? 6 : state.direction === DIRECTION_LEFT ? 0 : 6;
+        const leftEyeX = x + eyeOffset;
+        const rightEyeX = x + eyeOffset + 3;
+        const eyeHeight = state.score % 20 <= 5 ? 1 : 4;
 
-        ctx.moveTo(leftEyeLocation, state.position.y + 5);
-        ctx.fillRect(leftEyeLocation, state.position.y + 5, 2, shouldBlink);
-        ctx.moveTo(rightEyeLocation, state.position.y + 5);
-        ctx.fillRect(rightEyeLocation, state.position.y + 5, 2, shouldBlink);
+        ctx.fillRect(leftEyeX, y + 5, 2, eyeHeight);
+        ctx.fillRect(rightEyeX, y + 5, 2, eyeHeight);
     }
 
-    function createObstacle (isPowerup = false) {
-        const randomX = Math.floor(Math.random() * canvas.width - 1) + 1;
-        const randomY = Math.floor(Math.random() * 20);
+    function createObstacle(isPowerup = false) {
+        const x = Math.floor(Math.random() * canvas.width - 1) + 1;
+        const y = -Math.floor(Math.random() * 20);
         const w = Math.floor(Math.random() * 25) + 10;
         const h = Math.floor(Math.random() * 25) + 10;
         const speed = Math.floor(Math.random() * 5) + 1;
-        obstacles.push(
-          { x: randomX, y: -randomY, w, h, shouldRemove: false, isPowerup, speed }  
-        );
+        obstacles.push({ x, y, w, h, speed, shouldRemove: false, isPowerup });
     }
 
-    function drawObstacles (ctx: CanvasRenderingContext2D) {
+    function createObstacles(count: number) {
+        for (let i = 0; i < count; i++) {
+            createObstacle(Math.floor(Math.random() * 20) === 10);
+        }
+    }
+
+    function drawObstacles(ctx: CanvasRenderingContext2D) {
         for (const obstacle of obstacles) {
             ctx.beginPath();
-            ctx.fillStyle = obstacle?.isPowerup ? 'yellow' : 'green';
-            ctx.moveTo(obstacle.x, obstacle.y);
+            ctx.fillStyle = obstacle.isPowerup ? 'yellow' : 'green';
             ctx.fillRect(obstacle.x, obstacle.y, obstacle.w, obstacle.h);
         }
     }
 
-    function finish (ctx: CanvasRenderingContext2D) {
+    function checkCollision(obstacle: Position): boolean {
+        const { x: px, y: py } = state.position;
+        const hitBox = (
+            px + PLAYER_SIZE > obstacle.x &&
+            px < obstacle.x + obstacle.w &&
+            py + PLAYER_SIZE > obstacle.y &&
+            py < obstacle.y + obstacle.h
+        );
+
+        if (!hitBox) return false;
+
+        if (obstacle.isPowerup) {
+            state.position.w = 5;
+            state.position.h = 5;
+            setTimeout(() => {
+                state.position.w = PLAYER_SIZE;
+                state.position.h = PLAYER_SIZE;
+            }, POWERUP_SHRINK_MS);
+            return false;
+        }
+
+        return true;
+    }
+
+    function moveObstacles() {
+        const maxObstacles = BASE_MAX_OBSTACLES + (state.score >= 100 ? state.score / 100 : 0);
+        createObstacles(maxObstacles - obstacles.length);
+
+        for (const obstacle of obstacles) {
+            obstacle.y += obstacle.speed ?? 3;
+
+            if (obstacle.y > canvas.height) obstacle.shouldRemove = true;
+
+            isGameOver = checkCollision(obstacle);
+            if (isGameOver) break;
+        }
+
+        obstacles = obstacles.filter(({ shouldRemove }) => !shouldRemove);
+    }
+
+    function writeScore(ctx: CanvasRenderingContext2D) {
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        ctx.font = "bold 14px monospace";
+        ctx.fillText(`${state.score}`, 10, 20);
+    }
+
+    function drawGameOver(ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
         ctx.fillStyle = 'red';
         ctx.font = "bold 14px monospace";
@@ -143,123 +192,51 @@ function setup (canvas: HTMLCanvasElement) {
         ctx.fillText("click to restart", canvas.width / 2 - 72, canvas.height / 2 + 16);
     }
 
-    function checkForGameOver ( position: Position ) {
-        const Ax2 = state.position.x + 10;
-        const Ax1 = state.position.x;
-        const Bx1 = position.x;
-        const Bx2 = position.x + position.w;
-        const Ay1 = state.position.y;
-        const Ay2 = state.position.y + 10;
-        const By1 = position.y;
-        const By2 = position.y + position.h;
+    createObstacles(BASE_MAX_OBSTACLES);
 
-        const hitBox =  (Ax2 > Bx1 && Ax1 < Bx2 && Ay2 > By1 && Ay1 < By2);
-        if (hitBox && !position.isPowerup) return true;
-        if (hitBox && position.isPowerup) {
-            state.position.w = 5;
-            state.position.h = 5;
-            setTimeout(function() {
-                state.position.w = 10;
-                state.position.h = 10;
-            }, 1000 * 2); // half a second
+    const gl = new GameLoop(() => {
+        if (state.direction === DIRECTION_RIGHT && state.position.x < canvas.width - PLAYER_SIZE) state.position.x += state.speed;
+        if (state.direction === DIRECTION_LEFT && state.position.x >= 0) state.position.x -= state.speed;
+        if (!ctx) return;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawPlayer(ctx);
+        moveObstacles();
+        drawObstacles(ctx);
+        writeScore(ctx);
+        state.score += 1;
+
+        if (isGameOver) {
+            drawGameOver(ctx);
+            gl.stop();
         }
-        
-        return false;
-    }
+    });
 
-    function writeScore (ctx: CanvasRenderingContext2D) {
-        ctx.beginPath();
-        ctx.fillStyle = 'red';
-        ctx.font = "bold 14px monospace";
-        ctx.fillText(`${state.score}`, 10, 20);
-    }
-
-    function getObstaclesMaxCount () {
-        if (state.score < 100) return 10;
-        return 10 + (state.score / 100);
-    }
-
-    function moveObstacles (ctx: CanvasRenderingContext2D) {
-        const maxObstacles = getObstaclesMaxCount();
-        createObstacles(maxObstacles - obstacles.length);
-        
-        for (const obstacle of obstacles) {
-            obstacle.y += obstacle?.speed || 3;
-
-            if (obstacle.y > canvas.height) {
-                obstacle.shouldRemove = true;
-            }
-
-            isGameOver = checkForGameOver(obstacle);
-            if (isGameOver) break;
-        }
-
-        obstacles = obstacles.filter(({shouldRemove}) => !shouldRemove);
-    }
-
-    function createObstacles (x: number) {
-        for (let i = 0; i < x; i++) {
-            const r = Math.floor(Math.random() * 20);
-            createObstacle(r === 10);
-        }
-    }
-
-    createObstacles(10);
-
-    const gl = new GameLoop(
-        function () {
-            if (state.direction === DIRECTION_RIGHT && state.position.x < canvas.width - 10) state.position.x += state.speed;
-            if (state.direction === DIRECTION_LEFT && state.position.x >= 0) state.position.x -= state.speed;
-            if (!ctx) return;
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawPlayer(ctx);
-            moveObstacles(ctx);
-            drawObstacles(ctx);
-            writeScore(ctx);
-            state.score += 1;
-            
-            if (isGameOver) {
-                finish(ctx);
-                gl.stop();
-            }
-       }
-    );
-
-    gl.run();
+    if (ctx && !skipStartScreen) drawStartScreen(ctx);
+    if (skipStartScreen) gl.run();
 }
 
 export default function Game() {
     const ref = useRef<HTMLCanvasElement>(null);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         if (!ref.current) return;
-
-        setup(ref.current); 
+        setup(ref.current);
     }, []);
 
-    function toggleGameView () {
-        const x = document.querySelector('.game_wrapper');
-        const isOpen = x?.classList.contains('open');
-
-        if (isOpen) x?.classList.remove('open');
-        else x?.classList.add('open');
-    }
-    
     return (
         <>
             <button
-              className="game_wrapper_toggle"
-              title="wanna play?"
-              onClick={toggleGameView}
-              aria-label="JS enabled? play a game by clicking on this button">
-              &#x1F3AE;
+                className="game_wrapper_toggle"
+                title="wanna play?"
+                onClick={() => setIsOpen(prev => !prev)}
+                aria-label="JS enabled? play a game by clicking on this button">
+                &#x1F3AE;
             </button>
-            <div className="game_wrapper">
-                <canvas ref={ref} id="game_container">
-                </canvas>
+            <div className={`game_wrapper${isOpen ? ' open' : ''}`}>
+                <canvas ref={ref} id="game_container" />
             </div>
         </>
     );
 }
-
