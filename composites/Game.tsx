@@ -78,7 +78,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     let canvasScreen: CanvasScreen = 'gameplay';
     let submitName = '';
     let submitError = '';
-    let activeClickables: { bounds: { x: number; y: number; w: number; h: number }; onClick: () => void; text: string }[] = [];
+    let activeClickables: { bounds: { x: number; y: number; w: number; h: number }; onClick: () => void; text: string; syncFn?: () => void }[] = [];
     let flashingText = '';
     let clickThrottled = false;
     let state = {
@@ -91,12 +91,12 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     const ctx = canvas.getContext('2d');
     let hasStarted = skipStartScreen;
 
-    function drawClickableText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, onClick: () => void) {
+    function drawClickableText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, onClick: () => void, syncFn?: () => void) {
         if (text === flashingText) ctx.fillStyle = 'yellow';
         ctx.fillText(text, x, y);
         if (text === flashingText) ctx.fillStyle = 'red';
         const { width } = ctx.measureText(text);
-        activeClickables.push({ bounds: { x: x - width / 2, y: y - 14, w: width, h: 18 }, onClick, text });
+        activeClickables.push({ bounds: { x: x - width / 2, y: y - 14, w: width, h: 18 }, onClick, text, syncFn });
     }
 
     function redrawCurrentScreen() {
@@ -109,8 +109,9 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
 
     function checkClickables(e: MouseEvent): boolean {
         if (clickThrottled) return false;
-        for (const { bounds: { x, y, w, h }, onClick, text } of activeClickables) {
+        for (const { bounds: { x, y, w, h }, onClick, text, syncFn } of activeClickables) {
             if (e.offsetX >= x && e.offsetX <= x + w && e.offsetY >= y && e.offsetY <= y + h) {
+                syncFn?.();
                 clickThrottled = true;
                 flashingText = text;
                 redrawCurrentScreen();
@@ -376,8 +377,9 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         });
         drawClickableText(ctx, "SUBMIT SCORE", cx, canvas.height / 2 + 15, () => {
             canvasScreen = 'submit-score';
-            if (mobileInput) { mobileInput.value = ''; mobileInput.focus(); }
             if (ctx) drawSubmitScreen(ctx);
+        }, () => {
+            if (mobileInput) { mobileInput.value = ''; mobileInput.focus(); }
         });
         drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 45, () => {
             window.location.href = '/scoreboard';
