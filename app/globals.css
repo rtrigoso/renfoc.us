@@ -203,11 +203,12 @@ header>section>nav {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease-in-out;
-  height: 180px;
+  height: 280px;
 }
 
 #game_container {
   background-color: var(--main-fg-color);
+  border-radius: 0.5rem;
 }
 
 /* posts */
@@ -374,6 +375,15 @@ article pre code {
   to { transform: rotate(360deg); }
 }
 
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 450px;
+  width: 100vh;
+  height: 100vh;
+}
+
 .loading::before {
   content: '';
   display: inline-block;
@@ -393,6 +403,17 @@ article pre code {
   width: 100vh;
 }
 
+@media screen and (max-width: 450px) {
+  #scoreboard {
+    width: 250px;
+  }
+
+  #scoreboard th:nth-child(4),
+  #scoreboard td:nth-child(4) {
+    display: none;
+  }
+}
+
 #scoreboard th,
 #scoreboard td {
   vertical-align: middle;
@@ -403,4 +424,16 @@ article pre code {
 #scoreboard th {
   font-weight: 900;
   text-decoration: underline;
+}
+
+@media screen and (min-width: 450px) {
+  #scoreboard th:nth-child(3),
+  #scoreboard td:nth-child(3) {
+    width: 90px;
+  }
+
+  #scoreboard th:nth-child(4),
+  #scoreboard td:nth-child(4) {
+    width: 150px;
+  }
 }
