@@ -1,5 +1,5 @@
-const WORKER_URL = process.env.NEXT_PUBLIC_WORKER_URL!;
-const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const WORKER_URL = "https://cloudflare-to-supabase-proxy.renrocks.workers.dev";
+const anonKey = "sb_publishable_m5lXQM9zBUDuCM43DLl7qg_qSzL0Ewf";
 
 function authHeaders() {
     return {
