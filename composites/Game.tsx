@@ -37,7 +37,7 @@ const BASE_MAX_OBSTACLES = 10;
 const POWERUP_SHRINK_MS = 2000;
 
 type ShowScreenFn = (id: string, data: Record<string, unknown>) => void;
-type CanvasScreen = 'gameplay' | 'submit-score';
+type CanvasScreen = 'gameplay' | 'submit-score' | 'score-submitted';
 
 class GameLoop {
     private lastFrameTime = 0;
@@ -78,7 +78,9 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     let canvasScreen: CanvasScreen = 'gameplay';
     let submitName = '';
     let submitError = '';
-    let activeClickables: { bounds: { x: number; y: number; w: number; h: number }; onClick: () => void }[] = [];
+    let activeClickables: { bounds: { x: number; y: number; w: number; h: number }; onClick: () => void; text: string }[] = [];
+    let flashingText = '';
+    let clickThrottled = false;
     let state = {
         direction: '',
         position: { x: canvas.width / 2 - 1, y: canvas.height - 10, w: PLAYER_SIZE, h: PLAYER_SIZE },
@@ -90,15 +92,33 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     let hasStarted = skipStartScreen;
 
     function drawClickableText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, onClick: () => void) {
+        if (text === flashingText) ctx.fillStyle = 'yellow';
         ctx.fillText(text, x, y);
+        if (text === flashingText) ctx.fillStyle = 'red';
         const { width } = ctx.measureText(text);
-        activeClickables.push({ bounds: { x: x - width / 2, y: y - 14, w: width, h: 18 }, onClick });
+        activeClickables.push({ bounds: { x: x - width / 2, y: y - 14, w: width, h: 18 }, onClick, text });
+    }
+
+    function redrawCurrentScreen() {
+        if (!ctx) return;
+        if (canvasScreen === 'score-submitted') drawScoreSubmitted(ctx);
+        else if (canvasScreen === 'submit-score') drawSubmitScreen(ctx);
+        else if (isGameOver) drawGameOver(ctx);
+        else if (!hasStarted) drawStartScreen(ctx);
     }
 
     function checkClickables(e: MouseEvent): boolean {
-        for (const { bounds: { x, y, w, h }, onClick } of activeClickables) {
+        if (clickThrottled) return false;
+        for (const { bounds: { x, y, w, h }, onClick, text } of activeClickables) {
             if (e.offsetX >= x && e.offsetX <= x + w && e.offsetY >= y && e.offsetY <= y + h) {
-                onClick();
+                clickThrottled = true;
+                flashingText = text;
+                redrawCurrentScreen();
+                setTimeout(() => {
+                    flashingText = '';
+                    onClick();
+                }, 150);
+                setTimeout(() => { clickThrottled = false; }, 1000);
                 return true;
             }
         }
@@ -190,9 +210,9 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         onSaveScore?.(submitName.trim().toUpperCase(), state.score)
             .then(() => {
                 if (mobileInput) { mobileInput.blur(); mobileInput.value = ''; }
-                canvasScreen = 'gameplay';
-                isGameOver = false;
-                setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
+                canvasScreen = 'score-submitted';
+                ctx!.clearRect(0, 0, canvas.width, canvas.height);
+                drawScoreSubmitted(ctx!);
             })
             .catch((err: unknown) => {
                 submitError = err instanceof ThrottleError ? err.message : 'submission failed.';
@@ -207,7 +227,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         } else if (e.key === 'Enter') {
             submitScore();
             return;
-        } else if (e.key.length === 1 && submitName.length < 20) {
+        } else if (e.key.length === 1 && submitName.length < 3) {
             submitName += e.key;
         }
         drawSubmitScreen(ctx);
@@ -215,7 +235,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
 
     function handleMobileInput() {
         if (!mobileInput || !ctx) return;
-        submitName = mobileInput.value.slice(0, 20);
+        submitName = mobileInput.value.slice(0, 3);
         drawSubmitScreen(ctx);
     }
 
@@ -364,6 +384,26 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         });
     }
 
+    function drawScoreSubmitted(ctx: CanvasRenderingContext2D) {
+        activeClickables = [];
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        const cx = canvas.width / 2;
+        ctx.font = "bold 18px monospace";
+        ctx.fillText("SCORE SUBMITTED", cx, canvas.height / 2 - 30);
+        ctx.font = "normal 14px monospace";
+        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 + 0, () => {
+            isGameOver = false;
+            setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
+        });
+        drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 30, () => {
+            window.location.href = '/scoreboard';
+        });
+    }
+
     createObstacles(BASE_MAX_OBSTACLES);
 
     const gl = new GameLoop(() => {
@@ -427,7 +467,7 @@ export default function Game() {
                 <input
                     ref={mobileInputRef}
                     type="text"
-                    maxLength={20}
+                    maxLength={3}
                     style={{ position: 'fixed', opacity: 0, left: '-9999px', top: 0, pointerEvents: 'none' }}
                     aria-hidden="true"
                 />
