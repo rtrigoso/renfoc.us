@@ -72,7 +72,7 @@ class GameLoop {
     }
 }
 
-function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => Promise<void>) {
+function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => Promise<void>, mobileInput?: HTMLInputElement) {
     let obstacles: Position[] = [];
     let isGameOver = false;
     let canvasScreen: CanvasScreen = 'gameplay';
@@ -148,27 +148,16 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
             ctx.fillText(submitError.toUpperCase(), cx, canvas.height / 2 + 10);
         }
 
-        const submitY = submitError ? canvas.height / 2 + 35 : canvas.height / 2 + 25;
-        const restartY = submitError ? canvas.height / 2 + 65 : canvas.height / 2 + 55;
+        const submitY = submitError ? canvas.height / 2 + 53 : canvas.height / 2 + 43;
+        const restartY = submitError ? canvas.height / 2 + 83 : canvas.height / 2 + 73;
 
         ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "SUBMIT", cx, submitY, () => {
-            if (!submitName.trim()) return;
-            onSaveScore?.(submitName.trim().toUpperCase(), state.score)
-                .then(() => {
-                    canvasScreen = 'gameplay';
-                    isGameOver = false;
-                    setup(canvas, true, onShowScreen, onSaveScore);
-                })
-                .catch((err: unknown) => {
-                    submitError = err instanceof ThrottleError ? err.message : 'submission failed.';
-                    drawSubmitScreen(ctx);
-                });
-        });
+        drawClickableText(ctx, "SUBMIT", cx, submitY, () => submitScore());
         drawClickableText(ctx, "RESTART", cx, restartY, () => {
+            if (mobileInput) { mobileInput.blur(); mobileInput.value = ''; }
             canvasScreen = 'gameplay';
             isGameOver = false;
-            setup(canvas, true, onShowScreen, onSaveScore);
+            setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
         });
     }
 
@@ -196,26 +185,37 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         }
     }
 
+    function submitScore() {
+        if (!submitName.trim() || !ctx) return;
+        onSaveScore?.(submitName.trim().toUpperCase(), state.score)
+            .then(() => {
+                if (mobileInput) { mobileInput.blur(); mobileInput.value = ''; }
+                canvasScreen = 'gameplay';
+                isGameOver = false;
+                setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
+            })
+            .catch((err: unknown) => {
+                submitError = err instanceof ThrottleError ? err.message : 'submission failed.';
+                drawSubmitScreen(ctx!);
+            });
+    }
+
     function handleKeyDown(e: KeyboardEvent) {
         if (canvasScreen !== 'submit-score' || !ctx) return;
         if (e.key === 'Backspace') {
             submitName = submitName.slice(0, -1);
         } else if (e.key === 'Enter') {
-            if (!submitName.trim()) return;
-            onSaveScore?.(submitName.trim().toUpperCase(), state.score)
-                .then(() => {
-                    canvasScreen = 'gameplay';
-                    isGameOver = false;
-                    setup(canvas, true, onShowScreen, onSaveScore);
-                })
-                .catch((err: unknown) => {
-                    submitError = err instanceof ThrottleError ? err.message : 'submission failed.';
-                    drawSubmitScreen(ctx);
-                });
+            submitScore();
             return;
         } else if (e.key.length === 1 && submitName.length < 20) {
             submitName += e.key;
         }
+        drawSubmitScreen(ctx);
+    }
+
+    function handleMobileInput() {
+        if (!mobileInput || !ctx) return;
+        submitName = mobileInput.value.slice(0, 20);
         drawSubmitScreen(ctx);
     }
 
@@ -227,6 +227,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     canvas.addEventListener('pointerdown', handleClick);
     canvas.addEventListener('pointerup', clearState);
     window.addEventListener('keydown', handleKeyDown);
+    mobileInput?.addEventListener('input', handleMobileInput);
 
     function drawPlayer(ctx: CanvasRenderingContext2D) {
         const { x, y, w, h } = state.position;
@@ -351,10 +352,11 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         ctx.font = "normal 14px monospace";
         drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 - 15, () => {
             isGameOver = false;
-            setup(canvas, true, onShowScreen, onSaveScore);
+            setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
         });
         drawClickableText(ctx, "SUBMIT SCORE", cx, canvas.height / 2 + 15, () => {
             canvasScreen = 'submit-score';
+            if (mobileInput) { mobileInput.value = ''; mobileInput.focus(); }
             if (ctx) drawSubmitScreen(ctx);
         });
         drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 45, () => {
@@ -388,6 +390,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
 
 export default function Game() {
     const ref = useRef<HTMLCanvasElement>(null);
+    const mobileInputRef = useRef<HTMLInputElement>(null);
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(pathname === '/scoreboard');
     const [activeScreen, setActiveScreen] = useState<{ id: string; data: Record<string, unknown> } | null>(null);
@@ -399,7 +402,7 @@ export default function Game() {
 
     const startGame = useCallback((skipStart: boolean) => {
         if (!ref.current) return;
-        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }), saveScoreAndNotify);
+        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }), saveScoreAndNotify, mobileInputRef.current ?? undefined);
     }, [saveScoreAndNotify]);
 
     useEffect(() => { startGame(false); }, [startGame]);
@@ -421,6 +424,13 @@ export default function Game() {
                 &#x1F3AE;
             </button>
             <div className={`game_wrapper${isOpen ? ' open' : ''}`}>
+                <input
+                    ref={mobileInputRef}
+                    type="text"
+                    maxLength={20}
+                    style={{ position: 'fixed', opacity: 0, left: '-9999px', top: 0, pointerEvents: 'none' }}
+                    aria-hidden="true"
+                />
                 <canvas ref={ref} id="game_container" height={250} />
                 {activeScreen && activeScreenConfig && (
                     <activeScreenConfig.component
