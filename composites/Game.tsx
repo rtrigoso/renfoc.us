@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from "react";
-import { saveScore } from "@/utils/scoreboard";
+import { saveScore, ThrottleError } from "@/utils/scoreboard";
 
 interface Position {
     x: number;
@@ -71,11 +71,12 @@ class GameLoop {
     }
 }
 
-function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => void) {
+function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => Promise<void>) {
     let obstacles: Position[] = [];
     let isGameOver = false;
     let canvasScreen: CanvasScreen = 'gameplay';
     let submitName = '';
+    let submitError = '';
     let activeClickables: { bounds: { x: number; y: number; w: number; h: number }; onClick: () => void }[] = [];
     let state = {
         direction: '',
@@ -132,13 +133,28 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         ctx.strokeRect(inputX, inputY, 120, 18);
         ctx.fillText(`${submitName}|`, inputX + 4, inputY + 13);
 
-        drawClickableText(ctx, "submit", canvas.width / 2 - 24, canvas.height / 2 + 36, () => {
-            if (submitName.trim()) onSaveScore?.(submitName.trim(), state.score);
-            canvasScreen = 'gameplay';
-            isGameOver = false;
-            setup(canvas, true, onShowScreen, onSaveScore);
+        if (submitError) {
+            ctx.font = "normal 11px monospace";
+            ctx.fillText(submitError, canvas.width / 2 - 60, canvas.height / 2 + 50);
+        }
+
+        const submitY = submitError ? canvas.height / 2 + 64 : canvas.height / 2 + 36;
+        const restartY = submitError ? canvas.height / 2 + 80 : canvas.height / 2 + 52;
+
+        drawClickableText(ctx, "submit", canvas.width / 2 - 24, submitY, () => {
+            if (!submitName.trim()) return;
+            onSaveScore?.(submitName.trim(), state.score)
+                .then(() => {
+                    canvasScreen = 'gameplay';
+                    isGameOver = false;
+                    setup(canvas, true, onShowScreen, onSaveScore);
+                })
+                .catch((err: unknown) => {
+                    submitError = err instanceof ThrottleError ? err.message : 'submission failed.';
+                    drawSubmitScreen(ctx);
+                });
         });
-        drawClickableText(ctx, "restart", canvas.width / 2 - 28, canvas.height / 2 + 52, () => {
+        drawClickableText(ctx, "restart", canvas.width / 2 - 28, restartY, () => {
             canvasScreen = 'gameplay';
             isGameOver = false;
             setup(canvas, true, onShowScreen, onSaveScore);
@@ -174,10 +190,17 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         if (e.key === 'Backspace') {
             submitName = submitName.slice(0, -1);
         } else if (e.key === 'Enter') {
-            if (submitName.trim()) onSaveScore?.(submitName.trim(), state.score);
-            canvasScreen = 'gameplay';
-            isGameOver = false;
-            setup(canvas, true, onShowScreen, onSaveScore);
+            if (!submitName.trim()) return;
+            onSaveScore?.(submitName.trim(), state.score)
+                .then(() => {
+                    canvasScreen = 'gameplay';
+                    isGameOver = false;
+                    setup(canvas, true, onShowScreen, onSaveScore);
+                })
+                .catch((err: unknown) => {
+                    submitError = err instanceof ThrottleError ? err.message : 'submission failed.';
+                    drawSubmitScreen(ctx);
+                });
             return;
         } else if (e.key.length === 1 && submitName.length < 20) {
             submitName += e.key;
@@ -330,10 +353,15 @@ export default function Game() {
     const [isOpen, setIsOpen] = useState(false);
     const [activeScreen, setActiveScreen] = useState<{ id: string; data: Record<string, unknown> } | null>(null);
 
+    const saveScoreAndNotify = useCallback(async (name: string, score: number) => {
+        await saveScore(name, score);
+        window.dispatchEvent(new CustomEvent('scoreSubmitted'));
+    }, []);
+
     const startGame = useCallback((skipStart: boolean) => {
         if (!ref.current) return;
-        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }), saveScore);
-    }, []);
+        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }), saveScoreAndNotify);
+    }, [saveScoreAndNotify]);
 
     useEffect(() => { startGame(false); }, [startGame]);
 

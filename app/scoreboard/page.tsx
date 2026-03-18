@@ -1,20 +1,37 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getScores, ScoreEntry } from "@/utils/scoreboard";
 
 export default function Page() {
     const [scores, setScores] = useState<ScoreEntry[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+
+    const fetchScores = useCallback(() => {
+        setLoading(true);
+        setError(false);
+        getScores()
+            .then(setScores)
+            .catch(() => setError(true))
+            .finally(() => setLoading(false));
+    }, []);
 
     useEffect(() => {
-        setScores(getScores());
-    }, []);
+        fetchScores();
+        window.addEventListener('scoreSubmitted', fetchScores);
+        return () => window.removeEventListener('scoreSubmitted', fetchScores);
+    }, [fetchScores]);
 
     return (
         <>
             <h1>Scoreboard</h1>
-            {scores.length === 0 ? (
-                <p>No scores yet. Play the game to get on the board by clicking the game button on the bottom right corner..</p>
+            {loading ? (
+                <p className="loading">Loading scores</p>
+            ) : error ? (
+                <p>Failed to load scores. Try again later.</p>
+            ) : scores.length === 0 ? (
+                <p>No scores yet. Play the game to get on the board by clicking the game button on the bottom right corner.</p>
             ) : (
                 <table id="scoreboard">
                     <thead>
