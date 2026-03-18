@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { saveScore, ThrottleError } from "@/utils/scoreboard";
 
 interface Position {
@@ -91,7 +92,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     function drawClickableText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, onClick: () => void) {
         ctx.fillText(text, x, y);
         const { width } = ctx.measureText(text);
-        activeClickables.push({ bounds: { x, y: y - 14, w: width, h: 18 }, onClick });
+        activeClickables.push({ bounds: { x: x - width / 2, y: y - 14, w: width, h: 18 }, onClick });
     }
 
     function checkClickables(e: MouseEvent): boolean {
@@ -105,12 +106,15 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     }
 
     function drawStartScreen(ctx: CanvasRenderingContext2D) {
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
         ctx.fillStyle = 'red';
         ctx.font = "bold 14px monospace";
-        ctx.fillText("click to start", canvas.width / 2 - 54, canvas.height / 2);
+        ctx.fillText("CLICK TO START", canvas.width / 2, canvas.height / 2 - 15);
         ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "scoreboard", canvas.width / 2 - 42, canvas.height / 2 + 16, () => {
+        drawClickableText(ctx, "SCOREBOARD", canvas.width / 2, canvas.height / 2 + 15, () => {
             window.location.href = '/scoreboard';
         });
     }
@@ -118,32 +122,39 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     function drawSubmitScreen(ctx: CanvasRenderingContext2D) {
         activeClickables = [];
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'red';
 
+        const cx = canvas.width / 2;
         ctx.font = "bold 14px monospace";
-        ctx.fillText("SUBMIT SCORE", canvas.width / 2 - 54, canvas.height / 2 - 32);
+        ctx.fillText("SUBMIT SCORE", cx, canvas.height / 2 - 55);
 
         ctx.font = "normal 14px monospace";
-        ctx.fillText(`score: ${state.score}`, canvas.width / 2 - 35, canvas.height / 2 - 16);
+        ctx.fillText(`SCORE: ${state.score}`, cx, canvas.height / 2 - 25);
 
-        const inputX = canvas.width / 2 - 60;
-        const inputY = canvas.height / 2 + 2;
+        const inputX = cx - 60;
+        const inputY = canvas.height / 2 - 5;
         ctx.strokeStyle = 'red';
         ctx.lineWidth = 1;
         ctx.strokeRect(inputX, inputY, 120, 18);
-        ctx.fillText(`${submitName}|`, inputX + 4, inputY + 13);
+        ctx.textAlign = 'left';
+        ctx.fillText(`${submitName.toUpperCase()}|`, inputX + 4, inputY + 13);
+        ctx.textAlign = 'center';
 
         if (submitError) {
             ctx.font = "normal 11px monospace";
-            ctx.fillText(submitError, canvas.width / 2 - 60, canvas.height / 2 + 50);
+            ctx.fillText(submitError.toUpperCase(), cx, canvas.height / 2 + 10);
         }
 
-        const submitY = submitError ? canvas.height / 2 + 64 : canvas.height / 2 + 36;
-        const restartY = submitError ? canvas.height / 2 + 80 : canvas.height / 2 + 52;
+        const submitY = submitError ? canvas.height / 2 + 35 : canvas.height / 2 + 25;
+        const restartY = submitError ? canvas.height / 2 + 65 : canvas.height / 2 + 55;
 
-        drawClickableText(ctx, "submit", canvas.width / 2 - 24, submitY, () => {
+        ctx.font = "normal 14px monospace";
+        drawClickableText(ctx, "SUBMIT", cx, submitY, () => {
             if (!submitName.trim()) return;
-            onSaveScore?.(submitName.trim(), state.score)
+            onSaveScore?.(submitName.trim().toUpperCase(), state.score)
                 .then(() => {
                     canvasScreen = 'gameplay';
                     isGameOver = false;
@@ -154,7 +165,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
                     drawSubmitScreen(ctx);
                 });
         });
-        drawClickableText(ctx, "restart", canvas.width / 2 - 28, restartY, () => {
+        drawClickableText(ctx, "RESTART", cx, restartY, () => {
             canvasScreen = 'gameplay';
             isGameOver = false;
             setup(canvas, true, onShowScreen, onSaveScore);
@@ -191,7 +202,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
             submitName = submitName.slice(0, -1);
         } else if (e.key === 'Enter') {
             if (!submitName.trim()) return;
-            onSaveScore?.(submitName.trim(), state.score)
+            onSaveScore?.(submitName.trim().toUpperCase(), state.score)
                 .then(() => {
                     canvasScreen = 'gameplay';
                     isGameOver = false;
@@ -225,7 +236,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         ctx.fillRect(x, y, w, h);
         ctx.fillStyle = 'black';
 
-        const eyeOffset = state.direction === DIRECTION_RIGHT ? 6 : state.direction === DIRECTION_LEFT ? 0 : 6;
+        const eyeOffset = state.direction === DIRECTION_RIGHT ? 6 : state.direction === DIRECTION_LEFT ? 0 : 2;
         const leftEyeX = x + eyeOffset;
         const rightEyeX = x + eyeOffset + 3;
         const eyeHeight = state.score % 20 <= 5 ? 1 : 4;
@@ -249,11 +260,32 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         }
     }
 
+    function drawStar(ctx: CanvasRenderingContext2D, cx: number, cy: number, outerR: number, innerR: number) {
+        ctx.beginPath();
+        for (let i = 0; i < 10; i++) {
+            const angle = (i * Math.PI) / 5 - Math.PI / 2;
+            const r = i % 2 === 0 ? outerR : innerR;
+            const px = cx + r * Math.cos(angle);
+            const py = cy + r * Math.sin(angle);
+            if (i === 0) ctx.moveTo(px, py);
+            else ctx.lineTo(px, py);
+        }
+        ctx.closePath();
+        ctx.fill();
+    }
+
     function drawObstacles(ctx: CanvasRenderingContext2D) {
         for (const obstacle of obstacles) {
             ctx.beginPath();
             ctx.fillStyle = obstacle.isPowerup ? 'yellow' : 'green';
-            ctx.fillRect(obstacle.x, obstacle.y, obstacle.w, obstacle.h);
+            if (obstacle.isPowerup) {
+                const cx = obstacle.x + obstacle.w / 2;
+                const cy = obstacle.y + obstacle.h / 2;
+                const outerR = Math.min(obstacle.w, obstacle.h) / 2;
+                drawStar(ctx, cx, cy, outerR, outerR * 0.4);
+            } else {
+                ctx.fillRect(obstacle.x, obstacle.y, obstacle.w, obstacle.h);
+            }
         }
     }
 
@@ -286,7 +318,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         createObstacles(maxObstacles - obstacles.length);
 
         for (const obstacle of obstacles) {
-            obstacle.y += obstacle.speed ?? 3;
+            obstacle.y += (obstacle.speed ?? 3) * 1.5625;
 
             if (obstacle.y > canvas.height) obstacle.shouldRemove = true;
 
@@ -301,25 +333,31 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         ctx.beginPath();
         ctx.fillStyle = 'red';
         ctx.font = "bold 14px monospace";
-        ctx.fillText(`${state.score}`, 10, 20);
+        ctx.textAlign = 'right';
+        ctx.fillText(`${state.score}`, canvas.width - 10, 20);
+        ctx.textAlign = 'left';
     }
 
     function drawGameOver(ctx: CanvasRenderingContext2D) {
         activeClickables = [];
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
         ctx.fillStyle = 'red';
-        ctx.font = "bold 14px monospace";
-        ctx.fillText("GAME OVER", canvas.width / 2 - 40, canvas.height / 2);
+        const cx = canvas.width / 2;
+        ctx.font = "bold 18px monospace";
+        ctx.fillText("GAME OVER", cx, canvas.height / 2 - 45);
         ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "click to restart", canvas.width / 2 - 72, canvas.height / 2 + 16, () => {
+        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 - 15, () => {
             isGameOver = false;
             setup(canvas, true, onShowScreen, onSaveScore);
         });
-        drawClickableText(ctx, "submit score", canvas.width / 2 - 55, canvas.height / 2 + 32, () => {
+        drawClickableText(ctx, "SUBMIT SCORE", cx, canvas.height / 2 + 15, () => {
             canvasScreen = 'submit-score';
             if (ctx) drawSubmitScreen(ctx);
         });
-        drawClickableText(ctx, "scoreboard", canvas.width / 2 - 42, canvas.height / 2 + 48, () => {
+        drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 45, () => {
             window.location.href = '/scoreboard';
         });
     }
@@ -350,7 +388,8 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
 
 export default function Game() {
     const ref = useRef<HTMLCanvasElement>(null);
-    const [isOpen, setIsOpen] = useState(false);
+    const pathname = usePathname();
+    const [isOpen, setIsOpen] = useState(pathname === '/scoreboard');
     const [activeScreen, setActiveScreen] = useState<{ id: string; data: Record<string, unknown> } | null>(null);
 
     const saveScoreAndNotify = useCallback(async (name: string, score: number) => {
@@ -382,7 +421,7 @@ export default function Game() {
                 &#x1F3AE;
             </button>
             <div className={`game_wrapper${isOpen ? ' open' : ''}`}>
-                <canvas ref={ref} id="game_container" />
+                <canvas ref={ref} id="game_container" height={250} />
                 {activeScreen && activeScreenConfig && (
                     <activeScreenConfig.component
                         data={activeScreen.data}
