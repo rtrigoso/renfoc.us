@@ -369,6 +369,24 @@ article pre code {
   color: #000000;
 }
 
+/* loading spinner */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading::before {
+  content: '';
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--main-fg-color);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
 /* scoreboard table */
 #scoreboard {
   max-width: 450px;

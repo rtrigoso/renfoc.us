@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/mdx": "^15.2.2",
+    "@supabase/supabase-js": "^2.99.2",
     "@types/mdx": "^2.0.13",
     "next": "^15.3.5",
     "next-mdx-remote": "^5.0.0",
