@@ -465,3 +465,37 @@ article pre code {
     width: 150px;
   }
 }
+
+/* glitch animation */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 2px;
+  background-color: var(--secondary-bg-color);
+  color: var(--main-fg-color);
+  clip-path: inset(0 0 100% 0);
+  animation: glitch 10s steps(1) infinite;
+}
+
+.glitch::after  { left:  2px; text-shadow: -1px 0 var(--tertiary-fg-color); animation-delay: 1s; }
+.glitch::before { left: -2px; text-shadow:  1px 0 var(--secondary-fg-color); animation-delay: 1.5s; }
+
+@keyframes glitch {
+  /* hidden for most of the cycle */
+  0%, 11%, 100% { clip-path: inset(0 0 100% 0); }
+  /* burst of glitch slices */
+  2%  { clip-path: inset(17px 0 calc(100% - 53px) 0); }
+  4%  { clip-path: inset(42px 0 calc(100% - 78px) 0); }
+  6%  { clip-path: inset(5px  0 calc(100% - 91px) 0); }
+  8%  { clip-path: inset(23px 0 calc(100% - 35px) 0); }
+  10% { clip-path: inset(61px 0 calc(100% - 44px) 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch::before, .glitch::after { animation: none; }
+}
