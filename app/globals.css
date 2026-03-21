@@ -119,6 +119,17 @@ strong {
   padding: 0 0.2rem;
 }
 
+#social_links_list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline;
+}
+
+#social_links_list li {
+  display: inline;
+}
+
 .nav-link {
   padding: 0.25rem;
   border-radius: 5%;
@@ -209,6 +220,18 @@ header>section>nav {
 #game_container {
   background-color: var(--main-fg-color);
   border-radius: 0.5rem;
+}
+
+.mobile_score_input {
+  position: fixed;
+  opacity: 0;
+  left: -9999px;
+  top: 0;
+  pointer-events: none;
+}
+
+.mobile_score_input_hidden {
+  display: none;
 }
 
 /* posts */
