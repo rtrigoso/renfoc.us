@@ -340,8 +340,8 @@ article pre {
 article p,
 article ul,
 article ol {
-  line-height: 1.35rem;
-  padding-bottom: .5rem;
+  line-height: 1.7;
+  padding-bottom: 1rem;
 }
 
 article p>img {
