@@ -27,11 +27,13 @@ export default function RootLayout({ children }: RootLayoutArgs) {
         </div>
         <Header />
         <Game />
-        <div id="main_content">
-          <main>
-            {children}
-          </main>
-        </div>
+        <noscript>
+          <style>{`.game_wrapper_toggle, .game_wrapper { display: none; }`}</style>
+          <p className="noscript_game_message">Enable JavaScript to play a game!</p>
+        </noscript>
+        <main id="main_content">
+          {children}
+        </main>
       </body>
     </html>
   );

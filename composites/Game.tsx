@@ -72,7 +72,7 @@ class GameLoop {
     }
 }
 
-function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => Promise<void>, mobileInput?: HTMLInputElement) {
+function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => Promise<void>, mobileInput?: HTMLInputElement, onSubmitScreenChange?: (active: boolean) => void) {
     let obstacles: Position[] = [];
     let isGameOver = false;
     let canvasScreen: CanvasScreen = 'gameplay';
@@ -175,6 +175,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         ctx.font = "normal 14px monospace";
         drawClickableText(ctx, "SUBMIT", cx, submitY, () => submitScore());
         drawClickableText(ctx, "RESTART", cx, restartY, () => {
+            onSubmitScreenChange?.(false);
             if (mobileInput) { mobileInput.blur(); mobileInput.value = ''; }
             canvasScreen = 'gameplay';
             isGameOver = false;
@@ -210,6 +211,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         if (!submitName.trim() || !ctx) return;
         onSaveScore?.(submitName.trim().toUpperCase(), state.score)
             .then(() => {
+                onSubmitScreenChange?.(false);
                 if (mobileInput) { mobileInput.blur(); mobileInput.value = ''; }
                 canvasScreen = 'score-submitted';
                 ctx!.clearRect(0, 0, canvas.width, canvas.height);
@@ -379,6 +381,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
             canvasScreen = 'submit-score';
             if (ctx) drawSubmitScreen(ctx);
         }, () => {
+            onSubmitScreenChange?.(true);
             if (mobileInput) { mobileInput.value = ''; mobileInput.focus(); }
         });
         drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 45, () => {
@@ -436,6 +439,7 @@ export default function Game() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(pathname === '/scoreboard');
     const [activeScreen, setActiveScreen] = useState<{ id: string; data: Record<string, unknown> } | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const saveScoreAndNotify = useCallback(async (name: string, score: number) => {
         await saveScore(name, score);
@@ -444,7 +448,7 @@ export default function Game() {
 
     const startGame = useCallback((skipStart: boolean) => {
         if (!ref.current) return;
-        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }), saveScoreAndNotify, mobileInputRef.current ?? undefined);
+        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }), saveScoreAndNotify, mobileInputRef.current ?? undefined, setIsSubmitting);
     }, [saveScoreAndNotify]);
 
     useEffect(() => { startGame(false); }, [startGame]);
@@ -462,18 +466,20 @@ export default function Game() {
                 className="game_wrapper_toggle"
                 title="wanna play?"
                 onClick={() => setIsOpen(prev => !prev)}
-                aria-label="JS enabled? play a game by clicking on this button">
+                aria-expanded={isOpen}
+                aria-label="JS enabled? play a game by clicking on this button"
+                aria-hidden="true">
                 &#x1F3AE;
             </button>
-            <div className={`game_wrapper${isOpen ? ' open' : ''}`}>
+            <div className={`game_wrapper${isOpen ? ' open' : ''}`} aria-hidden="true">
                 <input
                     ref={mobileInputRef}
                     type="text"
                     maxLength={3}
-                    style={{ position: 'fixed', opacity: 0, left: '-9999px', top: 0, pointerEvents: 'none' }}
+                    className={isSubmitting ? 'mobile_score_input' : 'mobile_score_input_hidden'}
                     aria-hidden="true"
                 />
-                <canvas ref={ref} id="game_container" height={250} />
+                <canvas ref={ref} id="game_container" height={250} aria-label="Arcade game. Requires clicking the screen to play." />
                 {activeScreen && activeScreenConfig && (
                     <activeScreenConfig.component
                         data={activeScreen.data}

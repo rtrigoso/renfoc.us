@@ -105,7 +105,7 @@ export default async function BlueskyFeed() {
     const posts: PostCardPost[] = await GetFeedPosts('ren-rocks.bsky.social');
 
     return (
-        <>
+        <ul id="bluesky_feed">
             {
                 posts.map(({ avatar, displayName, content, createdAt, embeds, link }) => {
                     const firstEmbed = embeds?.at(0);
@@ -132,6 +132,6 @@ export default async function BlueskyFeed() {
                     )
                 })
             }
-        </>
+        </ul>
     );
 }

@@ -84,7 +84,7 @@ strong {
   border-radius: 5px;
 }
 
-.skip_link:focus {
+.skip_link:focus-within {
   transform: translateY(0%);
 }
 
@@ -117,6 +117,22 @@ strong {
 
 .social_links {
   padding: 0 0.2rem;
+}
+
+#social_links_list,
+#bluesky_feed {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#social_links_list {
+  display: inline;
+}
+
+#social_links_list li {
+  display: inline;
+  margin: 0 2px;
 }
 
 .nav-link {
@@ -186,7 +202,8 @@ header>section>nav {
 }
 
 /* other pages */
-.game_wrapper_toggle {
+.game_wrapper_toggle,
+.noscript_game_message {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
@@ -209,6 +226,18 @@ header>section>nav {
 #game_container {
   background-color: var(--main-fg-color);
   border-radius: 0.5rem;
+}
+
+.mobile_score_input {
+  position: fixed;
+  opacity: 0;
+  left: -9999px;
+  top: 0;
+  pointer-events: none;
+}
+
+.mobile_score_input_hidden {
+  display: none;
 }
 
 /* posts */
@@ -321,14 +350,17 @@ article p>img {
   display: block;
 }
 
+article ol,
+article ul {
+  list-style-position: inside;
+}
+
 article ol {
   list-style-type: decimal;
-  list-style-position: inside;
 }
 
 article ul {
   list-style-type: circle;
-  list-style-position: inside;
 }
 
 article li {
@@ -341,10 +373,7 @@ article h2 {
   padding-bottom: 1rem;
 }
 
-article em {
-  color: var(--secondary-fg-color);
-}
-
+article em,
 article blockquote {
   color: var(--secondary-fg-color);
 }
@@ -375,12 +404,16 @@ article pre code {
   to { transform: rotate(360deg); }
 }
 
+.loading,
+#scoreboard {
+  max-width: 450px;
+  width: 100vh;
+}
+
 .loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 450px;
-  width: 100vh;
   height: 100vh;
 }
 
@@ -398,11 +431,6 @@ article pre code {
 }
 
 /* scoreboard table */
-#scoreboard {
-  max-width: 450px;
-  width: 100vh;
-}
-
 @media screen and (max-width: 450px) {
   #scoreboard {
     width: 250px;
