@@ -84,7 +84,7 @@ strong {
   border-radius: 5px;
 }
 
-.skip_link:focus {
+.skip_link:focus-within {
   transform: translateY(0%);
 }
 

@@ -462,6 +462,7 @@ export default function Game() {
                 className="game_wrapper_toggle"
                 title="wanna play?"
                 onClick={() => setIsOpen(prev => !prev)}
+                aria-expanded={isOpen}
                 aria-label="JS enabled? play a game by clicking on this button">
                 &#x1F3AE;
             </button>
@@ -473,7 +474,7 @@ export default function Game() {
                     style={{ position: 'fixed', opacity: 0, left: '-9999px', top: 0, pointerEvents: 'none' }}
                     aria-hidden="true"
                 />
-                <canvas ref={ref} id="game_container" height={250} />
+                <canvas ref={ref} id="game_container" height={250} aria-label="Arcade game. Requires clicking the screen to play." />
                 {activeScreen && activeScreenConfig && (
                     <activeScreenConfig.component
                         data={activeScreen.data}

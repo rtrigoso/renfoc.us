@@ -27,11 +27,9 @@ export default function RootLayout({ children }: RootLayoutArgs) {
         </div>
         <Header />
         <Game />
-        <div id="main_content">
-          <main>
-            {children}
-          </main>
-        </div>
+        <main id="main_content">
+          {children}
+        </main>
       </body>
     </html>
   );

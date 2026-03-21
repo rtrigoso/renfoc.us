@@ -7,8 +7,8 @@ interface SocialLinkProps {
 
 export default function SocialLink({ href, ariaLabel, hiddenText, children }: SocialLinkProps) {
     return (
-        <a className="social-link" href={href} target="_BLANK" aria-label={ariaLabel}>
-            <span className="hidden">{hiddenText}</span>
+        <a className="social-link" href={href} target="_blank" rel="noreferrer" aria-label={ariaLabel}>
+            <span className="hidden">{hiddenText}, opens in new tab</span>
             {children}
         </a>
     );
