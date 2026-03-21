@@ -38,7 +38,7 @@ interface CardProps {
 
 export default function Card(props: CardProps) {
     return (
-        <div className="card">
+        <li className="card">
             <div className="card_header">
                  <img
                     className="avatar"
@@ -71,6 +71,6 @@ export default function Card(props: CardProps) {
                     <a href={props.postURL} target="_BLANK">view post</a>
                 </div>
             </div>
-        </div>
+        </li>
     );
 }
