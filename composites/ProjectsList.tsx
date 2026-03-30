@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Fragment } from "react";
+import { capitalizeFirst } from "@/utils/string";
 
 const projects = [
     {
@@ -44,7 +45,7 @@ export default async function ProjectList() {
                         tabIndex={0}
                         className="link post_link"
                         href={link}>
-                        {`${label.charAt(0).toUpperCase() + label.slice(1)}: `}
+                        {`${capitalizeFirst(label)}: `}
                     </Link>
                 </dt>
                 <dd>

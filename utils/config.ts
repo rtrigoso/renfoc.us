@@ -1,0 +1,8 @@
+export const SITE_NAME = 'renfoc.us'
+export const SITE_TAGLINE = 'Metaphysics, tunes, and code'
+export const SITE_DOMAIN = 'renfoc.us'
+export const SITE_URL = process.env.NODE_ENV === 'production' ? 'https://renfoc.us' : 'https://localhost:3000'
+export const BLUESKY_HANDLE = 'ren-rocks.bsky.social'
+export const GITHUB_USERNAME = 'rtrigoso'
+export const ICON_COLOR = '#E69375'
+export const HEADER_IMAGE = '/header.webp'

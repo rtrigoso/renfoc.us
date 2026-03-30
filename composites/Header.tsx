@@ -9,6 +9,7 @@ import GithubIcon from './icons/GithubIcon';
 import EmailIcon from './icons/EmailIcon';
 import UpworkIcon from './icons/UpworkIcon';
 import RSSIcon from './icons/RSSIcon';
+import { SITE_TAGLINE, GITHUB_USERNAME, SITE_DOMAIN, HEADER_IMAGE } from '@/utils/config';
 
 export default function Header() {
     const pathname = usePathname();
@@ -17,7 +18,7 @@ export default function Header() {
             <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>
                 <div className="crop_circle logo_wrapper">
                     <Image
-                        src="/header.webp"
+                        src={HEADER_IMAGE}
                         alt="selfie created with ai on the style of a studio ghibli movie"
                         className="logo"
                         width={250}
@@ -35,14 +36,14 @@ export default function Header() {
                 <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>
                     <h1 className="glitch" data-text="Ren's blog">Ren's blog</h1>
                 </Link>
-                <h2>Metaphysics, tunes, and code</h2>
+                <h2>{SITE_TAGLINE}</h2>
                 <nav id="social_links">
                     <span className="hide_on_mobile">Connect: </span>
                     <ul id="social_links_list">
                         <SocialLink href="https://www.linkedin.com/in/ren-trigoso-a36609186/" ariaLabel="my linkedin" hiddenText="visit my linkedin">
                             <LinkedinIcon />
                         </SocialLink>
-                        <SocialLink href="https://github.com/rtrigoso/" ariaLabel="my github" hiddenText="visit my github">
+                        <SocialLink href={`https://github.com/${GITHUB_USERNAME}/`} ariaLabel="my github" hiddenText="visit my github">
                             <GithubIcon />
                         </SocialLink>
                         <SocialLink href="mailto:resume@renrocks.mozmail.com" ariaLabel="send me an email" hiddenText="send me an email">
@@ -51,7 +52,7 @@ export default function Header() {
                         <SocialLink href="https://www.upwork.com/freelancers/~0101ffe1f36d5b9159" ariaLabel="upwork" hiddenText="hire me for freelancing">
                             <UpworkIcon />
                         </SocialLink>
-                        <SocialLink href="https://renfoc.us/rss.xml" ariaLabel="rss feed" hiddenText="rss feed link">
+                        <SocialLink href={`https://${SITE_DOMAIN}/rss.xml`} ariaLabel="rss feed" hiddenText="rss feed link">
                             <RSSIcon />
                         </SocialLink>
                     </ul>

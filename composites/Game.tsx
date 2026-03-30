@@ -36,6 +36,17 @@ const PLAYER_SIZE = 10;
 const BASE_MAX_OBSTACLES = 10;
 const POWERUP_SHRINK_MS = 2000;
 
+const COLOR_PRIMARY = 'red';
+const COLOR_OVERLAY = 'rgba(0, 0, 0, 0.5)';
+const FONT_BOLD_SM = 'bold 14px monospace';
+const FONT_NORMAL_SM = 'normal 14px monospace';
+const FONT_BOLD_LG = 'bold 18px monospace';
+const FONT_ERROR = 'normal 11px monospace';
+const TEXT_SCOREBOARD = 'SCOREBOARD';
+const TEXT_RESTART = 'CLICK TO RESTART';
+const TEXT_SUBMIT_SCORE = 'SUBMIT SCORE';
+const SCOREBOARD_PATH = '/scoreboard';
+
 type ShowScreenFn = (id: string, data: Record<string, unknown>) => void;
 type CanvasScreen = 'gameplay' | 'submit-score' | 'score-submitted';
 
@@ -94,9 +105,16 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     function drawClickableText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, onClick: () => void, syncFn?: () => void) {
         if (text === flashingText) ctx.fillStyle = 'yellow';
         ctx.fillText(text, x, y);
-        if (text === flashingText) ctx.fillStyle = 'red';
+        if (text === flashingText) ctx.fillStyle = COLOR_PRIMARY;
         const { width } = ctx.measureText(text);
         activeClickables.push({ bounds: { x: x - width / 2, y: y - 14, w: width, h: 18 }, onClick, text, syncFn });
+    }
+
+    function drawOverlay(ctx: CanvasRenderingContext2D) {
+        ctx.textAlign = 'center';
+        ctx.fillStyle = COLOR_OVERLAY;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = COLOR_PRIMARY;
     }
 
     function redrawCurrentScreen() {
@@ -127,52 +145,46 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     }
 
     function drawStartScreen(ctx: CanvasRenderingContext2D) {
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        drawOverlay(ctx);
         ctx.beginPath();
-        ctx.fillStyle = 'red';
-        ctx.font = "bold 14px monospace";
+        ctx.font = FONT_BOLD_SM;
         ctx.fillText("CLICK TO START", canvas.width / 2, canvas.height / 2 - 15);
-        ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "SCOREBOARD", canvas.width / 2, canvas.height / 2 + 15, () => {
-            window.location.href = '/scoreboard';
+        ctx.font = FONT_NORMAL_SM;
+        drawClickableText(ctx, TEXT_SCOREBOARD, canvas.width / 2, canvas.height / 2 + 15, () => {
+            window.location.href = SCOREBOARD_PATH;
         });
     }
 
     function drawSubmitScreen(ctx: CanvasRenderingContext2D) {
         activeClickables = [];
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'red';
+        drawOverlay(ctx);
 
         const cx = canvas.width / 2;
-        ctx.font = "bold 14px monospace";
-        ctx.fillText("SUBMIT SCORE", cx, canvas.height / 2 - 55);
+        ctx.font = FONT_BOLD_SM;
+        ctx.fillText(TEXT_SUBMIT_SCORE, cx, canvas.height / 2 - 55);
 
-        ctx.font = "normal 14px monospace";
+        ctx.font = FONT_NORMAL_SM;
         ctx.fillText(`SCORE: ${state.score}`, cx, canvas.height / 2 - 25);
 
         const inputX = cx - 60;
         const inputY = canvas.height / 2 - 5;
-        ctx.strokeStyle = 'red';
+        ctx.strokeStyle = COLOR_PRIMARY;
         ctx.lineWidth = 1;
         ctx.strokeRect(inputX, inputY, 120, 18);
         ctx.textAlign = 'left';
-        ctx.fillText(`${submitName.toUpperCase()}|`, inputX + 4, inputY + 13);
+        ctx.fillText(`${submitName}|`, inputX + 4, inputY + 13);
         ctx.textAlign = 'center';
 
         if (submitError) {
-            ctx.font = "normal 11px monospace";
+            ctx.font = FONT_ERROR;
             ctx.fillText(submitError.toUpperCase(), cx, canvas.height / 2 + 10);
         }
 
         const submitY = submitError ? canvas.height / 2 + 53 : canvas.height / 2 + 43;
         const restartY = submitError ? canvas.height / 2 + 83 : canvas.height / 2 + 73;
 
-        ctx.font = "normal 14px monospace";
+        ctx.font = FONT_NORMAL_SM;
         drawClickableText(ctx, "SUBMIT", cx, submitY, () => submitScore());
         drawClickableText(ctx, "RESTART", cx, restartY, () => {
             onSubmitScreenChange?.(false);
@@ -209,7 +221,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
 
     function submitScore() {
         if (!submitName.trim() || !ctx) return;
-        onSaveScore?.(submitName.trim().toUpperCase(), state.score)
+        onSaveScore?.(submitName.trim(), state.score)
             .then(() => {
                 onSubmitScreenChange?.(false);
                 if (mobileInput) { mobileInput.blur(); mobileInput.value = ''; }
@@ -231,14 +243,14 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
             submitScore();
             return;
         } else if (e.key.length === 1 && submitName.length < 3) {
-            submitName += e.key;
+            submitName += e.key.toUpperCase();
         }
         drawSubmitScreen(ctx);
     }
 
     function handleMobileInput() {
         if (!mobileInput || !ctx) return;
-        submitName = mobileInput.value.slice(0, 3);
+        submitName = mobileInput.value.slice(0, 3).toUpperCase();
         drawSubmitScreen(ctx);
     }
 
@@ -256,7 +268,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         const { x, y, w, h } = state.position;
 
         ctx.beginPath();
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = COLOR_PRIMARY;
         ctx.fillRect(x, y, w, h);
         ctx.fillStyle = 'black';
 
@@ -355,8 +367,8 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
 
     function writeScore(ctx: CanvasRenderingContext2D) {
         ctx.beginPath();
-        ctx.fillStyle = 'red';
-        ctx.font = "bold 14px monospace";
+        ctx.fillStyle = COLOR_PRIMARY;
+        ctx.font = FONT_BOLD_SM;
         ctx.textAlign = 'right';
         ctx.fillText(`${state.score}`, canvas.width - 10, 20);
         ctx.textAlign = 'left';
@@ -364,48 +376,42 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
 
     function drawGameOver(ctx: CanvasRenderingContext2D) {
         activeClickables = [];
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        drawOverlay(ctx);
         ctx.beginPath();
-        ctx.fillStyle = 'red';
         const cx = canvas.width / 2;
-        ctx.font = "bold 18px monospace";
+        ctx.font = FONT_BOLD_LG;
         ctx.fillText("GAME OVER", cx, canvas.height / 2 - 45);
-        ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 - 15, () => {
+        ctx.font = FONT_NORMAL_SM;
+        drawClickableText(ctx, TEXT_RESTART, cx, canvas.height / 2 - 15, () => {
             isGameOver = false;
             setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
         });
-        drawClickableText(ctx, "SUBMIT SCORE", cx, canvas.height / 2 + 15, () => {
+        drawClickableText(ctx, TEXT_SUBMIT_SCORE, cx, canvas.height / 2 + 15, () => {
             canvasScreen = 'submit-score';
             if (ctx) drawSubmitScreen(ctx);
         }, () => {
             onSubmitScreenChange?.(true);
             if (mobileInput) { mobileInput.value = ''; mobileInput.focus(); }
         });
-        drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 45, () => {
-            window.location.href = '/scoreboard';
+        drawClickableText(ctx, TEXT_SCOREBOARD, cx, canvas.height / 2 + 45, () => {
+            window.location.href = SCOREBOARD_PATH;
         });
     }
 
     function drawScoreSubmitted(ctx: CanvasRenderingContext2D) {
         activeClickables = [];
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        drawOverlay(ctx);
         ctx.beginPath();
-        ctx.fillStyle = 'red';
         const cx = canvas.width / 2;
-        ctx.font = "bold 18px monospace";
+        ctx.font = FONT_BOLD_LG;
         ctx.fillText("SCORE SUBMITTED", cx, canvas.height / 2 - 30);
-        ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 + 0, () => {
+        ctx.font = FONT_NORMAL_SM;
+        drawClickableText(ctx, TEXT_RESTART, cx, canvas.height / 2 + 0, () => {
             isGameOver = false;
             setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
         });
-        drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 30, () => {
-            window.location.href = '/scoreboard';
+        drawClickableText(ctx, TEXT_SCOREBOARD, cx, canvas.height / 2 + 30, () => {
+            window.location.href = SCOREBOARD_PATH;
         });
     }
 

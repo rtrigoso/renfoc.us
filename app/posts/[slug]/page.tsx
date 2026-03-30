@@ -1,4 +1,5 @@
-import { GetPostDescription, ReadContentDirectory, readDataContent } from "@/utils/content";
+import { GetPostDescription, ReadContentDirectory, getTitleFromSlug, getPWD, readDataContent } from "@/utils/content";
+import { capitalizeFirst } from "@/utils/string";
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { parse } from "path";
 
@@ -8,32 +9,30 @@ interface PostsParams {
 
 export async function generateMetadata({ params }: PostsParams) {
     const { slug } = await params;
-    const title = slug.split('-')[1].split('_').join(' ');
+    const title = getTitleFromSlug(slug);
     const data = await GetPostDescription(slug)
 
     return {
-        title: title[0].toUpperCase() + title.slice(1),
+        title: capitalizeFirst(title),
         description: data,
         'twitter:title': data,
-        'og:title': title[0].toUpperCase() + title.slice(1)
+        'og:title': capitalizeFirst(title)
     }
 }
 
 export default async function Posts({ params }: PostsParams) {
     const { slug, creationDate } = await params
 
-    if (!process.env.PWD) return <></>;
+    const data = await readDataContent(slug, getPWD());
 
-    const data = await readDataContent(slug, process.env.PWD);
- 
     return (
         <article>
             <time dateTime={creationDate}>{creationDate}</time>
             <MDXRemote source={`${data}`} />
         </article>
     )
-}  
-   
+}
+
 export async function generateStaticParams() {
     const files = await ReadContentDirectory();
 

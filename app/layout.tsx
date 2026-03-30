@@ -4,10 +4,11 @@ import type { Metadata } from "next";
 import { Syne_Mono } from 'next/font/google';
 import Header from '@/composites/Header';
 import Game from '@/composites/Game';
+import { SITE_NAME, SITE_TAGLINE } from '@/utils/config';
 
 export const metadata: Metadata = {
-  title: "renfoc.us",
-  description: "Metaphysics, tunes, and code.",
+  title: SITE_NAME,
+  description: `${SITE_TAGLINE}.`,
 };
 
 const googlefont = Syne_Mono({ weight: '400', subsets: ['latin']});

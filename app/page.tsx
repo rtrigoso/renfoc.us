@@ -4,6 +4,7 @@ import ProjectList from "@/composites/ProjectsList";
 import { GetLinksDataFromContent, generateRSSFeed } from "@/utils/content";
 import Link from "next/link";
 import ExternalLink from "@/composites/ExternalLink";
+import { BLUESKY_HANDLE } from "@/utils/config";
 
 export default async function Home() {
   const posts = await GetLinksDataFromContent();
@@ -23,7 +24,7 @@ export default async function Home() {
       <section>
         <h3>Bluesky Feed</h3>
         <BlueskyFeed />
-        <Link className="nav-link" target="_BLANK" href={'https://bsky.app/profile/ren-rocks.bsky.social'}>view feed... <ExternalLink /></Link>
+        <Link className="nav-link" target="_blank" href={`https://bsky.app/profile/${BLUESKY_HANDLE}`}>view feed... <ExternalLink /></Link>
       </section>
     </>
   );

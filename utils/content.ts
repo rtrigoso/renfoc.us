@@ -2,6 +2,7 @@ import { Dirent, readdirSync } from "fs";
 import { parse, resolve } from "path";
 import { promises as fs, writeFileSync } from "fs";
 import RSS from 'rss';
+import { SITE_URL, SITE_TAGLINE, HEADER_IMAGE } from './config';
 
 class ExtendedDirent extends Dirent {
     creationTime: number = 0
@@ -15,15 +16,26 @@ export interface PostItem {
     description?: string
 }
 
-export function GetContentDirFullPath () {
+export function getPWD(): string {
     if (!process.env.PWD) throw new Error('process.env.PWD is not set');
-
-    return resolve(process.env.PWD, 'content');
+    return process.env.PWD;
 }
 
-export function PrintContentReadableCreationTime (filename: string) : string {
-    const creationTimestamp = parseInt(filename.split('-')[0]);
-    const creationDate = new Date(creationTimestamp * 1000);
+export function GetContentDirFullPath() {
+    return resolve(getPWD(), 'content');
+}
+
+export function getTimestampMsFromFilename(filename: string): number {
+    return parseInt(filename.split('-')[0]) * 1000;
+}
+
+export function getTitleFromSlug(slug: string): string {
+    const match = slug.match(/^\d+-(.+)$/);
+    return match ? match[1].replaceAll('_', ' ') : slug;
+}
+
+export function PrintContentReadableCreationTime(filename: string): string {
+    const creationDate = new Date(getTimestampMsFromFilename(filename));
     const creationDateString = new Intl.DateTimeFormat('en-US', {
         month: '2-digit',
         day: '2-digit',
@@ -51,7 +63,7 @@ export async function ReadContentDirectory(): Promise<ExtendedDirent[]> {
         }});
 
         total.push(d)
-        
+
         return total;
     }, initialValue);
 
@@ -67,9 +79,7 @@ export async function readDataContent(slug: string, currentPath: string): Promis
 }
 
 export async function GetPostDescription(slug: string): Promise<string> {
-    if (!process.env.PWD) return '';
-
-    const raw = await readDataContent(slug, process.env.PWD);
+    const raw = await readDataContent(slug, getPWD());
     // Strip markdown headings, then extract the first complete sentence
     const text = raw.replace(/^#{1,6}\s+.+$/gm, '').trim();
     const first = text.indexOf('. ');
@@ -85,9 +95,8 @@ export async function GetLinksDataFromContent(): Promise<PostItem[]> {
     const dataPromise = files
         .map(async f => {
             const filename = parse(f.name).name
-            const titleMatch = f.name.match(/^\d+-(.+)\.md$/);
-            const title = titleMatch ? titleMatch[1].replaceAll('_', ' ') : filename;
-            const creationDate = parseInt(f.name.split('-')[0]) * 1000;
+            const title = getTitleFromSlug(filename);
+            const creationDate = getTimestampMsFromFilename(f.name);
             const creationDateString = PrintContentReadableCreationTime(f.name);
             const description = await GetPostDescription(filename)
 
@@ -106,13 +115,12 @@ export async function GetLinksDataFromContent(): Promise<PostItem[]> {
 }
 
 export function generateRSSFeed(posts: PostItem[]): void {
-    const site_url = process.env.NODE_ENV === 'production' ? 'https://renfoc.us' : 'https://localhost:3000';
     const feedOptions = {
         title: "ren focus | RSS Feed",
-        description: "Metaphysics, tunes, and code",
-        site_url: site_url,
-        feed_url: `${site_url}/rss.xml`,
-        image_url: `${site_url}/header.webp`,
+        description: SITE_TAGLINE,
+        site_url: SITE_URL,
+        feed_url: `${SITE_URL}/rss.xml`,
+        image_url: `${SITE_URL}${HEADER_IMAGE}`,
         pubDate: new Date(),
         copyright: `All rights reserved ${new Date().getFullYear()}`,
     };
@@ -123,7 +131,7 @@ export function generateRSSFeed(posts: PostItem[]): void {
         feed.item({
             title: post.title,
             description: post.description || '',
-            url: `${site_url}${post.path}`,
+            url: `${SITE_URL}${post.path}`,
             date: new Date(post.creationDate),
         });
     });

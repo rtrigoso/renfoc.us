@@ -1,4 +1,6 @@
 import Card from "./Card"
+import { PostCardEmbed, PostCardPost } from "./types"
+import { BLUESKY_HANDLE } from "@/utils/config"
 
 interface BlueskyRecord {
     text: string,
@@ -45,9 +47,7 @@ interface BlueskyFeed {
 
 async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
     const res = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${username}&limit=3`);
-    if (!res.ok) {
-        throw new Error(`Response status: ${res.status}`);
-    }
+    if (!res.ok) throw new Error(`${res.status}: ${await res.text()}`);
 
     const feed = await res.json();
 
@@ -71,7 +71,7 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
         }
         
        return {
-            link: `https://bsky.app/profile/ren-rocks.bsky.social/post/${post.uri.split('/').at(-1)}`,
+            link: `https://bsky.app/profile/${BLUESKY_HANDLE}/post/${post.uri.split('/').at(-1)}`,
             avatar: post.author.avatar,
             displayName: post.author.displayName.split(/\s/).at(0),
             content: post.record.text,
@@ -85,24 +85,9 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
     });
 }
 
-interface PostCardEmbed {
-    alt: string
-    type: 'image'
-    link: string
-    aspectRatio: string
-}
-
-interface PostCardPost {
-    avatar: string
-    displayName: string
-    content: string
-    createdAt: Date
-    embeds: PostCardEmbed[]
-    link: string
-}
 
 export default async function BlueskyFeed() {
-    const posts: PostCardPost[] = await GetFeedPosts('ren-rocks.bsky.social');
+    const posts: PostCardPost[] = await GetFeedPosts(BLUESKY_HANDLE);
 
     return (
         <ul id="bluesky_feed">

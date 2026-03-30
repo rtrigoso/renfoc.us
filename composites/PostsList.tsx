@@ -1,4 +1,5 @@
 import { PostItem } from "@/utils/content";
+import { capitalizeFirst } from "@/utils/string";
 import Link from "next/link";
 
 interface LinkListParams {
@@ -26,7 +27,7 @@ export default async function LinkList({ content }: LinkListParams) {
                     tabIndex={0}
                     className="link post_link"
                     href={path}>
-                    {title.charAt(0).toUpperCase() + title.slice(1)}
+                    {capitalizeFirst(title)}
                 </Link>
             </li>
         );

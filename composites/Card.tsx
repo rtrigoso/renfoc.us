@@ -1,9 +1,4 @@
-interface PostCardEmbed {
-    alt: string
-    type: 'image'
-    link: string
-    aspectRatio: string
-}
+import { PostCardEmbed } from "./types"
 
 function PostCardEmbed({ alt, link, aspectRatio, type }: PostCardEmbed) {
     switch (type) {
@@ -68,7 +63,7 @@ export default function Card(props: CardProps) {
                         aspectRatio={props.embedAspectRatio || ''}
                     />
                 }                <div>
-                    <a href={props.postURL} target="_BLANK">view post</a>
+                    <a href={props.postURL} target="_blank">view post</a>
                 </div>
             </div>
         </li>
