@@ -7,7 +7,6 @@ import CoffeeCupIcon from './icons/CoffeeCupIcon';
 import LinkedinIcon from './icons/LinkedinIcon';
 import GithubIcon from './icons/GithubIcon';
 import EmailIcon from './icons/EmailIcon';
-import UpworkIcon from './icons/UpworkIcon';
 import RSSIcon from './icons/RSSIcon';
 import { SITE_TAGLINE, GITHUB_USERNAME, SITE_DOMAIN, HEADER_IMAGE } from '@/utils/config';
 
@@ -48,9 +47,6 @@ export default function Header() {
                         </SocialLink>
                         <SocialLink href="mailto:resume@renrocks.mozmail.com" ariaLabel="send me an email" hiddenText="send me an email">
                             <EmailIcon />
-                        </SocialLink>
-                        <SocialLink href="https://www.upwork.com/freelancers/~0101ffe1f36d5b9159" ariaLabel="upwork" hiddenText="hire me for freelancing">
-                            <UpworkIcon />
                         </SocialLink>
                         <SocialLink href={`https://${SITE_DOMAIN}/rss.xml`} ariaLabel="rss feed" hiddenText="rss feed link">
                             <RSSIcon />
