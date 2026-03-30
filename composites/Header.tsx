@@ -10,6 +10,13 @@ import EmailIcon from './icons/EmailIcon';
 import RSSIcon from './icons/RSSIcon';
 import { SITE_TAGLINE, GITHUB_USERNAME, SITE_DOMAIN, HEADER_IMAGE } from '@/utils/config';
 
+const SOCIAL_LINKS = [
+    { href: 'https://www.linkedin.com/in/ren-trigoso-a36609186/', ariaLabel: 'my linkedin', hiddenText: 'visit my linkedin', icon: <LinkedinIcon /> },
+    { href: `https://github.com/${GITHUB_USERNAME}/`, ariaLabel: 'my github', hiddenText: 'visit my github', icon: <GithubIcon /> },
+    { href: 'mailto:resume@renrocks.mozmail.com', ariaLabel: 'send me an email', hiddenText: 'send me an email', icon: <EmailIcon /> },
+    { href: `https://${SITE_DOMAIN}/rss.xml`, ariaLabel: 'rss feed', hiddenText: 'rss feed link', icon: <RSSIcon /> },
+];
+
 export default function Header() {
     const pathname = usePathname();
     return (
@@ -39,18 +46,11 @@ export default function Header() {
                 <nav id="social_links">
                     <span className="hide_on_mobile">Connect: </span>
                     <ul id="social_links_list">
-                        <SocialLink href="https://www.linkedin.com/in/ren-trigoso-a36609186/" ariaLabel="my linkedin" hiddenText="visit my linkedin">
-                            <LinkedinIcon />
-                        </SocialLink>
-                        <SocialLink href={`https://github.com/${GITHUB_USERNAME}/`} ariaLabel="my github" hiddenText="visit my github">
-                            <GithubIcon />
-                        </SocialLink>
-                        <SocialLink href="mailto:resume@renrocks.mozmail.com" ariaLabel="send me an email" hiddenText="send me an email">
-                            <EmailIcon />
-                        </SocialLink>
-                        <SocialLink href={`https://${SITE_DOMAIN}/rss.xml`} ariaLabel="rss feed" hiddenText="rss feed link">
-                            <RSSIcon />
-                        </SocialLink>
+                        {SOCIAL_LINKS.map(({ href, ariaLabel, hiddenText, icon }) => (
+                            <SocialLink key={href} href={href} ariaLabel={ariaLabel} hiddenText={hiddenText}>
+                                {icon}
+                            </SocialLink>
+                        ))}
                     </ul>
                 </nav>
              </section>
