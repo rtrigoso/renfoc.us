@@ -210,6 +210,7 @@ header>section>nav {
 }
 
 .game_wrapper.open {
+  margin-bottom: 20px;
   max-height: 400px;
 }
 
