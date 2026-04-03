@@ -127,12 +127,13 @@ strong {
 }
 
 #social_links_list {
-  display: inline;
+  display: flex;
+  justify-content: center;
+  gap: 0.15rem;
 }
 
 #social_links_list li {
   display: inline;
-  margin: 0 2px;
 }
 
 .nav-link {
@@ -168,7 +169,7 @@ header>section>nav {
   justify-content: space-between;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.10rem;
+  padding: 0.10rem 0.4rem;
   border-radius: 5px;
   background-color: var(--main-fg-color);
   width: fit-content;
@@ -402,7 +403,9 @@ article pre code {
 
 /* loading spinner */
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .loading,
@@ -456,6 +459,7 @@ article pre code {
 }
 
 @media screen and (min-width: 450px) {
+
   #scoreboard th:nth-child(3),
   #scoreboard td:nth-child(3) {
     width: 90px;
@@ -483,20 +487,53 @@ article pre code {
   animation: glitch 10s steps(1) infinite;
 }
 
-.glitch::after  { left:  2px; text-shadow: -1px 0 var(--tertiary-fg-color); animation-delay: 1s; }
-.glitch::before { left: -2px; text-shadow:  1px 0 var(--secondary-fg-color); animation-delay: 1.5s; }
+.glitch::after {
+  left: 2px;
+  text-shadow: -1px 0 var(--tertiary-fg-color);
+  animation-delay: 1s;
+}
+
+.glitch::before {
+  left: -2px;
+  text-shadow: 1px 0 var(--secondary-fg-color);
+  animation-delay: 1.5s;
+}
 
 @keyframes glitch {
+
   /* hidden for most of the cycle */
-  0%, 11%, 100% { clip-path: inset(0 0 100% 0); }
+  0%,
+  11%,
+  100% {
+    clip-path: inset(0 0 100% 0);
+  }
+
   /* burst of glitch slices */
-  2%  { clip-path: inset(17px 0 calc(100% - 53px) 0); }
-  4%  { clip-path: inset(42px 0 calc(100% - 78px) 0); }
-  6%  { clip-path: inset(5px  0 calc(100% - 91px) 0); }
-  8%  { clip-path: inset(23px 0 calc(100% - 35px) 0); }
-  10% { clip-path: inset(61px 0 calc(100% - 44px) 0); }
+  2% {
+    clip-path: inset(17px 0 calc(100% - 53px) 0);
+  }
+
+  4% {
+    clip-path: inset(42px 0 calc(100% - 78px) 0);
+  }
+
+  6% {
+    clip-path: inset(5px 0 calc(100% - 91px) 0);
+  }
+
+  8% {
+    clip-path: inset(23px 0 calc(100% - 35px) 0);
+  }
+
+  10% {
+    clip-path: inset(61px 0 calc(100% - 44px) 0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .glitch::before, .glitch::after { animation: none; }
+
+  .glitch::before,
+  .glitch::after {
+    animation: none;
+  }
 }
