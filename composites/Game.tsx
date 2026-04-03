@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { saveScore, ThrottleError } from "@/utils/scoreboard";
+import GameToggleButton from "@/composites/GameToggleButton";
 
 interface Position {
     x: number;
@@ -91,6 +92,29 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     const ctx = canvas.getContext('2d');
     let hasStarted = skipStartScreen;
 
+    function restart() {
+        isGameOver = false;
+        setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
+    }
+
+    function goToScoreboard() {
+        window.location.href = '/scoreboard';
+    }
+
+    function closeSubmitScreen() {
+        onSubmitScreenChange?.(false);
+        if (mobileInput) { mobileInput.blur(); mobileInput.value = ''; }
+    }
+
+    function drawOverlay(ctx: CanvasRenderingContext2D) {
+        activeClickables = [];
+        ctx.textAlign = 'center';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+    }
+
     function drawClickableText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, onClick: () => void, syncFn?: () => void) {
         if (text === flashingText) ctx.fillStyle = 'yellow';
         ctx.fillText(text, x, y);
@@ -135,9 +159,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         ctx.font = "bold 14px monospace";
         ctx.fillText("CLICK TO START", canvas.width / 2, canvas.height / 2 - 15);
         ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "SCOREBOARD", canvas.width / 2, canvas.height / 2 + 15, () => {
-            window.location.href = '/scoreboard';
-        });
+        drawClickableText(ctx, "SCOREBOARD", canvas.width / 2, canvas.height / 2 + 15, goToScoreboard);
     }
 
     function drawSubmitScreen(ctx: CanvasRenderingContext2D) {
@@ -175,11 +197,9 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         ctx.font = "normal 14px monospace";
         drawClickableText(ctx, "SUBMIT", cx, submitY, () => submitScore());
         drawClickableText(ctx, "RESTART", cx, restartY, () => {
-            onSubmitScreenChange?.(false);
-            if (mobileInput) { mobileInput.blur(); mobileInput.value = ''; }
+            closeSubmitScreen();
             canvasScreen = 'gameplay';
-            isGameOver = false;
-            setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
+            restart();
         });
     }
 
@@ -211,8 +231,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         if (!submitName.trim() || !ctx) return;
         onSaveScore?.(submitName.trim().toUpperCase(), state.score)
             .then(() => {
-                onSubmitScreenChange?.(false);
-                if (mobileInput) { mobileInput.blur(); mobileInput.value = ''; }
+                closeSubmitScreen();
                 canvasScreen = 'score-submitted';
                 ctx!.clearRect(0, 0, canvas.width, canvas.height);
                 drawScoreSubmitted(ctx!);
@@ -363,20 +382,12 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     }
 
     function drawGameOver(ctx: CanvasRenderingContext2D) {
-        activeClickables = [];
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.beginPath();
-        ctx.fillStyle = 'red';
+        drawOverlay(ctx);
         const cx = canvas.width / 2;
         ctx.font = "bold 18px monospace";
         ctx.fillText("GAME OVER", cx, canvas.height / 2 - 45);
         ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 - 15, () => {
-            isGameOver = false;
-            setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
-        });
+        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 - 15, restart);
         drawClickableText(ctx, "SUBMIT SCORE", cx, canvas.height / 2 + 15, () => {
             canvasScreen = 'submit-score';
             if (ctx) drawSubmitScreen(ctx);
@@ -384,29 +395,17 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
             onSubmitScreenChange?.(true);
             if (mobileInput) { mobileInput.value = ''; mobileInput.focus(); }
         });
-        drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 45, () => {
-            window.location.href = '/scoreboard';
-        });
+        drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 45, goToScoreboard);
     }
 
     function drawScoreSubmitted(ctx: CanvasRenderingContext2D) {
-        activeClickables = [];
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.beginPath();
-        ctx.fillStyle = 'red';
+        drawOverlay(ctx);
         const cx = canvas.width / 2;
         ctx.font = "bold 18px monospace";
         ctx.fillText("SCORE SUBMITTED", cx, canvas.height / 2 - 30);
         ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 + 0, () => {
-            isGameOver = false;
-            setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
-        });
-        drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 30, () => {
-            window.location.href = '/scoreboard';
-        });
+        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 + 0, restart);
+        drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 30, goToScoreboard);
     }
 
     createObstacles(BASE_MAX_OBSTACLES);
@@ -460,18 +459,14 @@ export default function Game() {
 
     const activeScreenConfig = OVERLAY_SCREENS.find(s => s.id === activeScreen?.id);
 
+    const isScoreboard = pathname === '/scoreboard';
+
     return (
         <>
-            <button
-                className="game_wrapper_toggle"
-                title="wanna play?"
-                onClick={() => setIsOpen(prev => !prev)}
-                aria-expanded={isOpen}
-                aria-label="JS enabled? play a game by clicking on this button"
-                aria-hidden="true">
-                &#x1F3AE;
-            </button>
-            <div className={`game_wrapper${isOpen ? ' open' : ''}`} aria-hidden="true">
+            {!isScoreboard && (
+                <GameToggleButton isOpen={isOpen} onToggle={() => setIsOpen(prev => !prev)} />
+            )}
+            <div className={`game_wrapper${isOpen || isScoreboard ? ' open' : ''}`} aria-hidden="true">
                 <input
                     ref={mobileInputRef}
                     type="text"

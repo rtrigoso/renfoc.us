@@ -208,6 +208,23 @@ header>section>nav {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  transform: scale(1.25);
+  transform-origin: bottom right;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.game_wrapper_toggle_label {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  font-weight: 900;
+  font-size: 0.65rem;
+  line-height: 1;
+  letter-spacing: 0.05em;
 }
 
 .game_wrapper.open {
@@ -412,6 +429,7 @@ article pre code {
 #scoreboard {
   max-width: 450px;
   width: 100vh;
+  margin-bottom: 10rem;
 }
 
 .loading {
