@@ -73,7 +73,7 @@ class GameLoop {
     }
 }
 
-function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => Promise<void>, mobileInput?: HTMLInputElement, onSubmitScreenChange?: (active: boolean) => void) {
+function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => Promise<void>, mobileInput?: HTMLInputElement) {
     let obstacles: Position[] = [];
     let isGameOver = false;
     let canvasScreen: CanvasScreen = 'gameplay';
@@ -102,7 +102,6 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     }
 
     function closeSubmitScreen() {
-        onSubmitScreenChange?.(false);
         if (mobileInput) { mobileInput.blur(); mobileInput.value = ''; }
     }
 
@@ -204,9 +203,8 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     }
 
     function handleClick(e: MouseEvent) {
-        e.preventDefault();
-
         if (canvasScreen === 'submit-score') {
+            e.preventDefault();
             checkClickables(e);
             return;
         }
@@ -215,16 +213,20 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
         state.direction = (e.offsetX < midX) ? DIRECTION_LEFT : DIRECTION_RIGHT;
 
         if (!hasStarted) {
-            if (checkClickables(e)) return;
+            if (checkClickables(e)) { e.preventDefault(); return; }
+            e.preventDefault();
             hasStarted = true;
             gl.run();
             return;
         }
 
         if (isGameOver) {
-            checkClickables(e);
+            checkClickables(e); // focus() must run before preventDefault
+            e.preventDefault(); // then block browser from blurring the focused input
             return;
         }
+
+        e.preventDefault();
     }
 
     function submitScore() {
@@ -392,7 +394,6 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
             canvasScreen = 'submit-score';
             if (ctx) drawSubmitScreen(ctx);
         }, () => {
-            onSubmitScreenChange?.(true);
             if (mobileInput) { mobileInput.value = ''; mobileInput.focus(); }
         });
         drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 45, goToScoreboard);
@@ -438,8 +439,6 @@ export default function Game() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(pathname === '/scoreboard');
     const [activeScreen, setActiveScreen] = useState<{ id: string; data: Record<string, unknown> } | null>(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-
     const saveScoreAndNotify = useCallback(async (name: string, score: number) => {
         await saveScore(name, score);
         window.dispatchEvent(new CustomEvent('scoreSubmitted'));
@@ -447,7 +446,7 @@ export default function Game() {
 
     const startGame = useCallback((skipStart: boolean) => {
         if (!ref.current) return;
-        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }), saveScoreAndNotify, mobileInputRef.current ?? undefined, setIsSubmitting);
+        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }), saveScoreAndNotify, mobileInputRef.current ?? undefined);
     }, [saveScoreAndNotify]);
 
     useEffect(() => { startGame(false); }, [startGame]);
@@ -471,7 +470,7 @@ export default function Game() {
                     ref={mobileInputRef}
                     type="text"
                     maxLength={3}
-                    className={isSubmitting ? 'mobile_score_input' : 'mobile_score_input_hidden'}
+                    className="mobile_score_input"
                     aria-hidden="true"
                 />
                 <canvas ref={ref} id="game_container" height={250} aria-label="Arcade game. Requires clicking the screen to play." />
