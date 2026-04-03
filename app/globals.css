@@ -214,7 +214,45 @@ header>section>nav {
   aspect-ratio: 1 / 1;
   transform: scale(1.25);
   transform-origin: bottom right;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-bottom-color: rgba(0, 0, 0, 0.5);
+  border-radius: 6px;
+  background-color: var(--secondary-bg-color);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    0 1px 3px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: box-shadow 0.1s ease, background-color 0.1s ease, transform 0.1s ease;
+  overflow: hidden;
+}
+
+.game_wrapper_toggle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.game_wrapper_toggle:hover {
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.game_wrapper_toggle:active {
+  background-color: #e8e5df;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(0, 0, 0, 0.15);
+  transform: scale(1.25) translateY(1px);
 }
 
 .game_wrapper_toggle_label {
@@ -228,8 +266,8 @@ header>section>nav {
 }
 
 .game_wrapper.open {
-  margin-bottom: 20px;
   max-height: 400px;
+  margin-bottom: 20px;
 }
 
 .game_wrapper {
@@ -237,8 +275,9 @@ header>section>nav {
   justify-content: center;
   align-items: center;
   max-height: 0;
+  margin-bottom: 0;
   overflow: hidden;
-  transition: max-height 0.5s ease-in-out;
+  transition: max-height 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
   height: 280px;
 }
 
