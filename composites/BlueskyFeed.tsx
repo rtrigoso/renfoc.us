@@ -44,7 +44,7 @@ interface BlueskyFeed {
 }
 
 async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
-    const res = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${username}&limit=3`);
+    const res = await fetch(`https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=${username}&limit=3&filter=posts_no_replies`);
     if (!res.ok) {
         throw new Error(`Response status: ${res.status}`);
     }

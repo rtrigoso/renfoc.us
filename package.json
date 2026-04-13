@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "post": "touch content/$(date +%s)-${TITLE:-new_post}.md"
   },
   "dependencies": {
     "@next/mdx": "^15.2.2",
