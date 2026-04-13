@@ -18,7 +18,7 @@ export default function Header() {
                     <Image
                         src="/header.webp"
                         alt="selfie created with ai on the style of a studio ghibli movie"
-                        className="logo"
+                        className="logo glitch-img"
                         width={250}
                         height={140}
                         placeholder="blur"
