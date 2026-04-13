@@ -1,5 +1,5 @@
 ###### 11-04-2025
-# This Quirky Javascript
+## This Quirky Javascript
 
 I was halfway through a technical interview when the interviewer leaned back and asked, "Why couldn't you use an arrow function there?"
 
@@ -24,7 +24,7 @@ function once(func) {
 
 If I'd used an arrow function for that inner return—`return () => {`—everything would break. The reason comes down to how `this` actually works in JavaScript.
 
-## "this" Works Differently Than You Think
+### "this" Works Differently Than You Think
 
 Here's the thing about `this`: it doesn't behave like other variables.
 
@@ -64,9 +64,9 @@ greetFunction(); // "Hello, I'm undefined"
 
 Same function, two different results. The only thing that changed was how we called it.
 
-## Four Ways to Bind "this"
+### Four Ways to Bind "this"
 
-### 1. Default Binding
+#### 1. Default Binding
 
 Call a function by itself and `this` becomes the global object (or `undefined` in strict mode):
 
@@ -80,7 +80,7 @@ showThis(); // Window or global or undefined
 
 This trips people up when they extract a method from an object. The moment you store `person.greet` in a variable, you've separated the function from its object. Now it's just a standalone function call.
 
-### 2. Implicit Binding
+#### 2. Implicit Binding
 
 Call a function as a method using dot notation, and `this` becomes the object to the left of the dot:
 
@@ -101,7 +101,7 @@ With nested objects, only the immediate parent matters:
 company.employee.greet(); // this = employee, not company
 ```
 
-### 3. Explicit Binding
+#### 3. Explicit Binding
 
 Sometimes you need to explicitly set what `this` should be. That's what `call`, `apply`, and `bind` do:
 
@@ -124,7 +124,7 @@ result = func.apply(this, arguments);
 
 I'm using `apply` to forward whatever `this` the wrapper received to the original callback. If someone calls the wrapper as a method, the callback should also run as a method with the same `this`.
 
-### 4. Arrow Functions
+#### 4. Arrow Functions
 
 Arrow functions break all these rules. They don't have their own `this` at all. Instead, they capture `this` from their parent scope—just like regular variables do:
 
@@ -148,7 +148,7 @@ The arrow function doesn't get its own `this`. It looks up the scope chain and u
 
 You can't change an arrow function's `this` with `call`, `apply`, or `bind`. Once it captures `this`, that binding is permanent.
 
-## Why the Interview Question Matters
+### Why the Interview Question Matters
 
 Back to my `once` function. Here's what happens when someone uses it:
 
@@ -182,7 +182,7 @@ The arrow function would capture `this` from inside the `once` function—where 
 
 The interviewer knew this was subtle. Arrow functions look modern and feel natural for callbacks. But here, we specifically need the dynamic `this` binding that regular functions provide.
 
-## Choosing the Right Function
+### Choosing the Right Function
 
 Use regular functions when you need `this` from the call site—like my `once` wrapper, object methods, or constructors.
 

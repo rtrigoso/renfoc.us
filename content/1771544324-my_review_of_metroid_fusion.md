@@ -1,5 +1,5 @@
 ###### 02-19-2026
-# Metroid Fusion: The Game Dread Was Built On
+## Metroid Fusion: The Game Dread Was Built On
 
 I've played Metroid Fusion before. I knew how it ended. I knew where the save rooms were, roughly, and I knew the SA-X was coming. And yet, booting it up again, I found myself doing something I didn't expect: slowing down. Looking at the walls. Trying to piece things together.
 
@@ -9,7 +9,7 @@ That's the thing about Fusion that nobody talks about enough. *It gets under you
 
 ---
 
-### The Take I Want to Push Back On
+#### The Take I Want to Push Back On
 
 The common line on Metroid Fusion in 2024 is that Metroid Dread made it obsolete. Dread is shinier, faster, more mechanically refined — so why go back? It's a reasonable argument. It's also, I think, missing the point.
 
@@ -21,7 +21,7 @@ Worth noting: Dread does bring quality of life changes that soften the sting of 
 
 ---
 
-## What Fusion Is Actually Doing
+### What Fusion Is Actually Doing
 
 **It found the exact midpoint between freedom and frustration.** This is harder than it sounds. Metroidvanias live and die by how lost they're willing to let you get. Fusion threads a needle most games in the genre fumble — it's linear enough that you're never wandering in circles, grinding your teeth, but open enough that the next path forward always feels like something you *discovered* rather than something that was handed to you. Losing never feels punishing. Progress always feels earned.
 
@@ -33,7 +33,7 @@ Worth noting: Dread does bring quality of life changes that soften the sting of 
 
 ---
 
-## The Part Where I Stopped Playing for a Minute
+### The Part Where I Stopped Playing for a Minute
 
 There's a stretch in the middle of Fusion where the game just... clicks. You're not reading anything. You're not following a waypoint. You're following a feeling — something about the color of a background, the way an animation loops, the silence in a room that should have enemies in it. You start asking questions the game hasn't answered yet. *Why is this section sealed off? What happened here? What am I about to walk into?*
 
@@ -43,7 +43,7 @@ And then you turn a corner and something you recognize is there, but wrong, and 
 
 ---
 
-## The Verdict
+### The Verdict
 
 **Metroid Fusion is worth your time — with two honest caveats.**
 
@@ -59,7 +59,7 @@ Is it surpassed by Dread? In some ways, yes. In the ways that matter to me on th
 
 ---
 
-### What To Do Next
+#### What To Do Next
 
 Play Metroid Dread. Not instead of this — *after* it. Dread is a better game in several measurable ways, but it's also a game in conversation with Fusion, and you'll feel that conversation differently having played this one first. The callbacks land harder. The design evolution makes more sense. You'll understand what they kept, what they fixed, and what they decided to build on — including the places where they decided a little more mercy wouldn't hurt.
 

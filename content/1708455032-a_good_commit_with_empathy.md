@@ -1,5 +1,5 @@
 ###### 2-13-2025
-# A Good Commit, with Empathy
+## A Good Commit, with Empathy
 It is easy to miss good solutions. The best type of solution is the one that feels natural, hence invisible. Good commits tend to fall into that spectrum. 
 
 For those who aren't fluent in programming lingo, commits are a way to save the state of our work, like you'd save your progress on a videogame. 
@@ -13,14 +13,14 @@ A commit is mainly made up of:
 
 All of these items are accessible to the people working on the project.
 
-## What is a Commit Message?
+### What is a Commit Message?
 Focus not on the *what* but the *why*.
 
 Developers have access to both a unique identifier and the file changes. This leaves the message with the high order responsibility to contain everything else. A commit message is the description of the state outside of the file changes. 
 
 The message should be able to fill in the following sentence: "**IF APPLIED, THIS COMMIT WILL _________**" without describing the code changes. 
 
-## Empathy Wanted
+### Empathy Wanted
 Generally, we code in packs. Just like another relationship, communication is essential. These git messages are a way to tell a story, and we should take advantage of that. When we successfully understand our code as affecting others, we can begin tackling major issues impeding progress. Progress halts when
 - we feel frustration out of code that makes no sense to us.
 - We feel ineptitude while looking for new ways to do a previously done task.
@@ -37,7 +37,7 @@ Date:   Mon Feb 4 11:23:07 2021 -0500
 
 ```
 
-## What is a Good Commit Message?
+### What is a Good Commit Message?
 First of, a good commit message follows the generally accepted structure. There are [tons](https://www.git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project#_commit_guidelines) of [posts](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) [about](https://github.com/torvalds/subsurface-for-dirk/blob/master/README.md#contributing) a [good](https://github.com/erlang/otp/wiki/writing-good-commit-messages) commit structure. 
 
 ```

@@ -1,10 +1,10 @@
 ###### 6-2-2025
-# Need more Bertrand and less Seneca
+## Need more Bertrand and less Seneca
 Lately, I've been struggling with a quiet but persistent sadness. What I used to do to manage it—routine, discipline, a kind of philosophical bracing—has stopped working. It feels like I'm being hit by waves of negative emotion, each one powered by the endless stream of bad news, personal and global. My grip on optimism slips a little more each day, and with it comes guilt—the paralyzing kind that creeps in when your only response to chaos is inaction.
 
 And so I find myself turning back to philosophy, but also questioning the tools I've leaned on.
 
-## Stoicism only goes so far
+### Stoicism only goes so far
 I’ve long been drawn to Stoicism, especially in hard times. There’s something reassuring about its call to focus only on what’s within your control. It teaches that happiness—eudaimonia—comes not from good fortune, but from living a life of virtue: courage, wisdom, justice, temperance.
 
 The Stoic prescription is emotionally minimalist:
@@ -21,7 +21,7 @@ That’s useful. It’s armor. But lately, it’s felt like too much armor.
 
 I don’t just want to endure the storm. I want to feel alive again.
 
-## Enter Bertrand Russel
+### Enter Bertrand Russel
 In contrast to Stoicism’s stoic silence, Bertrand Russell’s The Conquest of Happiness is almost chatty in its warmth and humanity. He doesn’t ask us to retreat inward or to disengage from the world’s unpredictability. Instead, he sees happiness as something expansive—outward-looking, engaged, and emotional.
 
 Russell says happiness is found in love, curiosity, good work, and meaningful relationships. He acknowledges pain, anxiety, and guilt, but he doesn't recommend detachment. He recommends connection.
@@ -30,7 +30,7 @@ Russell says happiness is found in love, curiosity, good work, and meaningful re
 
 Where Stoicism says, “Shrink your needs,” Russell says, “Grow your interests.” Where the Stoic tightens their emotional belt, Russell suggests we loosen up, look around, and re-engage with the world—especially when it's hard.
 
-## Stoicism or Russell? Maybe Both—But Not Equally
+### Stoicism or Russell? Maybe Both—But Not Equally
 
 I think I needed Stoicism to survive certain seasons. When you're in emotional free fall, the idea that you can still be virtuous and dignified—no matter what—is powerful. But I’m beginning to realize that I don’t want survival to be my only goal. I want connection. I want joy. I want purpose—not just resilience.
 

@@ -25,7 +25,7 @@ export default function Page() {
 
     return (
         <>
-            <h1>Scoreboard</h1>
+            <h1>Scores</h1>
             {loading ? (
                 <p className="loading">Loading scores</p>
             ) : error ? (

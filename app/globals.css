@@ -34,30 +34,44 @@ body {
 
 /* general tags */
 h1 {
-  font-size: 2.5rem;
+  font-size: 5.25rem;
+  line-height: 5.5rem;
   padding-top: .75rem;
-  line-height: 2.5rem;
   padding-bottom: .5rem;
-  font-weight: 900
+  font-weight: 900;
 }
 
 h2 {
-  font-size: 1.25rem;
-  line-height: 1.25rem;
+  font-size: 1.875rem;
+  line-height: 2.1rem;
   padding-bottom: .5rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 h3 {
   font-size: 1.5rem;
+  line-height: 1.75rem;
   padding-top: 0.5rem;
-  padding-bottom: 1rem;
-  line-height: 1.5rem;
+  padding-bottom: 0.5rem;
+  font-weight: 700;
 }
 
 h4 {
-  font-size: 1.75rem;
-  line-height: 1.75rem;
+  font-size: 1.4rem;
+  line-height: 1.65rem;
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1.15rem;
+  line-height: 1.4rem;
+  font-weight: 600;
+}
+
+h6 {
+  font-size: 0.9rem;
+  line-height: 1.15rem;
+  font-weight: 500;
 }
 
 a {
@@ -337,6 +351,17 @@ section dt+dd {
   }
 }
 
+@media screen and (max-width: 500px) {
+  header > section {
+    position: relative;
+    z-index: 1;
+    background-color: var(--secondary-bg-color);
+    margin-left: -2rem;
+    padding-left: 2rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+  }
+}
+
 @media screen and (min-width: 500px) {
 
   main>section,
@@ -423,7 +448,9 @@ article li {
 }
 
 article h1,
-article h2 {
+article h2,
+article h3,
+article h4 {
   padding-top: 2rem;
   padding-bottom: 1rem;
 }

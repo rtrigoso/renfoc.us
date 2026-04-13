@@ -1,5 +1,5 @@
 ###### 8-13-2025
-# The Poison within Patriotism
+## The Poison within Patriotism
 I felt like a visitor in my own home. 
 
 During a group date, my date's friend wanted to go to a bar. He asked if I could get in without ID because he didn't think I was living here legally. One moment I felt like I belonged with them. The next, I was reminded that I'm not really part of the group. It made me sad to hear that question. 

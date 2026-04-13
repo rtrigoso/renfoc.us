@@ -1,9 +1,9 @@
 ###### 12/02/25
-# Building a JS Game Loop: A Practical Guide
+## Building a JS Game Loop: A Practical Guide
 
 Game development in the browser has come a long way, and at the heart of smooth, performant games is the `requestAnimationFrame` API. In this post, we'll explore how to build a proper game loop using `requestAnimationFrame`, complete with frame rate limiting and state management—all based on a real working example.
 
-## Why requestAnimationFrame?
+### Why requestAnimationFrame?
 
 Before we dive in, let's understand why `requestAnimationFrame` is the go-to choice for browser-based games:
 
@@ -12,7 +12,7 @@ Before we dive in, let's understand why `requestAnimationFrame` is the go-to cho
 - **60 FPS target**: Syncs with the display's refresh rate (typically 60Hz)
 - **Better than `setInterval`**: More precise timing and better performance
 
-## The Game Loop Class
+### The Game Loop Class
 
 Let's start by building a reusable `GameLoop` class that handles the frame timing logic:
 
@@ -51,7 +51,7 @@ class GameLoop {
 }
 ```
 
-### Breaking Down the Loop
+#### Breaking Down the Loop
 
 **The Constructor**: Takes a callback function that will handle your game's rendering and logic each frame.
 
@@ -63,7 +63,7 @@ class GameLoop {
 2. **Schedule the next frame**: We recursively call `run()` to keep the loop going
 3. **Limit frame rate**: Calculate `deltaTime` to ensure we only render at our target FPS
 
-## Frame Rate Limiting with Delta Time
+### Frame Rate Limiting with Delta Time
 
 You might wonder: "Why limit the frame rate if `requestAnimationFrame` already targets 60 FPS?"
 
@@ -84,7 +84,7 @@ This pattern:
 
 The modulo operation `(deltaTime % this.FrameInterval)` carries over any excess time, preventing time drift over long sessions.
 
-## Putting It to Use: A Complete Game Example
+### Putting It to Use: A Complete Game Example
 
 Here's how you'd use the `GameLoop` to power an actual game:
 
@@ -140,7 +140,7 @@ function setup(canvas: HTMLCanvasElement) {
 }
 ```
 
-## The Game Loop Pattern
+### The Game Loop Pattern
 
 Every frame, our callback follows this pattern:
 
@@ -150,7 +150,7 @@ Every frame, our callback follows this pattern:
 4. **Update Game Logic**: Increment score, check collisions
 5. **Check Exit Conditions**: Stop the loop if the game is over
 
-## Integrating with React
+### Integrating with React
 
 In a React application, you'll typically initialize your game in a `useEffect` hook:
 
@@ -173,7 +173,7 @@ export default function Game() {
 
 The empty dependency array ensures `setup` only runs once when the component mounts.
 
-## Key Takeaways
+### Key Takeaways
 
 1. **Use `requestAnimationFrame`** for smoother animations that sync with the display
 2. **Implement delta time** to control frame rate and ensure consistent game speed
@@ -181,7 +181,7 @@ The empty dependency array ensures `setup` only runs once when the component mou
 4. **Provide a stop mechanism** for clean game-over states and memory management
 5. **Separate concerns**: Keep your game loop logic separate from your rendering logic
 
-## Beyond the Basics
+### Beyond the Basics
 
 This game loop can be extended with:
 - **Variable time steps**: Use delta time to smooth movement on different frame rates

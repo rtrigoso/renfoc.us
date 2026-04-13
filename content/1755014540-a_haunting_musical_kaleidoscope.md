@@ -1,5 +1,5 @@
 ###### 8-12-2025
-# A Haunting Musical Kaleidoscope
+## A Haunting Musical Kaleidoscope
 Do you remember kaleidoscopes? 
 
 A small twist of the tube, and the colored shapes inside would form a brand-new pattern. The pieces didn’t change — only their arrangement did — yet the results could be beautiful, strange, or chaotic.
@@ -8,7 +8,7 @@ Well, I took out my Moog Subharmonicon from storage and wow... this is a messy k
 
 The Subharmonicon is a difficult piece of audio that works in a similar way to kaleidoscope, but with sound instead of glass. It takes one note and splits it into other related notes, using math instead of mirrors. Then, just like twisting a kaleidoscope, you can turn knobs and change the patterns, creating music that’s always moving.
 
-## What Are Subharmonics?
+### What Are Subharmonics?
 Just as the kaleidoscope's mirrors create visual harmonies and patterns through geometric relationships, subharmonics create sonic harmonies through mathematical frequency divisions. Both transform simple inputs into complex, mesmerizing outputs that feel both orderly and organic at the same time.
 
 You have to learn how different subharmonic intervals interact with each other. Some divisor combinations create rich, consonant textures, while others clash in ways that might be theoretically fascinating but harsh to listen to. Then there's the challenge of the dual sequencers running at different speeds - you need to develop a sense of when those polyrhythmic cycles align in musically meaningful ways versus when they're just creating random-sounding chaos. 
@@ -33,7 +33,7 @@ Moog gives us a way to better deal with these "off-sounding" notes. The Subharmo
 - 8-JI – Just intonation diatonic scale
 - Off – Free tuning
 
-## Perfect only goes so far
+### Perfect only goes so far
 If you think the headaches are over, think again.
 
 The farther you divide, the stranger the note will sound. For example, ÷7 or ÷11 will land in microtonal spaces between familiar notes. Your ear, trained to expect equal temperament, hears these as “out of tune.” 
@@ -49,7 +49,7 @@ C4     = On a key
 
 Well, that haunting noice is a fundamental limitation of how subharmonic division works in practice! 
 
-## The Mathematical Reality:
+### The Mathematical Reality:
 When you divide a frequency by larger integers, you get intervals that fall increasingly between the notes of standard scales - even just intonation scales. For example:
 Starting with C4 (261.63Hz):
 
@@ -63,7 +63,7 @@ Starting with C4 (261.63Hz):
 ÷8 = C1 (perfect three octaves down) ✓
 ```
 
-### Why Quantization Can't Fix This:
+#### Why Quantization Can't Fix This:
 The quantization affects your fundamental frequencies (the VCO FREQ knobs), but the subharmonic divisions are always pure mathematical ratios of whatever fundamental you set. Quantization doesn't change the division math - it just makes sure your starting pitches are in-tune.
 The "Out of Tune" Effect Gets Worse Because:
 
@@ -79,7 +79,7 @@ Like turning a kaleidoscope, learning the Subharmonicon takes patience. You have
 - Use the built-in polyrhythmic sequencers to make evolving patterns
 - Accept that “weird” can be beautiful
 
-## Final Thoughts
+### Final Thoughts
 The Moog Subharmonicon isn’t about making safe, familiar music. It’s about exploring new sound worlds, where math, rhythm, and tone come together in unexpected ways. [I wrote a quick JS tool to demo these subharmonics](https://renfoc.us/tools/subharmonics). I hope it paints a better picture than a description.
 
 Sometimes you’ll find a perfect, sweet spot. Other times you’ll stumble into strange, alien chords. Either way, this Moog might go back to storage if I can't find a pretty pattern soon. 
