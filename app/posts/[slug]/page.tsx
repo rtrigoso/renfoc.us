@@ -19,17 +19,25 @@ export async function generateMetadata({ params }: PostsParams) {
     }
 }
 
+const components = {
+    img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+        <a href={props.src} target="_blank" rel="noopener noreferrer">
+            <img {...props} />
+        </a>
+    )
+}
+
 export default async function Posts({ params }: PostsParams) {
     const { slug, creationDate } = await params
 
     if (!process.env.PWD) return <></>;
 
     const data = await readDataContent(slug, process.env.PWD);
- 
+
     return (
         <article>
             <time dateTime={creationDate}>{creationDate}</time>
-            <MDXRemote source={`${data}`} />
+            <MDXRemote source={`${data}`} components={components} />
         </article>
     )
 }  
