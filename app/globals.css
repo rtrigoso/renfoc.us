@@ -345,8 +345,9 @@ article ol {
   padding-bottom: 1rem;
 }
 
-article p>img {
-  max-width: 200px;
+article p>img,
+article p>a>img {
+  width: 100%;
   margin: 10px auto;
   display: block;
 }
