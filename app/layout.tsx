@@ -1,7 +1,7 @@
 import './reset.css';
 import "./globals.css";
 import type { Metadata } from "next";
-import { Syne_Mono } from 'next/font/google';
+import { Share_Tech_Mono, Noto_Sans_Display } from 'next/font/google';
 import Header from '@/composites/Header';
 import Game from '@/composites/Game';
 
@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   description: "Metaphysics, tunes, and code.",
 };
 
-const googlefont = Syne_Mono({ weight: '400', subsets: ['latin']});
+const synemono = Share_Tech_Mono({ weight: '400', subsets: ['latin'], variable: '--font-mono' });
+const notoSans = Noto_Sans_Display({ weight: ['400', '700', '900'], subsets: ['latin'], variable: '--font-body' });
 
 type RootLayoutArgs = Readonly<{
   children: React.ReactNode;
@@ -18,7 +19,7 @@ type RootLayoutArgs = Readonly<{
 
 export default function RootLayout({ children }: RootLayoutArgs) { 
   return (
-    <html lang="en" className={googlefont.className}>
+    <html lang="en" className={`${synemono.variable} ${notoSans.variable}`}>
       <body>
         <div className="skip_link">
           <a href="#main_content" tabIndex={0}>

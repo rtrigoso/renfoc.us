@@ -1,11 +1,11 @@
 ###### 11-12-2025
-# Bind, call, and apply
+## Bind, call, and apply
 
 Javascript functions have access to three methods: call, bind, and apply.
 
 These three methods control what `this` refers to inside a function.
 
-## call()
+### call()
 
 Invokes a function **immediately** with a specific `this` value.
 
@@ -22,7 +22,7 @@ greet.call(person, 'Hello');
 
 **Arguments come individually**, separated by commas.
 
-## apply()
+### apply()
 
 Does the **same thing as call()**, but arguments come in an **array**.
 
@@ -37,7 +37,7 @@ greet.apply(person, ['Hi', '!']);
 // Output: "Hi, I'm Bob!"
 ```
 
-## bind()
+### bind()
 
 **Returns a new function** with `this` permanently set.
 
@@ -56,7 +56,7 @@ boundGreet('Hey');
 // Output: "Hey, I'm Charlie"
 ```
 
-## In Summary
+### In Summary
 
 - **call**: Run now, arguments one-by-one
 - **apply**: Run now, arguments in an array

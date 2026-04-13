@@ -1,5 +1,5 @@
 ###### 9-30-2025
-# From Ad Chaos to Clarity 
+## From Ad Chaos to Clarity 
 Sara is a news editor at a broadcasting company. One day, she receives a complaint: a reader has spotted malicious ads on the homepage. Sara reaches out to the engineering team, hoping for a simple fix.
 
 The engineers explain, politely and with a hint of fatigue, that the ads are served by a third-party provider. They have no control over what appears. This is not Sara’s first trip to the engineering desk this month.

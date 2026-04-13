@@ -1,5 +1,5 @@
 ###### 04-13-2026
-# Shielding Repos on a Budget
+## Shielding Repos on a Budget
 Consultants wait. It's part of the job. Contracts dry up. The bench fills. For a stretch you're just a developer with time and no fire to put out. Automation makes it easier. Less to remember.
 
 I had a situation come up last week. My employer didn't have the budget for a GitHub Enterprise account. No enterprise means no branch protection. No branch protection means anyone can merge directly to main. I had time, so I got creative.
@@ -8,16 +8,16 @@ The goal was straightforward. No one merges their own pull request. Every merge 
 
 It's not airtight. Someone determined enough can get around it. But most problems aren't caused by determination. They're caused by habit and convenience. Raise the floor, and you handle most of it.
 
-## The Plan
+### The Plan
 
 ![a flowchart of the implemented safeguards](../shielding_github_repos_on_a_budget.png)
 
-### Making it harder to commit to main
+#### Making it harder to commit to main
 Git lets you attach scripts that run automatically before a commit is saved. These are called pre-commit hooks. If the script throws an error, Git cancels the commit completely and nothing gets recorded. [Husky](https://typicode.github.io/husky/) is a tool that manages these scripts in JavaScript projects, setting them up automatically when developers install dependencies.
 
 ```
-#!/bin/sh
-# .husky/pre-commit: block direct commits to main (or master)
+##!/bin/sh
+## .husky/pre-commit: block direct commits to main (or master)
 
 BRANCH=$(git symbolic-ref HEAD 2>/dev/null | sed 's|refs/heads/||')
 PROTECTED_BRANCHES="main master"

@@ -1,5 +1,5 @@
 ###### 03-21-2026
-# The Race Down
+## The Race Down
 I fell down half a mountain when I was nine. Maybe ten. I don’t remember most of it. Just the important parts.
 
 It was a birthday hike. Yeah, a birthday hike. At the peak, someone said we should race back to camp for the candles. I didn’t hesitate. I never really did back then, especially around kids I wanted to like me. If the cool kid in the group says run, you run. So I ran.
