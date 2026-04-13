@@ -60,7 +60,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - name: Remove label if not added by github-actions[bot]
+      - name: Remove unauthorized label
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -80,7 +80,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - name: Remove ready-to-merge label if no approvals remain
+      - name: Remove label if no approvals remain
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -108,7 +108,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - name: Remove ready-to-merge label if present
+      - name: Remove label on push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -137,21 +137,17 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - name: Add ready-to-merge label on approval by non-author
+      - name: Add label on approval
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
         run: |
-          echo "✅ PR approved by a non-author reviewer. Adding 'ready-to-merge' label..."
-
           curl -sf -X POST \
             -H "Authorization: token $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             "https://api.github.com/repos/$REPO/issues/$PR_NUMBER/labels" \
             -d '{"labels":["ready-to-merge"]}'
-
-          echo "✅ Label added."
 ```
 
 The Miro link check is simpler. It just reads the pull request description and looks for a valid URL.
@@ -170,16 +166,16 @@ jobs:
           PR_BODY: ${{ github.event.pull_request.body }}
         run: |
           if echo "$PR_BODY" | grep -qi '@todo'; then
-            echo "❌ PR description still contains '@todo' placeholder. Please replace it with a Miro link."
+            echo "❌ '@todo' placeholder found. Replace with a Miro link."
             exit 1
           fi
 
           if ! echo "$PR_BODY" | grep -qiE 'https?://(www\.)?miro\.com/\S+'; then
-            echo "❌ PR description is missing a Miro link. Please add a link to the relevant Miro board."
+            echo "❌ Miro link missing."
             exit 1
           fi
 
-          echo "✅ Miro link found in PR description."
+          echo "✅ Miro link found."
 ```
 
 The label has to be earned fresh every time.
