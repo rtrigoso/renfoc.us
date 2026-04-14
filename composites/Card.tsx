@@ -1,3 +1,5 @@
+import ExternalLink from "@/composites/ExternalLink";
+
 interface PostCardEmbed {
     alt: string
     type: 'image'
@@ -68,7 +70,7 @@ export default function Card(props: CardProps) {
                         aspectRatio={props.embedAspectRatio || ''}
                     />
                 }                <div>
-                    <a href={props.postURL} target="_BLANK">view post</a>
+                    <a href={props.postURL} target="_BLANK">view post <ExternalLink /></a>
                 </div>
             </div>
         </li>
