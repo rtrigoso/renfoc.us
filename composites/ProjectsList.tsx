@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Fragment } from "react";
+import ExternalLink from "@/composites/ExternalLink";
 
 const projects = [
     {
@@ -44,7 +45,7 @@ export default async function ProjectList() {
                         tabIndex={0}
                         className="link post_link"
                         href={link}>
-                        {`${label.charAt(0).toUpperCase() + label.slice(1)}: `}
+                        {`${label.charAt(0).toUpperCase() + label.slice(1)}: `} <ExternalLink />
                     </Link>
                 </dt>
                 <dd>

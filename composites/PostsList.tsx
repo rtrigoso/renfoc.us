@@ -1,5 +1,6 @@
 import { PostItem } from "@/utils/content";
 import Link from "next/link";
+import ExternalLink from "@/composites/ExternalLink";
 
 interface LinkListParams {
     content: PostItem[]
@@ -26,7 +27,7 @@ export default async function LinkList({ content }: LinkListParams) {
                     tabIndex={0}
                     className="link post_link"
                     href={path}>
-                    {title.charAt(0).toUpperCase() + title.slice(1)}
+                    {title.charAt(0).toUpperCase() + title.slice(1)} <ExternalLink />
                 </Link>
             </li>
         );

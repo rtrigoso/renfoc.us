@@ -314,8 +314,9 @@ header>section>nav {
 /* posts */
 .post_link {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-grow: 2;
+  gap: 0.25rem;
 }
 
 .post_link span:first-child {
@@ -352,7 +353,7 @@ section dt+dd {
 }
 
 @media screen and (max-width: 500px) {
-  header > section {
+  header>section {
     position: relative;
     z-index: 1;
     background-color: var(--secondary-bg-color);
@@ -467,7 +468,7 @@ article pre {
   overflow: scroll;
   overflow-wrap: break-word;
   margin-bottom: 1rem;
-  white-space: pre-wrap;
+  white-space: no-wrap;
   word-wrap: break-word;
 }
 
