@@ -34,7 +34,7 @@ body {
 
 /* general tags */
 h1 {
-  font-size: 5.25rem;
+  font-size: 5.5rem;
   line-height: 5.5rem;
   padding-top: .75rem;
   padding-bottom: .5rem;
@@ -42,7 +42,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.875rem;
+  font-size: 2rem;
   line-height: 2.1rem;
   padding-bottom: .5rem;
   font-weight: 800;
@@ -320,7 +320,7 @@ header>section>nav {
 }
 
 .post_link span:first-child {
-  min-width: 110px;
+  min-width: 85px;
   max-width: 110px;
 }
 
