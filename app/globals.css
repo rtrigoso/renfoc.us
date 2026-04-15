@@ -314,7 +314,7 @@ header>section>nav {
 /* posts */
 .post_link {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-grow: 2;
   gap: 0.25rem;
 }
