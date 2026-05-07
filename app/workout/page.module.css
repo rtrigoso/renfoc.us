@@ -1,0 +1,122 @@
+.page {
+  font-family: var(--font-mono), monospace;
+  background-color: #ffffff;
+  padding: 2.5rem;
+}
+
+.page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.page th {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid var(--main-fg-color);
+  padding: 0.4rem 0.5rem;
+  text-align: left;
+}
+
+.page td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.page h2 {
+  font-size: 2.5rem;
+  line-height: 3rem;
+  padding-top: 0;
+  padding-bottom: 0.5rem;
+}
+
+.page h3 {
+  font-size: 1.6rem;
+  line-height: 2rem;
+  padding-top: 2.5rem;
+  padding-bottom: 0.4rem;
+}
+
+.page h4 {
+  font-size: 1rem;
+  line-height: 1.4rem;
+  padding-top: 1.75rem;
+  padding-bottom: 0.2rem;
+}
+
+.page h3 + blockquote {
+  margin-top: -0.1rem;
+  padding-bottom: 0.25rem;
+}
+
+.page ul + p {
+  margin-top: -0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.page h4 + ul {
+  margin-top: 0.2rem;
+}
+
+.page p {
+  padding-bottom: 0.5rem;
+}
+
+.clearButton {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0.4rem 1.2rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-bottom-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--secondary-bg-color);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    0 1px 3px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: box-shadow 0.1s ease, background-color 0.1s ease, transform 0.1s ease;
+  margin-top: 2rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.clearButton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 60%);
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.clearButton:hover {
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.clearButton:active {
+  background-color: #e8e5df;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(0, 0, 0, 0.15);
+  transform: translateY(1px);
+}
+
+.page h5 {
+  font-size: 0.9rem;
+  line-height: 1.2rem;
+}
+
+.page h6 {
+  font-size: 0.8rem;
+  line-height: 1.1rem;
+}
