@@ -300,7 +300,7 @@ export default function Page() {
                 "Use your CPAP every night — quality sleep is when fat is metabolized and muscle is built",
                 "Hydrate throughout the day — even mild dehydration tanks energy and recovery",
             ])}
-            <blockquote>Your sleep apnea is silently holding back your progress if untreated. Even this plan will feel much easier once you're getting real restorative sleep.</blockquote>
+            <blockquote>Your sleep apnea is silently holding back your progress if untreated. Even this plan will feel much easier once you&apos;re getting real restorative sleep.</blockquote>
 
             <h4>Gaming / TV — Micro-moves</h4>
             {cl("sun-micro", [
@@ -317,13 +317,13 @@ export default function Page() {
 
             <h3>Key Notes</h3>
 
-            <p><strong>On your belly:</strong> Spot reduction isn't real — you can't choose where fat burns from. Kettlebell swings, cycling intervals, and dip bar core work together create the calorie deficit and muscle activation that shrinks waist size over time. Hip flexor stretching also reduces belly prominence from anterior pelvic tilt.</p>
+            <p><strong>On your belly:</strong> Spot reduction isn&apos;t real — you can&apos;t choose where fat burns from. Kettlebell swings, cycling intervals, and dip bar core work together create the calorie deficit and muscle activation that shrinks waist size over time. Hip flexor stretching also reduces belly prominence from anterior pelvic tilt.</p>
 
             <p><strong>On your knee:</strong> Step-back lunges instead of forward lunges, shallow goblet squats, and cycling are all specifically knee-friendly. Never push through knee pain — reduce depth before reducing reps.</p>
 
             <p><strong>On your shoulders:</strong> Tuesday band work always comes first. Band pull-aparts and face pulls build rotator cuff stability. Full dips come later — assisted dips with feet partially on the floor are safer and still effective for now.</p>
 
-            <p><strong>On your Adderall window:</strong> You have natural focus and energy Mon–Fri mornings. That's your best workout window. Weekends are gentler by design.</p>
+            <p><strong>On your Adderall window:</strong> You have natural focus and energy Mon–Fri mornings. That&apos;s your best workout window. Weekends are gentler by design.</p>
 
             <p><strong>On sleep apnea:</strong> Low energy, slow recovery, higher cortisol (which directly causes belly fat storage), and poor motivation are all downstream effects. Consistent CPAP use will make this whole plan feel dramatically easier within a few weeks.</p>
 

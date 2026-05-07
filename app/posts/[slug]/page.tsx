@@ -22,7 +22,8 @@ export async function generateMetadata({ params }: PostsParams) {
 const components = {
     img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
         <a href={props.src} target="_blank" rel="noopener noreferrer">
-            <img {...props} />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img {...props} alt={props.alt ?? ''} />
         </a>
     )
 }

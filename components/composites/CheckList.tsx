@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import CheckItem from "@/components/CheckItem";
-import { CLEAR_EVENT } from "@/components/ClearButton";
 
 interface CheckListProps {
     prefix: string;
@@ -23,7 +22,7 @@ export default function CheckList({ prefix, items }: CheckListProps) {
     function toggle(id: string) {
         setChecked(prev => {
             const next = new Set(prev);
-            next.has(id) ? next.delete(id) : next.add(id);
+            if (next.has(id)) { next.delete(id); } else { next.add(id); }
             try { localStorage.setItem(storageKey, JSON.stringify([...next])); } catch { /* ignore */ }
             return next;
         });
