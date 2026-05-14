@@ -150,11 +150,7 @@ function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?
     }
 
     function drawStartScreen(ctx: CanvasRenderingContext2D) {
-        ctx.textAlign = 'center';
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.beginPath();
-        ctx.fillStyle = 'red';
+        drawOverlay(ctx);
         ctx.font = "bold 14px monospace";
         ctx.fillText("CLICK TO START", canvas.width / 2, canvas.height / 2 - 15);
         ctx.font = "normal 14px monospace";
@@ -437,7 +433,8 @@ export default function Game() {
     const ref = useRef<HTMLCanvasElement>(null);
     const mobileInputRef = useRef<HTMLInputElement>(null);
     const pathname = usePathname();
-    const [isOpen, setIsOpen] = useState(pathname === '/scoreboard');
+    const isScoreboard = pathname === '/scoreboard';
+    const [isOpen, setIsOpen] = useState(isScoreboard);
     const [activeScreen, setActiveScreen] = useState<{ id: string; data: Record<string, unknown> } | null>(null);
     const saveScoreAndNotify = useCallback(async (name: string, score: number) => {
         await saveScore(name, score);
@@ -457,8 +454,6 @@ export default function Game() {
     }
 
     const activeScreenConfig = OVERLAY_SCREENS.find(s => s.id === activeScreen?.id);
-
-    const isScoreboard = pathname === '/scoreboard';
 
     return (
         <>
