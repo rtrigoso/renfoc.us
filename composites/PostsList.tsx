@@ -1,4 +1,5 @@
 import { PostItem } from "@/utils/content";
+import { capitalize } from "@/utils/strings";
 import Link from "next/link";
 import ExternalLink from "@/composites/ExternalLink";
 
@@ -7,9 +8,7 @@ interface LinkListParams {
 }
 
 export default async function LinkList({ content }: LinkListParams) {
-    let filteredContent = content;
-
-    const links = filteredContent.map(link => {
+    const links = content.map(link => {
         const {
             path,
             creationDateString,
@@ -26,7 +25,7 @@ export default async function LinkList({ content }: LinkListParams) {
                     tabIndex={0}
                     className="link post_link"
                     href={path}>
-                    {title.charAt(0).toUpperCase() + title.slice(1)} <ExternalLink />
+                    {capitalize(title)} <ExternalLink />
                 </Link>
             </li>
         );
