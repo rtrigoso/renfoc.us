@@ -7,7 +7,7 @@ import ExternalLink from "@/composites/ExternalLink";
 
 export default async function Home() {
   const posts = await GetLinksDataFromContent();
-  await generateRSSFeed(posts);
+  generateRSSFeed(posts);
 
   return (
     <>
