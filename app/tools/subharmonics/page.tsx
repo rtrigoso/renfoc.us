@@ -285,11 +285,11 @@ export default function Page() {
         if (quantization === '12-et') {
             const r = findClosestNote(frequency, ET_FREQUENCIES);
             frequency = r.frequency;
-            setResult(result);
+            setResult(r);
         } else if (quantization === '12-ji') {
             const r = findClosestNote(frequency, JI_FREQUENCIES);
             frequency = r.frequency;
-            setResult(result);
+            setResult(r);
         }
         const tmpOscillator = audioContext.createOscillator();
         tmpOscillator.type = 'sawtooth';
