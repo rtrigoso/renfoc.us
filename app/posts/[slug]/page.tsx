@@ -3,7 +3,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { parse } from "path";
 
 interface PostsParams {
-    params: Promise<{ slug: string, creationDate: string }>
+    params: Promise<{ slug: string }>
 }
 
 export async function generateMetadata({ params }: PostsParams) {
@@ -29,7 +29,7 @@ const components = {
 }
 
 export default async function Posts({ params }: PostsParams) {
-    const { slug, creationDate } = await params
+    const { slug } = await params
 
     if (!process.env.PWD) return <></>;
 
@@ -37,7 +37,6 @@ export default async function Posts({ params }: PostsParams) {
 
     return (
         <article>
-            <time dateTime={creationDate}>{creationDate}</time>
             <MDXRemote source={`${data}`} components={components} />
         </article>
     )
