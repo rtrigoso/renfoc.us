@@ -7,9 +7,7 @@ interface LinkListParams {
 }
 
 export default async function LinkList({ content }: LinkListParams) {
-    let filteredContent = content;
-
-    const links = filteredContent.map(link => {
+    const links = content.map(link => {
         const {
             path,
             creationDateString,
