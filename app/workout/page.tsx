@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import CheckList from "@/components/composites/CheckList";
+import CheckList from "@/composites/CheckList";
 import styles from './page.module.css';
 
 export default function Page() {

@@ -1,4 +1,5 @@
 import { GetPostDescription, ReadContentDirectory, readDataContent } from "@/utils/content";
+import { capitalize } from "@/utils/strings";
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { parse } from "path";
 
@@ -12,10 +13,10 @@ export async function generateMetadata({ params }: PostsParams) {
     const data = await GetPostDescription(slug)
 
     return {
-        title: title[0].toUpperCase() + title.slice(1),
+        title: capitalize(title),
         description: data,
         'twitter:title': data,
-        'og:title': title[0].toUpperCase() + title.slice(1)
+        'og:title': capitalize(title)
     }
 }
 
