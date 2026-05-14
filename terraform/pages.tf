@@ -17,7 +17,6 @@ resource "cloudflare_pages_project" "renfoc_us" {
       compatibility_flags                  = []
       env_vars                             = null
       fail_open                            = true
-      usage_model                          = "standard"
     }
     production = {
       always_use_latest_compatibility_date = false
@@ -31,12 +30,10 @@ resource "cloudflare_pages_project" "renfoc_us" {
           namespace_id = cloudflare_workers_kv_namespace.rate_limiting.id
         }
       }
-      usage_model = "standard"
     }
   }
   source = {
     config = {
-      deployments_enabled            = true
       owner                          = "rtrigoso"
       owner_id                       = "2831305"
       path_excludes                  = []
