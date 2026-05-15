@@ -459,6 +459,14 @@ article h4 {
 article em,
 article blockquote {
   color: var(--secondary-fg-color);
+  padding: 0.5rem 1.5rem 0;
+}
+
+article blockquote {
+  background-color: #e9e7e2;
+  text-align: right;
+  margin-bottom: 1rem;
+  color: var(--tertiary-fg-color);
 }
 
 article pre {
