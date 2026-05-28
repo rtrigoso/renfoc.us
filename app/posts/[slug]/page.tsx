@@ -1,13 +1,15 @@
 import { GetPostDescription, ReadContentDirectory, readDataContent } from "@/utils/content";
+import CustomImage from "@/composites/CustomImage";
 import { capitalize } from "@/utils/strings";
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { parse } from "path";
+import type { Metadata } from "next";
 
 interface PostsParams {
     params: Promise<{ slug: string }>
 }
 
-export async function generateMetadata({ params }: PostsParams) {
+export async function generateMetadata({ params }: PostsParams): Promise<Metadata> {
     const { slug } = await params;
     const title = slug.split('-')[1].split('_').join(' ');
     const data = await GetPostDescription(slug)
@@ -15,16 +17,21 @@ export async function generateMetadata({ params }: PostsParams) {
     return {
         title: capitalize(title),
         description: data,
-        'twitter:title': data,
-        'og:title': capitalize(title)
+        twitter: { title: capitalize(title) },
+        openGraph: { title: capitalize(title) }
     }
 }
 
 const components = {
-    img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
-        <a href={props.src} target="_blank" rel="noopener noreferrer">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img {...props} alt={props.alt ?? ''} />
+    img: ({ src, alt, width, height, className }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+        <a href={src} target="_blank" rel="noopener noreferrer">
+            <CustomImage
+                src={src ?? ''}
+                alt={alt ?? ''}
+                width={Number(width) || 0}
+                height={Number(height) || 0}
+                className={className}
+            />
         </a>
     )
 }

@@ -33,6 +33,15 @@ body {
 }
 
 /* general tags */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-header), serif;
+}
+
 h1 {
   font-size: 5.5rem;
   line-height: 5.5rem;
@@ -316,12 +325,16 @@ header>section>nav {
   display: flex;
   justify-content: space-between;
   flex-grow: 2;
-  gap: 0.25rem;
+  gap: 1.25rem;
 }
 
 .post_link span:first-child {
-  min-width: 85px;
+  min-width: 90px;
   max-width: 110px;
+}
+
+.post_link svg {
+  min-width: 11px;
 }
 
 /* main section */
@@ -391,6 +404,7 @@ section dt+dd {
 
 .card_content {
   display: flex;
+  gap: 1.25rem;
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
@@ -399,7 +413,11 @@ section dt+dd {
 }
 
 .card_embed_img {
-  border-radius: 2px
+  width: 60%;
+  max-width: 60%;
+  height: auto;
+  border-radius: .25rem;
+  margin: 0 auto;
 }
 
 .card_header {
@@ -414,6 +432,16 @@ section dt+dd {
   width: 3rem;
   height: 3rem;
   border-radius: 0.5rem;
+}
+
+/* custom image */
+.custom-image.logo {
+  width: 170%;
+}
+
+.custom-image {
+  width: 100%;
+  height: auto;
 }
 
 /* article */
@@ -480,12 +508,16 @@ article pre {
   word-wrap: break-word;
 }
 
+code {
+  color: #4F4F4F;
+}
+
 article pre code {
   font-family: var(--font-mono), "Courier New", monospace;
   letter-spacing: 0.1rem;
   font-size: 0.75rem;
   font-weight: 300;
-  color: #000000;
+  color: #4F4F4F;
 }
 
 /* checklist */
@@ -510,7 +542,7 @@ article pre code {
   flex-shrink: 0;
 }
 
-.checklist input[type="checkbox"]:checked + span {
+.checklist input[type="checkbox"]:checked+span {
   text-decoration: line-through;
   opacity: 0.5;
 }

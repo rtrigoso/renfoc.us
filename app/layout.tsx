@@ -1,7 +1,8 @@
 import './reset.css';
 import "./globals.css";
 import type { Metadata } from "next";
-import { Share_Tech_Mono, Noto_Sans_Display } from 'next/font/google';
+import localFont from 'next/font/local';
+import { Jersey_25 } from 'next/font/google';
 import Header from '@/composites/Header';
 import Game from '@/composites/Game';
 
@@ -10,8 +11,9 @@ export const metadata: Metadata = {
   description: "Metaphysics, tunes, and code.",
 };
 
-const synemono = Share_Tech_Mono({ weight: '400', subsets: ['latin'], variable: '--font-mono' });
-const notoSans = Noto_Sans_Display({ weight: ['400', '700', '900'], subsets: ['latin'], variable: '--font-body' });
+const synemono = localFont({ src: '../public/fonts/unscii-16-full.woff2', variable: '--font-mono' });
+const jersey = Jersey_25({ weight: '400', subsets: ['latin'], variable: '--font-header' });
+const departure = localFont({ src: '../public/fonts/DepartureMono-Regular.woff2', variable: '--font-body' });
 
 type RootLayoutArgs = Readonly<{
   children: React.ReactNode;
@@ -19,7 +21,7 @@ type RootLayoutArgs = Readonly<{
 
 export default function RootLayout({ children }: RootLayoutArgs) { 
   return (
-    <html lang="en" className={`${synemono.variable} ${notoSans.variable}`}>
+    <html lang="en" className={`${synemono.variable} ${jersey.variable} ${departure.variable}`}>
       <body>
         <div className="skip_link">
           <a href="#main_content" tabIndex={0}>
