@@ -30,7 +30,7 @@ export default function Header() {
                     <br />
                 </div>
                 <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>
-                    <h1 className="glitch" data-text="Ren's blog">Ren's blog</h1>
+                    <h1 className="glitch website_header" data-text="Ren's blog">Ren's blog</h1>
                 </Link>
                 <h3>Metaphysics, tunes, and code</h3>
                 <nav id="social_links">

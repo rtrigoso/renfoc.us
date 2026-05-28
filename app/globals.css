@@ -50,6 +50,10 @@ h1 {
   font-weight: 900;
 }
 
+h1.website_header {
+  width: min-content;
+}
+
 h2 {
   font-size: 2rem;
   line-height: 2.1rem;
@@ -223,7 +227,7 @@ header>section>nav {
 /* homepage */
 .buymecoffee_wrapper {
   text-align: right;
-  padding-right: 1rem;
+  padding: 0 1rem 2rem 0;
 }
 
 /* other pages */
@@ -363,6 +367,11 @@ section dt+dd {
   .hide_on_mobile {
     display: none;
   }
+
+  h1.website_header {
+    font-size: 3.5rem;
+    line-height: 2rem !important;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -374,9 +383,16 @@ section dt+dd {
     padding-left: 2rem;
     border-radius: 0.5rem 0 0 0.5rem;
   }
+
+  h1.website_header {
+    line-height: 3.5rem;
+  }
 }
 
 @media screen and (min-width: 500px) {
+  h1.website_header {
+    font-size: 8.5rem;
+  }
 
   main>section,
   main>article {
