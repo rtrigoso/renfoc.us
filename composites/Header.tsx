@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import Image from 'next/image';
+import CustomImage from './CustomImage';
 import { usePathname } from 'next/navigation';
 import SocialLink from './SocialLink';
 import CoffeeCupIcon from './icons/CoffeeCupIcon';
@@ -15,14 +15,12 @@ export default function Header() {
         <header>
             <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>
                 <div className="crop_circle logo_wrapper">
-                    <Image
-                        src="/header.webp"
+                    <CustomImage
+                        src="/header.jpg"
                         alt="selfie created with ai on the style of a studio ghibli movie"
                         className="logo glitch-img"
                         width={250}
                         height={140}
-                        placeholder="blur"
-                        blurDataURL="/header_loading.webp"
                     />
                 </div>
             </Link>

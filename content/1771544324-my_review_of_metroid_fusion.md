@@ -5,7 +5,7 @@ I've played Metroid Fusion before. I knew how it ended. I knew where the save ro
 
 That's the thing about Fusion that nobody talks about enough. *It gets under your skin the same way twice.*
 
-![metroid fusion screenshot 1](../metroid_fusion_1.jpeg)
+![metroid fusion screenshot 1](../metroid_fusion_1.jpg)
 
 ---
 
