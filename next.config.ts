@@ -12,6 +12,10 @@ const nextConfig = withMdx({
   images: {
     domains: ['renfoc.us'],
     loaderFile: './image-loader.js',
+  },
+  experimental: {
+    cssChunking: true,
+    optimizeCss: true
   }
 })
 
