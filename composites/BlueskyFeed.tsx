@@ -55,6 +55,11 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
         const embeds = post.embed?.images || [];
         const external = post.embed?.external;
         const gifURL = external?.uri || '';
+        let displayNameArr = post.author.displayName.replace(/\bthe\b/i, '').split(/\s/);
+
+        if (displayNameArr.length > 2) {
+           displayNameArr = displayNameArr.map(d => `${d.at(0)}.`);
+        }
 
         if (external && gifURL.includes('gif')) {
             const params = new URL(gifURL).searchParams;
@@ -73,7 +78,7 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
        return {
             link: `https://bsky.app/profile/ren-rocks.bsky.social/post/${post.uri.split('/').at(-1)}`,
             avatar: post.author.avatar,
-            displayName: post.author.displayName.split(/\s/).at(0),
+            displayName: displayNameArr.join(''),
             content: post.record.text,
             createdAt: new Date(post.indexedAt),
             embeds: embeds?.map(image => ({

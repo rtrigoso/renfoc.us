@@ -38,6 +38,23 @@ interface CardProps {
     postURL: string;
 }
 
+function renderContent(content: string) {
+    return content.split(/(\s+)/).map((part, i) => {
+        const match = part.match(/^(#\w+)(.*)/);
+        if (!match) return part;
+
+        const [, hashtag, rest] = match;
+        return (
+            <span key={i}>
+                <a href={`https://bsky.app/hashtag/${hashtag.slice(1)}`} target="_blank" rel="noopener noreferrer">
+                    {hashtag}
+                </a>
+                {rest}
+            </span>
+        );
+    });
+}
+
 export default function Card(props: CardProps) {
     return (
         <li className="card">
@@ -59,7 +76,7 @@ export default function Card(props: CardProps) {
             </div>
             <div className="card_content">
                <div>
-                    {props.content}
+                    {renderContent(props.content)}
                 </div>
                 {
                     props.embedImgURL &&
