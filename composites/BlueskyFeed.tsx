@@ -55,10 +55,13 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
         const embeds = post.embed?.images || [];
         const external = post.embed?.external;
         const gifURL = external?.uri || '';
-        let displayNameArr = post.author.displayName.replace(/\bthe\b/i, '').split(/\s/);
-
+        
+        let displayNameArr = post.author.displayName.replace(/\bthe\b/i, '').trim().split(/\s/);
         if (displayNameArr.length > 2) {
            displayNameArr = displayNameArr.map(d => `${d.at(0)}.`);
+        }
+        else {
+            displayNameArr = displayNameArr.slice(0, 1);
         }
 
         if (external && gifURL.includes('gif')) {
