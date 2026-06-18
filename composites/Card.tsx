@@ -1,4 +1,3 @@
-import ExternalLink from "@/composites/ExternalLink";
 
 interface PostCardEmbed {
     alt: string
@@ -38,20 +37,42 @@ interface CardProps {
     postURL: string;
 }
 
+function renderHashtag(part: string, i: number) {
+    const match = part.match(/^(#\w+)(.*)/);
+    if (!match) return null;
+    const [, hashtag, rest] = match;
+    return (
+        <span key={i}>
+            <a href={`https://bsky.app/hashtag/${hashtag.slice(1)}`} target="_blank" rel="noopener noreferrer">
+                {hashtag}
+            </a>
+            {rest}
+        </span>
+    );
+}
+
+function renderURL(part: string, i: number) {
+    const match = part.match(/^(https:\/\/\S+)(.*)/);
+    if (!match) return null;
+    const [, url, rest] = match;
+    return (
+        <span key={i}>
+            <a href={url} target="_blank" rel="noopener noreferrer">
+                {url}
+            </a>
+            {rest}
+        </span>
+    );
+}
+
 function renderContent(content: string) {
     return content.split(/(\s+)/).map((part, i) => {
-        const match = part.match(/^(#\w+)(.*)/);
-        if (!match) return part;
+        const hashtag = renderHashtag(part, i);
+        const url = renderURL(part, i);
 
-        const [, hashtag, rest] = match;
-        return (
-            <span key={i}>
-                <a href={`https://bsky.app/hashtag/${hashtag.slice(1)}`} target="_blank" rel="noopener noreferrer">
-                    {hashtag}
-                </a>
-                {rest}
-            </span>
-        );
+        if (hashtag) return hashtag;
+        if (url) return url;
+        return part;
     });
 }
 
@@ -86,9 +107,8 @@ export default function Card(props: CardProps) {
                         link={props.embedImgURL}
                         aspectRatio={props.embedAspectRatio || ''}
                     />
-                }                <div>
-                    <a href={props.postURL} target="_BLANK">view post <ExternalLink /></a>
-                </div>
+                }
+                <br />
             </div>
         </li>
     );
