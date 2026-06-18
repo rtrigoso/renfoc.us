@@ -429,6 +429,7 @@ section dt+dd {
 }
 
 .card_embed_img {
+  filter: grayscale(0.75) contrast(2.5) saturate(8.5);
   width: 60%;
   max-width: 60%;
   height: auto;
@@ -448,6 +449,7 @@ section dt+dd {
   width: 3rem;
   height: 3rem;
   border-radius: 0.5rem;
+  filter: grayscale(0.75) contrast(2.5) saturate(8.5);
 }
 
 /* custom image */

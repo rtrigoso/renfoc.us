@@ -26,7 +26,7 @@ export default function Header() {
             </Link>
             <section>
                 <div className="buymecoffee_wrapper">
-                    <a href="https://www.buymeacoffee.com/renrocks" target="_blank" rel="noreferrer">Buy me <CoffeeCupIcon /><span className="hidden">, opens in new tab</span></a>
+                    <a href="https://www.buymeacoffee.com/renrocks" target="_blank" rel="noreferrer">buy me coffee <CoffeeCupIcon /><span className="hidden">, opens in new tab</span></a>
                     <br />
                 </div>
                 <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>
