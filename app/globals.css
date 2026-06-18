@@ -449,7 +449,7 @@ section dt+dd {
   width: 3rem;
   height: 3rem;
   border-radius: 0.5rem;
-  filter: grayscale(0.75) contrast(2.5) saturate(8.5);
+  filter: contrast(2.5) saturate(12.5) grayscale(0.8);
 }
 
 /* custom image */
