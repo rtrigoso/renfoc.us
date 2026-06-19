@@ -91,4 +91,4 @@ Tools like [nyc](https://github.com/istanbuljs/nyc) or [c8](https://github.com/b
 
 ### The Point
 
-The lint and dependency checks take minutes. The rest takes judgment. If all you needed was a script, you wouldn't need a reviewer.
+The lint and dependency checks take minutes. The rest takes judgment.
