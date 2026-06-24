@@ -136,7 +136,7 @@ strong {
 .crop_circle {
   overflow: hidden;
   aspect-ratio: 1/1;
-  border-radius: 80%;
+  border-radius: 1%;
 }
 
 .logo_wrapper {
