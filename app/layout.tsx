@@ -9,6 +9,18 @@ import Game from '@/composites/Game';
 export const metadata: Metadata = {
   title: "renfoc.us",
   description: "Metaphysics, tunes, and code.",
+  metadataBase: new URL("https://renfoc.us"),
+  openGraph: {
+    title: "renfoc.us",
+    description: "Metaphysics, tunes, and code.",
+    images: [{ url: "/header.jpg", width: 250, height: 250 }],
+  },
+  twitter: {
+    card: "summary",
+    title: "renfoc.us",
+    description: "Metaphysics, tunes, and code.",
+    images: ["/header.jpg"],
+  },
 };
 
 const synemono = localFont({ src: '../public/fonts/unscii-16-full.woff2', variable: '--font-mono' });

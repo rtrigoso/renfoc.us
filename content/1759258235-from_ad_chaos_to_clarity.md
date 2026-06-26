@@ -1,3 +1,7 @@
+{/*description
+When malicious ads start appearing on a news site and the engineering team has no direct control over them, a junior developer named Bob solves the problem not with clever code but by calling the ad network and asking questions until he finds a lever he can pull. The story follows Bob building a simple browser extension that lets editors identify and report bad ad providers, restoring trust between departments and giving engineers their time back. It is a quiet argument that curiosity, communication, and the willingness to try the obvious thing are often more valuable than technical sophistication.
+*/}
+
 ###### 9-30-2025
 ## From Ad Chaos to Clarity 
 Sara is a news editor at a broadcasting company. One day, she receives a complaint: a reader has spotted malicious ads on the homepage. Sara reaches out to the engineering team, hoping for a simple fix.

@@ -1,3 +1,7 @@
+{/*description
+This post explains how the value of "this" in JavaScript is determined by how a function is called rather than where it is written, which is fundamentally different from how other variables work. It walks through the four binding rules (default, implicit, explicit, and arrow functions) using an interview question about a "once" wrapper as the central example. The key takeaway is that regular functions should be used when you need "this" from the call site and arrow functions when you want "this" captured from the surrounding scope.
+*/}
+
 ###### 11-04-2025
 ## This Quirky Javascript
 

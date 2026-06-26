@@ -66,18 +66,16 @@ export async function readDataContent(slug: string, currentPath: string): Promis
     return data;
 }
 
+export function ExtractDescriptionComment(raw: string): string {
+    const match = raw.match(/\{\/\*description\n([\s\S]*?)\n\*\/\}/);
+    return match ? match[1].trim() : '';
+}
+
 export async function GetPostDescription(slug: string): Promise<string> {
     if (!process.env.PWD) return '';
 
     const raw = await readDataContent(slug, process.env.PWD);
-    // Strip markdown headings, then extract the first complete sentence
-    const text = raw.replace(/^#{1,6}\s+.+$/gm, '').trim();
-    const first = text.indexOf('. ');
-    if (first === -1) return '';
-    const second = text.indexOf('. ', first + 1);
-    const excerpt = text.slice(first + 2, second === -1 ? undefined : second + 1).trim();
-
-    return `...${excerpt}...`;
+    return ExtractDescriptionComment(raw);
 }
 
 export async function GetLinksDataFromContent(): Promise<PostItem[]> {

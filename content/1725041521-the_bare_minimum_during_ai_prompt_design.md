@@ -1,3 +1,7 @@
+{/*description
+AI text generation models are vulnerable to prompt injection attacks, techniques where crafted input steers the model toward unintended goals or leaks sensitive information. This post covers the two main attack types, goal hijacking and prompt leaking, and walks through practical defenses like input validation, instruction precedence, clear delimiters, and stop sequences. Following these practices is the bare minimum needed to keep AI-powered features safe and predictable in production.
+*/}
+
 ###### 2-13-2025
 ## The Bare Minimum During AI Prompt Design
 Generative AI services have surged in popularity. Models, like GPT-3, which generate text based on prompts, and Google's PaLM 2 Bison, are being incorporated into many SaaS offerings. Companies implementations has seen a significant rise, enhancing the capabilities and value proposition of these platforms.

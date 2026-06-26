@@ -1,3 +1,7 @@
+{/*description
+Stoicism offers useful armor against emotional pain by focusing on what's within your control, but its emotional minimalism can become too much armor when what you need is to feel alive again rather than just endure. Bertrand Russell's approach in The Conquest of Happiness offers a warmer alternative: happiness comes from growing your interests outward, engaging with the world, and seeking connection rather than retreating inward. The post is a personal reflection on finding that Stoicism is good for survival but Russell is better for rediscovering joy.
+*/}
+
 ###### 6-2-2025
 ## Need more Bertrand and less Seneca
 Lately, I've been struggling with a quiet but persistent sadness. What I used to do to manage it—routine, discipline, a kind of philosophical bracing—has stopped working. It feels like I'm being hit by waves of negative emotion, each one powered by the endless stream of bad news, personal and global. My grip on optimism slips a little more each day, and with it comes guilt—the paralyzing kind that creeps in when your only response to chaos is inaction.
