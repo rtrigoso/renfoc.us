@@ -12,13 +12,13 @@ interface PostsParams {
 export async function generateMetadata({ params }: PostsParams): Promise<Metadata> {
     const { slug } = await params;
     const title = slug.split('-')[1].split('_').join(' ');
-    const data = await GetPostDescription(slug)
+    const description = await GetPostDescription(slug)
 
     return {
         title: capitalize(title),
-        description: data,
-        twitter: { title: capitalize(title) },
-        openGraph: { title: capitalize(title) }
+        description,
+        twitter: { title: capitalize(title), description },
+        openGraph: { title: capitalize(title), description }
     }
 }
 

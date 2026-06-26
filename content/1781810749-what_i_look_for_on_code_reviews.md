@@ -1,3 +1,7 @@
+{/*description
+Nobody formally teaches developers how to review code, so this post shares a personal checklist built from watching teammates and making mistakes. It covers five areas in order: running lint against only the changed files, auditing any new or modified dependencies with npm audit, scanning for anti-patterns like God Objects and dead code, checking for language-specific traps like missing await in JavaScript async functions, and verifying that test coverage includes the happy path, edge cases, and error paths. The lint and dependency steps take minutes and the rest takes judgment, but together they form a review that catches what automated checks miss.
+*/}
+
 ###### 06-18-2026
 ## What I Look for on Code Reviews
 

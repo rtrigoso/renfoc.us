@@ -1,3 +1,7 @@
+{/*description
+This tutorial shows how to enforce pull request discipline on a GitHub repository without a GitHub Enterprise account by combining Husky pre-commit hooks with GitHub Actions. A pre-commit hook blocks direct commits to main, while Actions enforce test coverage thresholds, lint checks, a required Miro link in every PR description, and a bot-controlled ready-to-merge label that can only be added by a reviewer who is not the PR author. The approach is not airtight but raises the floor enough to handle the problems that come from habit and convenience rather than deliberate circumvention.
+*/}
+
 ###### 04-13-2026
 ## Shielding Repos on a Budget
 Consultants wait. It's part of the job. Contracts dry up. The bench fills. For a stretch you're just a developer with time and no fire to put out. Automation makes it easier. Less to remember.

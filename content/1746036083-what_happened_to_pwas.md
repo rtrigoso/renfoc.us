@@ -1,3 +1,7 @@
+{/*description
+Progressive Web Apps promised a write once run anywhere future where browser based apps could match native experiences on any device, but inconsistent support from Apple and Mozilla stalled that vision. Apple restricted key PWA APIs on iOS for years, and Firefox quietly removed installation support in 2021, citing low user interest and fragmenting the ecosystem in Chrome's favor. Mozilla's 2025 reintroduction of web app support in Firefox is a tentative hopeful sign that PWAs might yet get a second chance.
+*/}
+
 ###### 4-29-2025
 ## What happened to Progressive Web Apps (PWAs)?
 Open web standards are good for us. They are publicly agreed-upon rules and technologies—like HTML, CSS, JavaScript, and HTTP—that define how the web works. These standards are maintained by organizations like the W3C (World Wide Web Consortium) and WHATWG, and are designed to ensure the web remains open, accessible, and interoperable. Open standards help prevent monopolies from locking down the internet and allow engineers to work smarter: write once, run anywhere.

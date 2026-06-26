@@ -1,3 +1,7 @@
+{/*description
+After Anthropic acquired Bun.sh, a developer on the team opened a pull request to port the runtime from Zig to Rust using a large language model and a single giant prompt, which set off a wave of community concern and several hundred comments before the PR merged. The Rust codebase quickly accumulated issue tickets pointing out unsafe code and undefined behavior, highlighting the real limits of AI-generated systems code in a production runtime. The post treats the episode as a small, fascinating piece of engineering history and an honest look at what happens when enthusiasm for AI tools runs ahead of verification.
+*/}
+
 ###### 05-15-2026
 ## Rust on my Bun
 I am surprised we are not talking about Bun.sh and how it was ported to Rust using LLM. This whole week has been fascinating!
