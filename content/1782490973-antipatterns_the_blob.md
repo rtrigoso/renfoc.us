@@ -12,6 +12,8 @@ Just like in the movie, it freezes you.
 
 And here is the thing: it is good that you are scared. I mean it. Great engineers get scared too.
 
+![a cute little blob monster](/the_blob.jpg)
+
 ### Megalophobia
 
 Have you noticed how much easier it is to add new code than update old code? When you write something new, you know exactly what the consequences are: none yet. No previous code to break. No existing callers to surprise. No edge cases hiding in logic you didn't write.
