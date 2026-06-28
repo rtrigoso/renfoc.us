@@ -4,7 +4,7 @@
 I am not referring to the original movie from 1958, starring Steve McQueen.
 I am also not referring to the reboot directed by Chuck Russell.
 
-In software engineering, sometimes you run into a file holding an absurdly complicated function. This function encompasses many lines and has way too many conditionals to count. You have been tasked to update this function with a small feature request. As soon as you see the code, you freeze up.
+In software engineering, sometimes you run into a file holding an absurdly complicated function. This function runs for hundreds of lines and has more conditionals than you can hold in your head. You have been tasked to update this function with a small feature request. As soon as you see the code, you freeze up.
 
 The thought crosses your mind: "I do not want to mess anything up." It makes you procrastinate the changes. Even after reading the code, you aren't sure what consequences your changes will have everywhere else.
 
@@ -30,7 +30,7 @@ Where do you add that last one?
 
 ### Beware of the Blob
 
-The Blob, also called a God Class or God Object, is a class or function that has taken on too many responsibilities. It knows too much, does too much, and touches too much. Everything flows through it. Nobody knows what it fully does anymore, and nobody wants to be the one to find out the hard way.
+The Blob is a class or function that has taken on too many responsibilities. You may also see it called a God Class or God Object, though those names carry their own distinctions. It knows too much, does too much, and touches too much. Everything flows through it. Nobody knows what it fully does anymore, and nobody wants to be the one to find out the hard way.
 
 Here is `HandleSubmission`, a few sprints later:
 
@@ -67,14 +67,17 @@ async function HandleSubmission(text, username, isAdmin, userId) {
 
 It validates. It filters. It logs. It fetches. It tracks. It formats responses based on role. None of these things belong together, and yet here they all are.
 
-You will know you are looking at a Blob when the name is something vague like `Handle`, `Process`, `Manage`, or `Do`. The argument list has grown longer than it should ever be. There are conditionals checking for roles, types, or specific hardcoded values scattered throughout. It reaches out to multiple services, databases, or files. Writing tests for it means mocking a dozen things first. Every PR touching it includes a comment saying "be careful, this is complex." New logic always gets added at the bottom because nobody dares touch what is already up there.
+Blobs tend to share the same tells. They are named something vague like `Handle`, `Process`, `Manage`, or `Do`. The argument list has grown longer than it should ever be. There are conditionals checking for roles, types, or specific hardcoded values scattered throughout. It reaches out to multiple services, databases, or files. Writing tests for it means mocking a dozen things first. Every PR touching it includes a comment saying "be careful, this is complex." New logic always gets added at the bottom because nobody dares touch what is already up there.
 
 ### You Are Not Alone
 
 Look, this happens everywhere. [The Linux process scheduler](https://github.com/torvalds/linux/blob/master/kernel/sched/core.c) is over 10,000 lines. [Chromium's RenderFrameHostImpl](https://github.com/chromium/chromium/blob/main/content/browser/renderer_host/render_frame_host_impl.cc) has been brought up repeatedly as one of the most tangled classes in its codebase. [Rails' ActiveRecord::Base](https://github.com/rails/rails/blob/main/activerecord/lib/active_record/base.rb) has pulled in so many concerns that entire patterns now exist just to move logic back out of it.
 
-These are maintained by some of the best engineers in the world. Finding a Blob is not a sign that you are surrounded by bad engineers. It is a sign that the system grew, and nobody was given the time or the permission to let it breathe.
+These are maintained by some of the best engineers in the world. Finding a Blob is not a sign that you are surrounded by bad engineers. It is a sign of awareness.
 
 The first step is just recognizing it. Name it. When you open a function and feel that freeze, you are looking at a Blob. The second step is not necessarily fixing it today. It is making sure what you add next does not make it worse.
 
-You will be fine. More antipatterns coming.
+You will be fine.
+
+#### More Antipatterns Incoming
+I hope this short definition was enjoyable because I will be writing more of it. I am starting a new series on my blog. These posts are meant to work as reaffirmations for me and you, and hopefully clear up all that negative imposter-syndrome, which I suffer from a lot. Either way, I am sure that refreshing anti-patterns will make you a better engineer, even in these trying, AI-trending times.
