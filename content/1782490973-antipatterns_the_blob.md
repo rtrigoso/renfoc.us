@@ -1,3 +1,7 @@
+{/*description
+The Blob is a class or function that has absorbed too many responsibilities over time until nobody fully knows what it does anymore. It shows up in codebases everywhere, even the best ones, and it tends to freeze you the moment you open it. This post names the pattern, walks through how a Blob grows one reasonable addition at a time, and argues that the first step is not always fixing it today but making sure you do not make it worse.
+*/}
+
 ###### 06-26-2026
 ## Antipatterns: The Blob
 
