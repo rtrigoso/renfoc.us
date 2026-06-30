@@ -1,5 +1,6 @@
 import PostCardEmbed from './PostCardEmbed';
 import { renderContent } from '@/utils/cardContent';
+import ExternalLink from "@/composites/ExternalLink";
 
 interface CardProps {
     avatarURL: string;
@@ -17,7 +18,7 @@ export default function Card(props: CardProps) {
     return (
         <li className="card">
             <div className="card_header">
-                 <img
+                <img
                     className="avatar"
                     src={props.avatarURL}
                     alt={`image: avatar for ${props.username}`}
@@ -45,7 +46,9 @@ export default function Card(props: CardProps) {
                         aspectRatio={props.embedAspectRatio || ''}
                     />
                 }
-                <br />
+                <div>
+                    <a href={props.postURL} target="_BLANK">view post <ExternalLink /></a>
+                </div>
             </div>
         </li>
     );
