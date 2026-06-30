@@ -1,3 +1,10 @@
+{/*tags
+supabase
+terraform
+backend
+infrastructure
+tutorial
+*/}
 {/*description
 This tutorial walks through setting up a Supabase backend project using Terraform for infrastructure as code, so that all cloud resources are version controlled, reproducible, and free of hardcoded secrets. It covers writing the provider and project resource configuration, managing environment variables safely, and running terraform init, plan, and apply to provision the project. The post then continues with linking the Supabase CLI to the new project, initializing local configuration, and creating the first database migration.
 */}

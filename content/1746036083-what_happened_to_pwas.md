@@ -1,3 +1,10 @@
+{/*tags
+pwa
+browsers
+web-standards
+mobile
+history
+*/}
 {/*description
 Progressive Web Apps promised a write once run anywhere future where browser based apps could match native experiences on any device, but inconsistent support from Apple and Mozilla stalled that vision. Apple restricted key PWA APIs on iOS for years, and Firefox quietly removed installation support in 2021, citing low user interest and fragmenting the ecosystem in Chrome's favor. Mozilla's 2025 reintroduction of web app support in Firefox is a tentative hopeful sign that PWAs might yet get a second chance.
 */}

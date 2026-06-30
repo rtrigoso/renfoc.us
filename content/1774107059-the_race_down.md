@@ -1,3 +1,10 @@
+{/*tags
+personal
+childhood
+guilt
+belonging
+memory
+*/}
 {/*description
 A personal memory of falling down a mountain at age nine during a birthday hike, where the desire to belong and be liked led to a terrifying accident that left a lasting mark. The aftermath shaped a deep habit of guilt and an overactive sense of responsibility for the people he loves, traced back to lying in a hospital bed worrying about inconveniencing his classmate. The essay closes by reaching for the moment just before the fall, hoping that remembering the joy of being included might make it possible to be kinder to the kid who only wanted to belong.
 */}

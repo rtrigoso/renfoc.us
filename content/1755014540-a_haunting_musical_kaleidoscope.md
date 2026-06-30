@@ -1,3 +1,10 @@
+{/*tags
+music
+moog
+subharmonics
+synthesis
+math
+*/}
 {/*description
 The Moog Subharmonicon generates music by mathematically dividing a root frequency into subharmonics, creating rich textures that can sound consonant or hauntingly wrong depending on the divisor, because higher integers produce microtonal intervals that fall between the notes of standard Western scales. Quantization can snap the fundamental oscillators to familiar tuning systems like 12-ET or just intonation, but it cannot fix the subharmonics themselves, which remain pure mathematical ratios. Learning the instrument means developing an ear for harmonic relationships that simply don't exist in conventional music, and a companion JavaScript tool on the site lets you hear these divisions interactively.
 */}

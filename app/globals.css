@@ -30,6 +30,7 @@ html {
 
 body {
   height: 100%;
+  background-color: var(--secondary-bg-color);
 }
 
 /* general tags */
@@ -690,4 +691,24 @@ article pre code {
   .glitch-img {
     animation: none;
   }
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--main-fg-color);
+}
+
+.tags-container h6 {
+  margin: 0;
+  font-size: inherit;
+}
+
+.tags-header {
+  display: block;
+  width: 100%;
 }
