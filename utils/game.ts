@@ -64,7 +64,7 @@ export class GameLoop {
     }
 }
 
-export function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => Promise<void>, mobileInput?: HTMLInputElement) {
+export function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => Promise<void>, mobileInput?: HTMLInputElement): () => void {
     let obstacles: Position[] = [];
     let isGameOver = false;
     let canvasScreen: CanvasScreen = 'gameplay';
@@ -82,14 +82,11 @@ export function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShow
 
     const ctx = canvas.getContext('2d');
     let hasStarted = skipStartScreen;
+    let cleanup: () => void = () => {};
 
     function restart() {
-        isGameOver = false;
+        cleanup();
         setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
-    }
-
-    function goToScoreboard() {
-        window.location.href = '/scoreboard';
     }
 
     function closeSubmitScreen() {
@@ -143,9 +140,8 @@ export function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShow
     function drawStartScreen(ctx: CanvasRenderingContext2D) {
         drawOverlay(ctx);
         ctx.font = "bold 14px monospace";
-        ctx.fillText("CLICK TO START", canvas.width / 2, canvas.height / 2 - 15);
+        ctx.fillText("CLICK TO START", canvas.width / 2, canvas.height / 2);
         ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "SCOREBOARD", canvas.width / 2, canvas.height / 2 + 15, goToScoreboard);
     }
 
     function drawSubmitScreen(ctx: CanvasRenderingContext2D) {
@@ -374,26 +370,24 @@ export function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShow
         drawOverlay(ctx);
         const cx = canvas.width / 2;
         ctx.font = "bold 18px monospace";
-        ctx.fillText("GAME OVER", cx, canvas.height / 2 - 45);
+        ctx.fillText("GAME OVER", cx, canvas.height / 2 - 30);
         ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 - 15, restart);
-        drawClickableText(ctx, "SUBMIT SCORE", cx, canvas.height / 2 + 15, () => {
+        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2, restart);
+        drawClickableText(ctx, "SUBMIT SCORE", cx, canvas.height / 2 + 30, () => {
             canvasScreen = 'submit-score';
             if (ctx) drawSubmitScreen(ctx);
         }, () => {
             if (mobileInput) { mobileInput.value = ''; mobileInput.focus(); }
         });
-        drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 45, goToScoreboard);
     }
 
     function drawScoreSubmitted(ctx: CanvasRenderingContext2D) {
         drawOverlay(ctx);
         const cx = canvas.width / 2;
         ctx.font = "bold 18px monospace";
-        ctx.fillText("SCORE SUBMITTED", cx, canvas.height / 2 - 30);
+        ctx.fillText("SCORE SUBMITTED", cx, canvas.height / 2 - 15);
         ctx.font = "normal 14px monospace";
-        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 + 0, restart);
-        drawClickableText(ctx, "SCOREBOARD", cx, canvas.height / 2 + 30, goToScoreboard);
+        drawClickableText(ctx, "CLICK TO RESTART", cx, canvas.height / 2 + 15, restart);
     }
 
     createObstacles(BASE_MAX_OBSTACLES);
@@ -416,6 +410,16 @@ export function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShow
         }
     });
 
+    cleanup = () => {
+        gl.stop();
+        canvas.removeEventListener('pointerdown', handleClick);
+        canvas.removeEventListener('pointerup', clearState);
+        window.removeEventListener('keydown', handleKeyDown);
+        mobileInput?.removeEventListener('input', handleMobileInput);
+    };
+
     if (ctx && !skipStartScreen) drawStartScreen(ctx);
     if (skipStartScreen) gl.run();
+
+    return cleanup;
 }
