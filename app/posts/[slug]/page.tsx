@@ -1,4 +1,4 @@
-import { GetPostDescription, ReadContentDirectory, readDataContent } from "@/utils/content";
+import { GetPostDescription, ReadContentDirectory, readDataContent, ExtractTags } from "@/utils/content";
 import CustomImage from "@/composites/CustomImage";
 import { capitalize } from "@/utils/strings";
 import { MDXRemote } from 'next-mdx-remote/rsc'
@@ -42,10 +42,24 @@ export default async function Posts({ params }: PostsParams) {
     if (!process.env.PWD) return <></>;
 
     const data = await readDataContent(slug, process.env.PWD);
+    const tags = ExtractTags(data);
 
     return (
         <article>
             <MDXRemote source={`${data}`} components={components} />
+            {tags.length > 0 && (
+                <div className="tags-container">
+                    <h6 className="tags-header">Tags:</h6>
+                    {tags.map((tag, i) => (
+                        <span key={tag}>
+                            <a href={`/tags/${tag}`} rel="tag">
+                                {tag.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase())}
+                            </a>
+                            {i < tags.length - 1 ? ',' : ''}
+                        </span>
+                    ))}
+                </div>
+            )}
         </article>
     )
 }  

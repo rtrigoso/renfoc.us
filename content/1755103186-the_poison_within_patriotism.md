@@ -1,3 +1,10 @@
+{/*tags
+patriotism
+identity
+philosophy
+immigration
+humanity
+*/}
 {/*description
 A personal account of being treated as a foreign visitor despite being a legal citizen illustrates how patriotism draws lines that exclude people regardless of their contributions or legal standing. Martha Nussbaum's critique of patriotic education is used to argue that teaching loyalty to one's country above all else blinds people to shared global humanity and produces the kind of nationalism that fuels immigration fights and dehumanization. The post calls for embracing world citizenship and seeing each other as members of the same team rather than as rivals divided by borders.
 */}

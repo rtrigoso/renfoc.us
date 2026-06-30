@@ -1,3 +1,10 @@
+{/*tags
+ai
+security
+prompts
+injection
+llm
+*/}
 {/*description
 AI text generation models are vulnerable to prompt injection attacks, techniques where crafted input steers the model toward unintended goals or leaks sensitive information. This post covers the two main attack types, goal hijacking and prompt leaking, and walks through practical defenses like input validation, instruction precedence, clear delimiters, and stop sequences. Following these practices is the bare minimum needed to keep AI-powered features safe and predictable in production.
 */}

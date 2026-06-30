@@ -56,7 +56,7 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
         const external = post.embed?.external;
         const gifURL = external?.uri || '';
         
-        let displayNameArr = post.author.displayName.replace(/\bthe\b/i, '').trim().split(/\s/);
+        let displayNameArr = post.author.displayName.replace(/\p{Emoji}/gu, '').replace(/\bthe\b/i, '').trim().split(/\s/);
         if (displayNameArr.length > 2) {
            displayNameArr = displayNameArr.map(d => `${d.at(0)}.`);
         }

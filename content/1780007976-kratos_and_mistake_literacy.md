@@ -1,3 +1,10 @@
+{/*tags
+games
+engineering
+mistakes
+learning
+ai
+*/}
 {/*description
 God of War (2005) is used as a lens for examining mistake literacy, the ability to recognize problems before they happen because you have already paid the cost of running into them. The game's repetitive enemy encounters teach players to read the room before reacting, which maps directly to how experienced engineers learn to spot issues early through accumulated failure rather than instruction. The post expresses concern that AI tools entering developers' careers before they have made enough meaningful mistakes may cost the next generation the pattern recognition that only comes from struggling through problems without assistance.
 */}

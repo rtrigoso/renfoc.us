@@ -1,3 +1,10 @@
+{/*tags
+communication
+problem-solving
+curiosity
+teamwork
+leadership
+*/}
 {/*description
 When malicious ads start appearing on a news site and the engineering team has no direct control over them, a junior developer named Bob solves the problem not with clever code but by calling the ad network and asking questions until he finds a lever he can pull. The story follows Bob building a simple browser extension that lets editors identify and report bad ad providers, restoring trust between departments and giving engineers their time back. It is a quiet argument that curiosity, communication, and the willingness to try the obvious thing are often more valuable than technical sophistication.
 */}

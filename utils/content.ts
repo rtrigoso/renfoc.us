@@ -13,6 +13,7 @@ export interface PostItem {
     title: string
     creationDate: number
     description?: string
+    tags?: string[]
 }
 
 export function GetContentDirFullPath () {
@@ -71,6 +72,12 @@ export function ExtractDescriptionComment(raw: string): string {
     return match ? match[1].trim() : '';
 }
 
+export function ExtractTags(raw: string): string[] {
+    const match = raw.match(/\{\/\*tags\n([\s\S]*?)\n\*\/\}/);
+    if (!match) return [];
+    return match[1].split('\n').map(t => t.trim()).filter(Boolean);
+}
+
 export async function GetPostDescription(slug: string): Promise<string> {
     if (!process.env.PWD) return '';
 
@@ -87,19 +94,78 @@ export async function GetLinksDataFromContent(): Promise<PostItem[]> {
             const title = titleMatch ? titleMatch[1].replaceAll('_', ' ') : filename;
             const creationDate = parseInt(f.name.split('-')[0]) * 1000;
             const creationDateString = PrintContentReadableCreationTime(f.name);
-            const description = await GetPostDescription(filename)
+            if (!process.env.PWD) return { path: `/posts/${filename}`, title, creationDateString, creationDate };
+            const raw = await readDataContent(filename, process.env.PWD);
+            const description = ExtractDescriptionComment(raw);
+            const tags = ExtractTags(raw);
 
             return ({
                 path: `/posts/${filename}`,
                 title: title,
                 creationDateString,
                 creationDate,
-                description
+                description,
+                tags
             });
         });
     const data = await Promise.all(dataPromise)
     data.sort((a, b) => b.creationDate - a.creationDate)
 
+    return data;
+}
+
+export async function GetAllTags(): Promise<string[]> {
+    if (!process.env.PWD) return [];
+    const files = await ReadContentDirectory();
+    const tagSets = await Promise.all(
+        files.map(async f => {
+            const slug = parse(f.name).name;
+            const raw = await readDataContent(slug, process.env.PWD!);
+            return ExtractTags(raw);
+        })
+    );
+    const unique = [...new Set(tagSets.flat())];
+    return unique;
+}
+
+export async function GetLatestTags(limit: number = 5): Promise<string[]> {
+    if (!process.env.PWD) return [];
+    const files = await ReadContentDirectory();
+    const sorted = [...files].sort((a, b) =>
+        parseInt(b.name.split('-')[0]) - parseInt(a.name.split('-')[0])
+    );
+    const seen: string[] = [];
+    for (const f of sorted) {
+        const slug = parse(f.name).name;
+        const raw = await readDataContent(slug, process.env.PWD!);
+        for (const tag of ExtractTags(raw)) {
+            if (!seen.includes(tag)) seen.push(tag);
+            if (seen.length >= limit) return seen;
+        }
+    }
+    return seen;
+}
+
+export async function GetLinksDataFromContentByTag(tag: string): Promise<PostItem[]> {
+    if (!process.env.PWD) return [];
+    const files = await ReadContentDirectory();
+    const dataPromise: Promise<PostItem | null>[] = files.map(async f => {
+        const slug = parse(f.name).name;
+        const raw = await readDataContent(slug, process.env.PWD!);
+        const tags = ExtractTags(raw);
+        if (!tags.includes(tag)) return null;
+
+        const titleMatch = f.name.match(/^\d+-(.+)\.md$/);
+        const title = titleMatch ? titleMatch[1].replaceAll('_', ' ') : slug;
+        const creationDate = parseInt(f.name.split('-')[0]) * 1000;
+        const creationDateString = PrintContentReadableCreationTime(f.name);
+        const description = ExtractDescriptionComment(raw);
+
+        return { path: `/posts/${slug}`, title, creationDateString, creationDate, description };
+    });
+    const resolved = await Promise.all(dataPromise);
+    const data = resolved.filter((p): p is PostItem => p !== null);
+    data.sort((a, b) => b.creationDate - a.creationDate);
     return data;
 }
 
@@ -123,6 +189,7 @@ export function generateRSSFeed(posts: PostItem[]): void {
             description: post.description || '',
             url: `${site_url}${post.path}`,
             date: new Date(post.creationDate),
+            categories: post.tags ?? [],
         });
     });
 

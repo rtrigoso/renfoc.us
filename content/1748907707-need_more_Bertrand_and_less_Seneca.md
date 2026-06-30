@@ -1,3 +1,10 @@
+{/*tags
+philosophy
+stoicism
+happiness
+bertrand-russell
+mental-health
+*/}
 {/*description
 Stoicism offers useful armor against emotional pain by focusing on what's within your control, but its emotional minimalism can become too much armor when what you need is to feel alive again rather than just endure. Bertrand Russell's approach in The Conquest of Happiness offers a warmer alternative: happiness comes from growing your interests outward, engaging with the world, and seeking connection rather than retreating inward. The post is a personal reflection on finding that Stoicism is good for survival but Russell is better for rediscovering joy.
 */}

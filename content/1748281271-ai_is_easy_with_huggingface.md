@@ -1,3 +1,10 @@
+{/*tags
+ai
+huggingface
+javascript
+machine-learning
+tutorial
+*/}
 {/*description
 This tutorial walks JavaScript developers through using Hugging Face's pretrained models to add AI features to their projects without training models from scratch. It explains the pipeline abstraction, which handles data ingestion, model inference, and output in a single call, and surveys common pipeline types like summarization, translation, and text classification. By the end, any JS developer should feel equipped to incorporate machine learning into their work using Hugging Face's JavaScript library.
 */}
