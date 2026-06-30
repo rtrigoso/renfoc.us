@@ -4,14 +4,12 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { saveScore } from "@/utils/scoreboard";
 import { setup, OVERLAY_SCREENS } from "@/utils/game";
-import GameToggleButton from "@/composites/GameToggleButton";
 
 export default function Game() {
     const ref = useRef<HTMLCanvasElement>(null);
     const mobileInputRef = useRef<HTMLInputElement>(null);
     const pathname = usePathname();
     const isScoreboard = pathname === '/scoreboard';
-    const [isOpen, setIsOpen] = useState(isScoreboard);
     const [activeScreen, setActiveScreen] = useState<{ id: string; data: Record<string, unknown> } | null>(null);
     const saveScoreAndNotify = useCallback(async (name: string, score: number) => {
         await saveScore(name, score);
@@ -20,10 +18,10 @@ export default function Game() {
 
     const startGame = useCallback((skipStart: boolean) => {
         if (!ref.current) return;
-        setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }), saveScoreAndNotify, mobileInputRef.current ?? undefined);
+        return setup(ref.current, skipStart, (id, data) => setActiveScreen({ id, data }), saveScoreAndNotify, mobileInputRef.current ?? undefined);
     }, [saveScoreAndNotify]);
 
-    useEffect(() => { startGame(false); }, [startGame]);
+    useEffect(() => startGame(false), [startGame]);
 
     function handleRestart() {
         setActiveScreen(null);
@@ -34,10 +32,7 @@ export default function Game() {
 
     return (
         <>
-            {!isScoreboard && (
-                <GameToggleButton isOpen={isOpen} onToggle={() => setIsOpen(prev => !prev)} />
-            )}
-            <div className={`game_wrapper${isOpen || isScoreboard ? ' open' : ''}`} aria-hidden="true">
+            <div className={`game_wrapper${isScoreboard ? ' open' : ''}`} aria-hidden="true">
                 <input
                     ref={mobileInputRef}
                     type="text"

@@ -36,8 +36,16 @@ export interface ScoreEntry {
     date: string;
 }
 
+let scoresCache: { data: ScoreEntry[]; ts: number } | null = null;
+const SCORES_CACHE_TTL = 60_000;
+
 export async function getScores(): Promise<ScoreEntry[]> {
-    return db.select<ScoreEntry>('scores', 'select=name,score,date&order=score.desc&limit=100');
+    if (scoresCache && Date.now() - scoresCache.ts < SCORES_CACHE_TTL) {
+        return scoresCache.data;
+    }
+    const data = await db.select<ScoreEntry>('scores', 'select=name,score,date&order=score.desc&limit=100');
+    scoresCache = { data, ts: Date.now() };
+    return data;
 }
 
 const THROTTLE_KEY = 'score_last_submitted';

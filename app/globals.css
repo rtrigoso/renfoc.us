@@ -157,15 +157,16 @@ strong {
 #social_links_list {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 0.15rem;
 }
 
-#social_links_list li {
-  display: inline;
+#social_links_list li,
+#social_links_list a {
+  display: contents;
 }
 
 .nav-link {
-  padding: 0.25rem;
   border-radius: 5%;
   margin: 0.15rem 0 0;
   display: inline-block;
@@ -230,66 +231,6 @@ header>section>nav {
   padding: 0 1rem 2rem 0;
 }
 
-/* other pages */
-.game_wrapper_toggle,
-.noscript_game_message {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  aspect-ratio: 1 / 1;
-  transform: scale(1.25);
-  transform-origin: bottom right;
-  cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.35);
-  border-bottom-color: rgba(0, 0, 0, 0.5);
-  border-radius: 6px;
-  background-color: var(--secondary-bg-color);
-  box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.25),
-    0 1px 3px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  transition: box-shadow 0.1s ease, background-color 0.1s ease, transform 0.1s ease;
-  overflow: hidden;
-}
-
-.game_wrapper_toggle::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom,
-      rgba(255, 255, 255, 0.35) 0%,
-      rgba(255, 255, 255, 0) 60%);
-  pointer-events: none;
-  border-radius: inherit;
-}
-
-.game_wrapper_toggle:hover {
-  box-shadow:
-    0 6px 12px rgba(0, 0, 0, 0.3),
-    0 2px 4px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-}
-
-.game_wrapper_toggle:active {
-  background-color: #e8e5df;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.2),
-    inset 0 2px 4px rgba(0, 0, 0, 0.15);
-  transform: scale(1.25) translateY(1px);
-}
-
-.game_wrapper_toggle_label {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-  font-weight: 900;
-  font-size: 0.65rem;
-  line-height: 1;
-  letter-spacing: 0.05em;
-}
 
 .game_wrapper.open {
   max-height: 400px;
@@ -379,13 +320,20 @@ section dt+dd {
     position: relative;
     z-index: 1;
     background-color: var(--secondary-bg-color);
-    margin-left: -2rem;
-    padding-left: 2rem;
     border-radius: 0.5rem 0 0 0.5rem;
   }
 
   h1.website_header {
     line-height: 3.5rem;
+  }
+
+  .buymecoffee_wrapper {
+    width: 10rem;
+    align-self: flex-end;
+  }
+
+  .logo_wrapper {
+    width: 8rem;
   }
 }
 
@@ -450,11 +398,6 @@ section dt+dd {
   height: 3rem;
   border-radius: 0.5rem;
   filter: contrast(2.5) saturate(12.5) grayscale(0.8);
-}
-
-/* custom image */
-.custom-image.logo {
-  width: 170%;
 }
 
 .custom-image {
