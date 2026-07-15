@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "post": "touch content/$(date +%s)-${TITLE:-new_post}.md"
+    "post": "touch content/$(date +%s)-${TITLE:-new_post}.md",
+    "lighthouse": "lighthouse http://localhost:3000 --output json --output-path stdout",
+    "lighthouse:prod": "lighthouse https://renfoc.us --output json --output-path stdout"
   },
   "dependencies": {
     "@next/mdx": "^15.2.2",
@@ -27,6 +29,7 @@
     "critters": "^0.0.23",
     "eslint": "9.32.0",
     "eslint-config-next": "15.4.5",
+    "lighthouse": "^12.8.2",
     "typescript": "^5"
   }
 }

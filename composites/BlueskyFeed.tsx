@@ -80,7 +80,7 @@ async function GetFeedPosts(username: string): Promise<PostCardPost[]> {
         
        return {
             link: `https://bsky.app/profile/ren-rocks.bsky.social/post/${post.uri.split('/').at(-1)}`,
-            avatar: post.author.avatar,
+            avatar: post.author.avatar.includes('@') ? post.author.avatar : `${post.author.avatar}@jpeg`,
             displayName: displayNameArr.join(''),
             content: post.record.text,
             createdAt: new Date(post.indexedAt),
