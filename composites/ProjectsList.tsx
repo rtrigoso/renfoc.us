@@ -5,10 +5,10 @@ import { capitalize } from "@/utils/strings";
 
 const projects = [
     {
-        key: 'scoreboard',
-        label: 'scoreboard',
+        key: 'traffic',
+        label: 'Traffic!',
         description: 'play a little arcade game and see how you rank.',
-        link: '/scoreboard',
+        link: '/traffic',
         internal: true,
     },
     {

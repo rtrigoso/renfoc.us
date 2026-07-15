@@ -11,10 +11,13 @@ export default function Page() {
     const fetchScores = useCallback(() => {
         setLoading(true);
         setError(false);
-        getScores()
-            .then(setScores)
-            .catch(() => setError(true))
-            .finally(() => setLoading(false));
+        try {
+            setScores(getScores());
+        } catch {
+            setError(true);
+        } finally {
+            setLoading(false);
+        }
     }, []);
 
     useEffect(() => {
@@ -25,7 +28,7 @@ export default function Page() {
 
     return (
         <>
-            <h1>Scores</h1>
+            <h1>Traffic!</h1>
             {loading ? (
                 <p className="loading">Loading scores</p>
             ) : error ? (
@@ -33,7 +36,7 @@ export default function Page() {
             ) : scores.length === 0 ? (
                 <p>No scores yet. Play the game to get on the board by clicking the game button on the bottom right corner.</p>
             ) : (
-                <table id="scoreboard">
+                <table id="traffic">
                     <thead>
                         <tr>
                             <th>#</th>

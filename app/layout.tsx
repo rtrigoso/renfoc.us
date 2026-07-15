@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-const synemono = localFont({ src: '../public/fonts/unscii-16-full.woff2', variable: '--font-mono' });
+const synemono = localFont({ src: '../public/fonts/unscii-16-full.woff2', variable: '--font-mono', display: 'swap', preload: false });
 const jersey = Jersey_25({ weight: '400', subsets: ['latin'], variable: '--font-header' });
 const departure = localFont({ src: '../public/fonts/DepartureMono-Regular.woff2', variable: '--font-body' });
 
