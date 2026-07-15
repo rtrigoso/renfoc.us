@@ -174,6 +174,15 @@ strong {
   font-weight: bold;
 }
 
+/* keep subtitle visually consistent while using correct h2 heading level */
+header > section > h2 {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-weight: 700;
+}
+
 /* header */
 header {
   display: flex;
@@ -233,20 +242,16 @@ header>section>nav {
 }
 
 
-.game_wrapper.open {
-  max-height: 400px;
-  margin-bottom: 20px;
+.game_wrapper {
+  display: none;
 }
 
-.game_wrapper {
+.game_wrapper.open {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 0;
-  margin-bottom: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
   height: 280px;
+  margin-bottom: 20px;
 }
 
 #game_container {
@@ -272,6 +277,12 @@ header>section>nav {
   justify-content: space-between;
   flex-grow: 2;
   gap: 1.25rem;
+}
+
+li.post_link a {
+  min-height: 24px;
+  display: flex;
+  align-items: center;
 }
 
 .post_link span:first-child {
@@ -380,6 +391,10 @@ section dt+dd {
   align-items: stretch;
   flex: 3;
   white-space: pre-line;
+}
+
+.card_content a {
+  text-decoration: underline;
 }
 
 .card_embed_img {
@@ -522,7 +537,7 @@ article pre code {
 }
 
 .loading,
-#scoreboard {
+#traffic {
   max-width: 450px;
   width: 100vh;
   margin-bottom: 10rem;
@@ -548,39 +563,39 @@ article pre code {
   vertical-align: middle;
 }
 
-/* scoreboard table */
+/* traffic table */
 @media screen and (max-width: 450px) {
-  #scoreboard {
+  #traffic {
     width: 250px;
   }
 
-  #scoreboard th:nth-child(4),
-  #scoreboard td:nth-child(4) {
+  #traffic th:nth-child(4),
+  #traffic td:nth-child(4) {
     display: none;
   }
 }
 
-#scoreboard th,
-#scoreboard td {
+#traffic th,
+#traffic td {
   vertical-align: middle;
   height: 2rem;
   text-align: center;
 }
 
-#scoreboard th {
+#traffic th {
   font-weight: 900;
   text-decoration: underline;
 }
 
 @media screen and (min-width: 450px) {
 
-  #scoreboard th:nth-child(3),
-  #scoreboard td:nth-child(3) {
+  #traffic th:nth-child(3),
+  #traffic td:nth-child(3) {
     width: 90px;
   }
 
-  #scoreboard th:nth-child(4),
-  #scoreboard td:nth-child(4) {
+  #traffic th:nth-child(4),
+  #traffic td:nth-child(4) {
     width: 150px;
   }
 }

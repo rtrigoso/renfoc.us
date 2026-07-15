@@ -24,6 +24,7 @@ export default function Card(props: CardProps) {
                     alt={`image: avatar for ${props.username}`}
                     width={50}
                     height={50}
+                    loading="lazy"
                 />
                 <div>
                     <strong>{props.username}</strong>
