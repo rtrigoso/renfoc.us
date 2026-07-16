@@ -21,7 +21,7 @@ const projects = [
         key: 'hn-focus',
         label: 'hn-focus',
         description: 'top articles focusing on computer science sorted by a custom low-interval wilson score.',
-        link: 'https://hn.renfoc.us/',
+        link: 'https://hn.ren.codes/',
     },
     {
         key: 'gameloop',
