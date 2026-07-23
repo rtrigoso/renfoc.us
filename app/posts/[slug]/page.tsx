@@ -1,6 +1,7 @@
 import { GetPostDescription, ReadContentDirectory, readDataContent, ExtractTags } from "@/utils/content";
-import { rehypeUnwrapImages } from "@/utils/mdx";
+import { rehypeUnwrapImages, rehypeYoutubeEmbed } from "@/utils/mdx";
 import CustomImage from "@/composites/CustomImage";
+import YoutubeEmbed from "@/composites/YoutubeEmbed";
 import { capitalize } from "@/utils/strings";
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { parse } from "path";
@@ -31,7 +32,8 @@ const components = {
             </a>
             <figcaption>{alt}</figcaption>
         </figure>
-    )
+    ),
+    'youtube-embed': YoutubeEmbed
 }
 
 export default async function Posts({ params }: PostsParams) {
@@ -47,7 +49,7 @@ export default async function Posts({ params }: PostsParams) {
             <MDXRemote
                 source={`${data}`}
                 components={components}
-                options={{ mdxOptions: { rehypePlugins: [rehypeUnwrapImages] } }}
+                options={{ mdxOptions: { rehypePlugins: [rehypeUnwrapImages, rehypeYoutubeEmbed] } }}
             />
             {tags.length > 0 && (
                 <div className="tags-container">
