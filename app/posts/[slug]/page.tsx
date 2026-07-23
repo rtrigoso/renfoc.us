@@ -1,5 +1,7 @@
 import { GetPostDescription, ReadContentDirectory, readDataContent, ExtractTags } from "@/utils/content";
+import { rehypeUnwrapImages, rehypeYoutubeEmbed } from "@/utils/mdx";
 import CustomImage from "@/composites/CustomImage";
+import YoutubeEmbed from "@/composites/YoutubeEmbed";
 import { capitalize } from "@/utils/strings";
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { parse } from "path";
@@ -23,17 +25,15 @@ export async function generateMetadata({ params }: PostsParams): Promise<Metadat
 }
 
 const components = {
-    img: ({ src, alt, width, height, className }: React.ImgHTMLAttributes<HTMLImageElement>) => (
-        <a href={src} target="_blank" rel="noopener noreferrer">
-            <CustomImage
-                src={src ?? ''}
-                alt={alt ?? ''}
-                width={Number(width) || 0}
-                height={Number(height) || 0}
-                className={className}
-            />
-        </a>
-    )
+    img: ({ src, alt }: React.ImgHTMLAttributes<HTMLImageElement>) => (
+        <figure>
+            <a href={src} target="_blank" rel="noopener noreferrer">
+                <CustomImage src={src ?? ''} alt={alt ?? ''} />
+            </a>
+            <figcaption>{alt}</figcaption>
+        </figure>
+    ),
+    'youtube-embed': YoutubeEmbed
 }
 
 export default async function Posts({ params }: PostsParams) {
@@ -46,7 +46,11 @@ export default async function Posts({ params }: PostsParams) {
 
     return (
         <article>
-            <MDXRemote source={`${data}`} components={components} />
+            <MDXRemote
+                source={`${data}`}
+                components={components}
+                options={{ mdxOptions: { rehypePlugins: [rehypeUnwrapImages, rehypeYoutubeEmbed] } }}
+            />
             {tags.length > 0 && (
                 <div className="tags-container">
                     <h6 className="tags-header">Tags:</h6>
