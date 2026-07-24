@@ -1,37 +1,39 @@
 ###### 07-23-2026
 ## What is Pitch?
 
-Everything started with a YouTube video: [Chanel Tres and James Blake making music in the studio](https://www.youtube.com/watch?v=811RF-W_v_I). James Blake picked up a modular synthesizer, boxes patched together with cable, and built a short, looping melody, glitchy, almost out of tune, like two square waves rubbing against each other. They laid drums under it, then a keyboard stab, then a slippery, rubbery bass line. Then he floated a simple piano chord progression over the whole awkward thing, and it clicked. Electronic, but soulful. It carried a vibe, the way a good house track does.
+So I stumbled onto a YouTube video: [Chanel Tres and James Blake making music in the studio](https://www.youtube.com/watch?v=811RF-W_v_I). James Blake picked up a modular synthesizer, boxes patched together with cable, and built a short, looping melody, glitchy, almost out of tune, like two square waves rubbing against each other on each note. They added a 4-on-the-floor drum pattern, then a quick keyboard stab, then a slippery, rubbery bass line. Lastly, they laid a simple chord progression over the whole awkward thin. Electronic, but soulful. It carried a vibe, the way a good house track does.
 
 https://youtu.be/811RF-W_v_I?si=hsrGFgcbXfrjEmP1&t=28
 
-Naturally, I wanted to try it myself.
+Naturally, I wanted to try it.
 
-So I grabbed my [Softpop 2](https://shop.bastl-instruments.com/desktop/softpop-sp2.html), a small synthesizer made by Bastl Instruments, and built my own glitchy loop, and something was off, the notes sounded out of tune. I followed the [tuning steps in the manual](https://bastl-instruments.com/content/files/softpop2-quickstart-web.pdf), reset the unit. Still out of tune.
+So I grabbed my [Softpop 2](https://shop.bastl-instruments.com/desktop/softpop-sp2.html), triggered some notes, and built my own glitchy loop. I hated it, the notes sounded out of tune. Tried retunning it, followed the [tuning steps in the manual](https://bastl-instruments.com/content/files/softpop2-quickstart-web.pdf), reset the unit. no changes.
 
-I couldn't even tell what notes I was playing, so I opened a tuner app to check. No help at all. Sometimes it just showed a blank screen. Sometimes it showed two different pitches for the same note, one run to the next. Some of that made sense, my melody used glitchy square waves with pitches sliding around, and that's genuinely a hard thing for any tuner to read. But it left me stuck on a question I couldn't shake: what pitch was my synth actually playing?
-
-I get obsessive about small problems like this. A few minutes of searching turned into a few hours of reading. Underneath all of it was the actual problem: I didn't understand pitch.
+I couldn't tell the notes on the loop. I grabbed the nearest tuner around; No help at all. Sometimes it just showed a blank screen. Sometimes it showed two different pitches for the same note, one run to the next. I guess it made sense, my melody used glitchy square waves with pitches sliding around. That's genuinely a hard thing for any tuner to read. But it left me stuck on a question I couldn't shake: what is pitch?
 
 #### Defining Pitch
 
 Pitch turns out to be surprisingly hard to explain, so let's start somewhere more palpable: air, vibrating.
 
-Something, a guitar string, a bell, a stick hitting the pavement, moves back and forth 440 times a second, and the air pushes and pulls at your eardrum at that same rate. That vibration rate is what gets called an audio frequency, a physical measurement of vibrations per second, and if you measured the vibrations coming off a piano A key you'd get a number: 440 Hz. Hertz is just the unit.
+Imagine something, a guitar string, a bell, a stick hitting the pavement, getting struck and moving back and forth x times a second. The air pushes and pulls at your eardrum at that same rate. That vibration rate is what gets called an audio frequency, a physical measurement of vibrations per second. If the vibrations coming off a piano A4 key go back and forth 440 times per second. This is usually written as 440hz. The "hz" stands for Hertz, which is just the unit of measurement we use for that vibration.
 
-Pitch shows up after that. It's the experience your brain has of the frequency, the name it slaps onto "vibrating fast" versus "vibrating slow," and the higher the frequency, meaning more vibrations per second, the higher the pitch feels. Most of the time, that's honestly enough: pitch is the experience you get from a frequency.
+This vibration rate is called frequency.
 
-Here's what "vibrating fast" actually looks like. Same one second window, two different waves: the first completes 100 full cycles in that second, a rate of 100 Hz, and we hear it as a low tone. The second crams 400 cycles into the same second, 400 Hz, and it reads as a high tone. Same stretch of time, more repetitions packed in, and the pitch just climbs.
+Pitch shows up after that. The experience your brain has of the frequency is the pitch, the name we slap onto "vibrating fast" versus "vibrating slow". The higher the frequency, meaning more vibrations per second, the higher the pitch.
+
+#### Need for Speed
+
+To me, it dit not feel natural to describe "fast vibrations" as "high" until I visualized it. The following images show the same one second window on two different waves. The first completes 100 full cycles in that second, a rate of 100 Hz, and we hear it as a low tone. The second crams 400 cycles into the same second, 400 Hz, and it reads as a high tone. Same stretch of time, more repetitions packed in, and the pitch just climbs. One of them is faster because it is going at a higher speed.
 
 ![a sine wave tracing four visible humps across a one second window, repeating 100 times per second to produce a low 100 Hz pitch](../low_pitch_100.webp)
 
 ![a sine wave tracing many tightly packed humps across the same one second window, repeating 400 times per second to produce a high 400 Hz pitch](../high_pitch_400.webp)
 
-Notes, it turns out, are just labels. Every note name is a label stuck onto a frequency, a shortcut so nobody has to talk in hertz all day.
-
-That would be a nice, tidy story if frequency were the whole thing, and for a while I believed it was. In 1999, [ANSI](https://webstore.ansi.org/preview-pages/ASA/preview_ANSI+ASA+S1.1-2013+(R2020).pdf?srsltid=AfmBOoo9srXQD_IE_vigQmqx3sY--2eL9HACyPWabHX2QJngvzTTm6px) defined pitch as "that auditory attribute of sound according to which sounds can be ordered on a scale from low to high," and what's telling about that definition is what it leaves out: it never once mentions frequency. Turns out pitch has more ingredients than that. Loudness changes how a pitch sounds. So does the range it sits in, and so does whatever other frequencies happen to be stacked around it, and real sounds are almost never one clean waveform, they're complex, layered, messy. Pitch, in the end, is your brain's best guess at "low to high" after taking all of that in at once. Not a readout of a single number.
+Seems like people didn't like talking about sound in vibration terms though. Notes, it turns out, are just labels. Every note name is a label stuck onto a frequency, a shortcut so nobody has to talk in hertz all day.
 
 #### Not So Simple Sounds
+
+In 1999, [ANSI](https://webstore.ansi.org/preview-pages/ASA/preview_ANSI+ASA+S1.1-2013+(R2020).pdf?srsltid=AfmBOoo9srXQD_IE_vigQmqx3sY--2eL9HACyPWabHX2QJngvzTTm6px) defined pitch as "that auditory attribute of sound according to which sounds can be ordered on a scale from low to high," and what's telling about that definition is what it leaves out: it never once mentions frequency. Turns out pitch has more ingredients than that. Loudness changes how a pitch sounds. So does the range it sits in, and so does whatever other frequencies happen to be stacked around it, and real sounds are almost never one clean waveform, they're complex, layered, messy. Pitch, in the end, is your brain's best guess at "low to high" after taking all of that in at once. Not a readout of a single number.
 
 Turns out almost none of the sounds around you are made of a single frequency. Pluck a guitar string, hit a piano key, hum a note, and what you're actually hearing is a whole stack of frequencies at once, one loud one on the bottom, a bunch of quieter ones riding along on top.
 
