@@ -34,12 +34,11 @@ Seems like people didn't like talking about sound in vibration terms though. Not
 #### Not So Simple Sounds
 
 In 1999, [ANSI](https://webstore.ansi.org/preview-pages/ASA/preview_ANSI+ASA+S1.1-2013+(R2020).pdf?srsltid=AfmBOoo9srXQD_IE_vigQmqx3sY--2eL9HACyPWabHX2QJngvzTTm6px) defined pitch as "that auditory attribute of sound according to which sounds can be ordered on a scale from low to high," and what's telling about that definition is what it leaves out: it never once mentions frequency. Turns out pitch has more ingredients than that. Loudness changes how a pitch sounds. So does the range it sits in, and so does whatever other frequencies happen to be stacked around it, and real sounds are almost never one clean waveform, they're complex, layered, messy. Pitch, in the end, is your brain's best guess at "low to high" after taking all of that in at once. Not a readout of a single number.
+Makes sense, right? The sounds around you are made of a multiple frequencies. Pluck a guitar string, hit a piano key, hum a note, and what you're actually hearing is a whole stack of frequencies at once, one loud one on the bottom, a bunch of quieter ones riding along on top.
 
-Turns out almost none of the sounds around you are made of a single frequency. Pluck a guitar string, hit a piano key, hum a note, and what you're actually hearing is a whole stack of frequencies at once, one loud one on the bottom, a bunch of quieter ones riding along on top.
+Those other ones have a name: harmonics, additional frequencies showing up at whole-number multiples of the original. Hit an A at 440 Hz and traces of 880, 1320, and 1760 Hz come along for free, each one a little softer than the last. Almost nothing vibrates in one clean, simple mode, not really. A guitar string, a vocal cord, a bell, all of them shake at their base frequency and at higher frequencies at the same time, whether you meant for that to happen or not.
 
-Those quieter extras have a name: harmonics, additional frequencies showing up at whole-number multiples of the original. Hit an A at 440 Hz and traces of 880, 1320, and 1760 Hz come along for free, each one a little softer than the last. Almost nothing vibrates in one clean, simple mode, not really. A guitar string, a vocal cord, a bell, all of them shake at their base frequency and at higher frequencies at the same time, whether you meant for that to happen or not.
-
-You can actually see this, which is the fun part. A spectrum analyzer breaks a sound apart into every frequency hiding inside it and plots them over time, frequency running up the side, time along the bottom, brightness marking where the energy sits.
+You can actually see this, which is the fun part. Using a spectrum analyzer, a tool to breaks a sound apart into every frequency hiding inside it, we can see the harmonics.
 
 ![a spectrogram showing a green fundamental curve tracing a rising and falling pitch contour, with fainter parallel harmonic bands stacked above it curving in lockstep, next to a smeared, structureless scatter of noise on the right](../spectrogram_pitch_harmonics.webp)
 

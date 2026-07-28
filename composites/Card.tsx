@@ -10,6 +10,7 @@ interface CardProps {
     embedImgURL?: string;
     embedAlt?: string;
     embedAspectRatio?: string;
+    embedExternalUri?: string;
     postURL: string;
 }
 
@@ -36,7 +37,7 @@ export default function Card(props: CardProps) {
             </div>
             <div className="card_content">
                <div>
-                    {renderContent(props.content)}
+                    {renderContent(props.content, props.embedExternalUri)}
                 </div>
                 {
                     props.embedImgURL &&
