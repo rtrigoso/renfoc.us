@@ -8,6 +8,7 @@ import LinkedinIcon from './icons/LinkedinIcon';
 import GithubIcon from './icons/GithubIcon';
 import EmailIcon from './icons/EmailIcon';
 import RSSIcon from './icons/RSSIcon';
+import BskyIcon from './icons/BskyIcon';
 
 export default function Header() {
     const pathname = usePathname();
@@ -41,6 +42,9 @@ export default function Header() {
                         </SocialLink>
                         <SocialLink href="https://github.com/rtrigoso/" ariaLabel="my github" hiddenText="visit my github">
                             <GithubIcon />
+                        </SocialLink>
+                        <SocialLink href="https://bsky.app/profile/ren-rocks.bsky.social" ariaLabel="my bluesky" hiddenText="visit my bluesky">
+                            <BskyIcon />
                         </SocialLink>
                         <SocialLink href="mailto:resume@renrocks.mozmail.com" ariaLabel="send me an email" hiddenText="send me an email">
                             <EmailIcon />
