@@ -1,3 +1,5 @@
+import ExternalLink from "@/composites/ExternalLink";
+
 export function renderHashtag(part: string, i: number) {
     const match = part.match(/^(#\w+)(.*)/);
     if (!match) return null;
@@ -49,18 +51,13 @@ export function buildExternalUriLabel(externalUri: string): string {
         return label;
     }
 
-    const host = label.slice(0, slashIndex);
-    const path = label.slice(slashIndex)
-        .replace(/\/$/, '')
-        .replace(/\.\w+$/, '');
-
-    return host + path;
+    return label.slice(0, slashIndex);
 }
 
 export function renderExternalUri(part: string, i: number, externalUri: string) {
     return (
         <a key={i} href={externalUri} target="_blank" rel="noopener noreferrer">
-            {buildExternalUriLabel(externalUri)}
+            {buildExternalUriLabel(externalUri)} <ExternalLink />
         </a>
     );
 }
