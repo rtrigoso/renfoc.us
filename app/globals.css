@@ -414,6 +414,12 @@ section dt+dd {
   flex: 1;
 }
 
+.card_username {
+  white-space: pre-line;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .card_header .avatar {
   width: 3rem;
   height: 3rem;
