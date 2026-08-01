@@ -28,7 +28,7 @@ export default function Card(props: CardProps) {
                     loading="lazy"
                 />
                 <div>
-                    <strong>{props.username}</strong>
+                    <strong className="card_username">{props.username}</strong>
                 </div>
                 <div>
                     {props.date.toLocaleDateString("en-US", { month: 'numeric', day: 'numeric' })}

@@ -76,15 +76,16 @@ async function fetchAuthorFeed(username: string): Promise<BlueskyFeedEntry[]> {
 
 function formatDisplayName(displayName: string): string {
     const withoutEmoji = displayName.replace(/\p{Emoji}/gu, '').replace(/\bthe\b/i, '').trim();
-    let displayNameArr = withoutEmoji.split(/\s/);
+    const displayNameArr = withoutEmoji.split(/\s/);
 
     if (displayNameArr.length > 2) {
-        displayNameArr = displayNameArr.map(d => `${d.at(0)}.`);
-    } else {
-        displayNameArr = displayNameArr.slice(0, 1);
+        const acronymArr = displayNameArr.map(d => `${d.at(0)}.`);
+        return acronymArr.length > 3
+            ? `${acronymArr.slice(0, 3).join('')}\n${acronymArr.slice(3).join('')}`
+            : acronymArr.join('');
     }
 
-    return displayNameArr.join('');
+    return displayNameArr.slice(0, 1).join('');
 }
 
 function isGifExternal(external?: BlueskyExternal): boolean {
