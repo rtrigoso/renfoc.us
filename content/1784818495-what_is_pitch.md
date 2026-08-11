@@ -1,4 +1,7 @@
-###### 07-23-2026
+{/*description
+A dive into what "pitch" actually is, sparked by a glitchy synth loop that left both my ears and my tuner app stumped. From vibrating air to harmonics, spectrograms, and the Fast Fourier Transform, this post unpacks how tuner apps guess at a note, and why some sounds simply refuse to resolve into one.
+*/}
+###### 08-11-2026
 ## What is Pitch?
 
 So I stumbled onto a YouTube video: [Chanel Tres and James Blake making music in the studio](https://www.youtube.com/watch?v=811RF-W_v_I). James Blake picked up a modular synthesizer, boxes patched together with cable, and built a short, looping melody, glitchy, almost out of tune, like two square waves rubbing against each other on each note. They added a 4-on-the-floor drum pattern, then a quick keyboard stab, then a slippery, rubbery bass line. Lastly, they laid a simple chord progression over the whole awkward thin. Electronic, but soulful. It carried a vibe, the way a good house track does.
