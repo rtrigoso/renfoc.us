@@ -32,24 +32,35 @@ const TOOLBAR_WITHOUT_PREVIEW = [
 
 export default function MarkdownEditorField({ id, defaultValue, onChange }: MarkdownEditorFieldProps) {
     const containerRef = useRef<HTMLDivElement>(null);
+    const idRef = useRef(id);
+    const initialValueRef = useRef(defaultValue);
+    const onChangeRef = useRef(onChange);
+    onChangeRef.current = onChange;
 
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
         const textarea = document.createElement('textarea');
-        textarea.id = id;
-        textarea.value = defaultValue;
+        textarea.id = idRef.current;
+        textarea.value = initialValueRef.current;
         textarea.required = true;
         container.appendChild(textarea);
 
-        const editor = new MarkdownEditor(textarea, { onChange, toolbar: TOOLBAR_WITHOUT_PREVIEW });
+        const editor = new MarkdownEditor(textarea, {
+            onChange: (value) => onChangeRef.current(value),
+            toolbar: TOOLBAR_WITHOUT_PREVIEW,
+        });
 
         return () => {
             editor.destroy();
             container.replaceChildren();
         };
-    }, [id, defaultValue, onChange]);
+        // Mount once per component instance. The parent forces a full remount
+        // (via `key`) when switching posts, so `id`/`defaultValue` only ever
+        // matter at that point, not on every keystroke.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return <div ref={containerRef} />;
 }
