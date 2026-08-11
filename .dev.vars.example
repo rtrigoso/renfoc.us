@@ -1,0 +1,6 @@
+GITHUB_TOKEN=ghp_your_fine_grained_token_with_contents_readwrite_on_this_repo
+
+# Optional overrides, only needed if testing against a fork or different branch:
+# GITHUB_OWNER=rtrigoso
+# GITHUB_REPO=renfoc.us
+# GITHUB_BRANCH=main

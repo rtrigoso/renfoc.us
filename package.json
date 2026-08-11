@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "pages:dev": "next build && wrangler pages dev out --compatibility-date=2026-05-03",
     "post": "touch content/$(date +%s)-${TITLE:-new_post}.md",
     "lighthouse": "lighthouse http://localhost:3000 --output json --output-path stdout",
     "lighthouse:prod": "lighthouse https://renfoc.us --output json --output-path stdout"
@@ -15,6 +16,7 @@
     "@next/mdx": "^15.2.2",
     "@supabase/supabase-js": "^2.99.2",
     "@types/mdx": "^2.0.13",
+    "markdown-text-editor": "^1.5.4",
     "next": "^15.3.5",
     "next-mdx-remote": "^5.0.0",
     "react": "^19.0.0",
@@ -30,6 +32,7 @@
     "eslint": "9.32.0",
     "eslint-config-next": "15.4.5",
     "lighthouse": "^12.8.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.86.0"
   }
 }

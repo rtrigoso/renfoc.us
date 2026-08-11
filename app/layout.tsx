@@ -3,8 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import localFont from 'next/font/local';
 import { Jersey_25 } from 'next/font/google';
-import Header from '@/composites/Header';
-import Game from '@/composites/Game';
+import SiteChrome from '@/composites/SiteChrome';
 
 export const metadata: Metadata = {
   title: "renfoc.us",
@@ -40,12 +39,7 @@ export default function RootLayout({ children }: RootLayoutArgs) {
             Skip to main content
           </a>
         </div>
-        <Header />
-        <Game />
-        <noscript>
-          <style>{`.game_wrapper { display: none; }`}</style>
-          <p className="noscript_game_message">Enable JavaScript to play a game!</p>
-        </noscript>
+        <SiteChrome />
         <main id="main_content">
           {children}
         </main>

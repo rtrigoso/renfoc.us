@@ -1,0 +1,143 @@
+.page {
+  display: grid;
+  grid-template-columns: 18rem 1fr;
+  height: 100vh;
+  font-family: var(--font-mono), monospace;
+  background-color: var(--main-bg-color);
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  overflow-y: auto;
+  border-right: 1px solid var(--main-fg-color);
+  background-color: var(--secondary-bg-color);
+}
+
+.newButton {
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--main-fg-color);
+  background-color: var(--main-bg-color);
+  cursor: pointer;
+}
+
+.postsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow-y: auto;
+}
+
+.postsListItem,
+.postsListItemActive {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid var(--main-fg-color);
+  background-color: var(--main-bg-color);
+  cursor: pointer;
+}
+
+.postsListItemActive {
+  border-width: 2px;
+  background-color: var(--tertiary-bg-color);
+}
+
+.postsListItem:hover {
+  background-color: var(--tertiary-bg-color);
+}
+
+.deleteButton {
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--tertiary-fg-color);
+  background-color: var(--main-bg-color);
+  color: var(--tertiary-fg-color);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100vh;
+  padding: 1.5rem;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
+
+.editor label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-weight: 700;
+}
+
+.editor input,
+.editor textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border: 1px solid var(--main-fg-color);
+  background-color: var(--main-bg-color);
+  color: var(--main-fg-color);
+}
+
+.editor textarea {
+  resize: vertical;
+}
+
+.actionBar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.saveButton {
+  margin-left: auto;
+}
+
+.actionBar button {
+  padding: 0.6rem 1.2rem;
+  border: 2px solid var(--main-fg-color);
+  background-color: var(--main-bg-color);
+  cursor: pointer;
+}
+
+.actionBar button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.statusError {
+  color: var(--tertiary-fg-color);
+}
+
+.statusSuccess {
+  color: var(--secondary-fg-color);
+}
+
+@media (max-width: 600px) {
+  .page {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--main-fg-color);
+  }
+
+  .editor {
+    height: auto;
+  }
+
+  .postsList {
+    /* roughly 5 rows: item padding + line-height + border, plus the gaps between them */
+    max-height: calc(5 * 2.25rem + 4 * 0.5rem);
+  }
+}
