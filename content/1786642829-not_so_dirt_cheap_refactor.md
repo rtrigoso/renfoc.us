@@ -1,5 +1,8 @@
 {/*tags
 opinion
+engineering
+ai
+software
 */}
 {/*description
 This post argues that AI agents haven't actually made refactoring cheaper, they've just made the same risky, all-or-nothing rewrites faster. The real fix, the author says, is doing refactors in small, incremental pieces instead of big sweeps.
