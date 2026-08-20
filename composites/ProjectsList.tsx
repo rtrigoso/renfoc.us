@@ -24,10 +24,10 @@ const projects = [
         link: 'https://hn.ren.codes/',
     },
     {
-        key: 'gameloop',
-        label: 'gameloop',
-        description: 'a very barebones game engine for the terminal, written in go.',
-        link: 'https://github.com/rtrigoso/gameloop',
+        key: 'm8',
+        label: 'dirtywave m8 cheatsheet',
+        description: 'quick reference guide for dirtywave m8',
+        link: 'https://rtrigoso.github.io/DirtywaveM8QuickReference',
     },
     {
         key: 'chord-machine-calculator',
