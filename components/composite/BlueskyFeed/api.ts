@@ -25,8 +25,8 @@ interface BlueskyEmbed {
 }
 
 interface BlueskyAuthor {
-    avatar: string,
     displayName: string
+    handle: string
 }
 
 interface BlueskyPost {
@@ -49,8 +49,8 @@ export interface PostCardEmbed {
 }
 
 export interface PostCardPost {
-    avatar: string
     displayName: string
+    handle: string
     content: string
     createdAt: Date
     embeds: PostCardEmbed[]
@@ -111,10 +111,6 @@ function buildPostLink(uri: string): string {
     return `https://bsky.app/profile/ren-rocks.bsky.social/post/${uri.split('/').at(-1)}`;
 }
 
-function normalizeAvatarURL(avatar: string): string {
-    return avatar.includes('@') ? avatar : `${avatar}@jpeg`;
-}
-
 function mapEmbed(image: BlueskyImage): PostCardEmbed {
     return {
         alt: image.alt,
@@ -134,8 +130,8 @@ function transformPost(post: BlueskyPost): PostCardPost {
 
     return {
         link: buildPostLink(post.uri),
-        avatar: normalizeAvatarURL(post.author.avatar),
         displayName: formatDisplayName(post.author.displayName),
+        handle: post.author.handle,
         content: post.record.text,
         createdAt: new Date(post.indexedAt),
         embeds: embeds.map(mapEmbed),

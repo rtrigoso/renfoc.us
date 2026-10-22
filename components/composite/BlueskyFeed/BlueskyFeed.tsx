@@ -7,15 +7,15 @@ export default async function BlueskyFeed() {
     return (
         <ul id="bluesky_feed">
             {
-                posts.map(({ avatar, displayName, content, createdAt, embeds, link, externalUri }) => {
+                posts.map(({ displayName, handle, content, createdAt, embeds, link, externalUri }) => {
                     const { embedAlt, embedLink, embedAspectRatio } = getFirstEmbed(embeds);
 
                     return (
                         <Card
                             key={`bluesky_post_${createdAt.getUTCDate()}_${encodeURI(link)}`}
                             postURL={link}
-                            avatarURL={avatar}
                             username={displayName}
+                            handle={handle}
                             content={content}
                             date={createdAt}
                             embedAlt={embedAlt}
