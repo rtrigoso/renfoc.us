@@ -1,7 +1,7 @@
 import { PostItem } from "@/utils/content";
-import { capitalize } from "@/utils/strings";
+import { shortHash } from "@/utils/strings";
+import { Fragment } from "react";
 import Link from "next/link";
-import ExternalLink from "@/components/basic/ExternalLink";
 
 interface LinkListParams {
     content: PostItem[]
@@ -17,21 +17,25 @@ export default async function LinkList({ content }: LinkListParams) {
         } = link;
 
         return (
-            <li className="post_link" key={`post-${creationDate}`}>
-                <span>
+            <Fragment key={`post-${creationDate}`}>
+                <dt>
                     {creationDateString}
-                </span>
-                <Link
-                    tabIndex={0}
-                    className="link post_link"
-                    href={path}>
-                    {capitalize(title)} <ExternalLink />
-                </Link>
-            </li>
+                </dt>
+                <dd>
+                    <span className="post_title">{title}</span>
+                    <br />
+                    <Link
+                        tabIndex={0}
+                        className="link post_link"
+                        href={`${path}#main_content`}>
+                        read here: {shortHash(path)}
+                    </Link>
+                </dd>
+            </Fragment>
         );
     });
 
     return (
-        <ul>{links}</ul>
+        <dl className="posts_list">{links}</dl>
     );
 }

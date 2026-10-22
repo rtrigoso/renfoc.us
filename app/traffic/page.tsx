@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { getScores, ScoreEntry } from "@/components/composite/Game/scoreboard";
+import Game from "@/components/composite/Game/Game";
 
 export default function Page() {
     const [scores, setScores] = useState<ScoreEntry[]>([]);
@@ -29,6 +30,7 @@ export default function Page() {
     return (
         <>
             <h1>Traffic!</h1>
+            <Game />
             {loading ? (
                 <p className="loading">Loading scores</p>
             ) : error ? (

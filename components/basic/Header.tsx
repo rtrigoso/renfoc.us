@@ -14,28 +14,28 @@ export default function Header() {
     const pathname = usePathname();
     return (
         <header>
-            <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>
-                <div className="crop_circle logo_wrapper">
-                    <CustomImage
-                        src="/header.jpg"
-                        alt="selfie created with ai on the style of a studio ghibli movie"
-                        className="logo glitch-img"
-                        width={250}
-                        height={140}
-                    />
-                </div>
-            </Link>
-            <section>
-                <div className="buymecoffee_wrapper">
-                    <a href="https://www.buymeacoffee.com/renrocks" target="_blank" rel="noreferrer">buy me coffee <CoffeeCupIcon /><span className="hidden">, opens in new tab</span></a>
-                    <br />
-                </div>
+            <div id="top_header">
                 <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>
-                    <h1 className="glitch website_header" data-text="Ren's blog">Ren&apos;s blog</h1>
+                    <div className="crop_circle logo_wrapper">
+                        <CustomImage
+                            src="/header.jpg"
+                            alt=""
+                            className="logo glitch-img"
+                            width={250}
+                            height={140}
+                        />
+                    </div>
                 </Link>
-                <h2>Metaphysics, tunes, and code</h2>
+                <section className="title_block">
+                    <h1 className="glitch website_header" data-text="Ren's blog">
+                        <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>Ren&apos;s blog</Link>
+                    </h1>
+                    <div className="tagline">Metaphysics, tunes, and code</div>
+                </section>
+            </div>
+            <div id="bottom_header">
                 <nav id="social_links" className="social_links">
-                    <span className="hide_on_mobile">Connect: </span>
+                    <h6 className="hide_on_mobile">Connect: </h6>
                     <ul id="social_links_list">
                         <SocialLink href="https://www.linkedin.com/in/ren-trigoso-a36609186/" ariaLabel="my linkedin" hiddenText="visit my linkedin">
                             <LinkedinIcon />
@@ -54,7 +54,11 @@ export default function Header() {
                         </SocialLink>
                     </ul>
                 </nav>
-             </section>
+                <div className="buymecoffee_wrapper">
+                    like my stuff? <a href="https://www.buymeacoffee.com/renrocks" target="_blank" rel="noreferrer">buy me coffee <CoffeeCupIcon /><span className="hidden">, opens in new tab</span></a>
+                    <br />
+                </div>
+            </div>
         </header>
     );
 }

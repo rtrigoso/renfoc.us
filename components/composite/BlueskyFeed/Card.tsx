@@ -1,10 +1,12 @@
 import PostCardEmbed from './PostCardEmbed';
 import { renderContent } from './cardContent';
 import ExternalLink from "@/components/basic/ExternalLink";
+import { shortHash } from "@/utils/strings";
+import { formatDateWithOffset } from "@/utils/dates";
 
 interface CardProps {
-    avatarURL: string;
     username: string;
+    handle: string;
     date: Date;
     content: string;
     embedImgURL?: string;
@@ -17,41 +19,38 @@ interface CardProps {
 
 export default function Card(props: CardProps) {
     return (
-        <li className="card">
-            <div className="card_header">
-                <img
-                    className="avatar"
-                    src={props.avatarURL}
-                    alt={`image: avatar for ${props.username}`}
-                    width={50}
-                    height={50}
-                    loading="lazy"
-                />
-                <div>
-                    <strong className="card_username">{props.username}</strong>
-                </div>
-                <div>
-                    {props.date.toLocaleDateString("en-US", { month: 'numeric', day: 'numeric' })}
-                </div>
-
-            </div>
-            <div className="card_content">
-               <div>
-                    {renderContent(props.content, props.embedExternalUri)}
-                </div>
+        <li>
+            <ul>
+                <li>
+                    <a href={props.postURL} target="_BLANK">link hash: {shortHash(props.postURL)} <ExternalLink /></a>
+                </li>
+                <li>
+                    <div>
+                        <strong className="card_username">Author: {props.username} <span className="card_handle">&lt;{props.handle}&gt;</span></strong>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        Date: {formatDateWithOffset(props.date)}
+                    </div>
+                </li>
+                <li>
+                    <div className="card_content_text">
+                        {renderContent(props.content, props.embedExternalUri)}
+                    </div>
+                </li>
                 {
                     props.embedImgURL &&
-                    <PostCardEmbed
-                        alt={props.embedAlt || ''}
-                        type={"image"}
-                        link={props.embedImgURL}
-                        aspectRatio={props.embedAspectRatio || ''}
-                    />
+                    <li className="card_embed_item">
+                        <PostCardEmbed
+                            alt={props.embedAlt || ''}
+                            type={"image"}
+                            link={props.embedImgURL}
+                            aspectRatio={props.embedAspectRatio || ''}
+                        />
+                    </li>
                 }
-                <div>
-                    <a href={props.postURL} target="_BLANK">view post <ExternalLink /></a>
-                </div>
-            </div>
+            </ul>
         </li>
     );
 }

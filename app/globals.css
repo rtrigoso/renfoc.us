@@ -6,6 +6,7 @@
   --main-fg-color: #222222;
   --secondary-fg-color: #002293;
   --tertiary-fg-color: #870D38;
+  --accent-color: #E69375;
 }
 
 /*
@@ -53,6 +54,7 @@ h1 {
 
 h1.website_header {
   width: min-content;
+  font-size: 8.5rem;
 }
 
 h2 {
@@ -142,10 +144,24 @@ strong {
 
 .logo_wrapper {
   width: 10rem;
+  padding-bottom: 1.5rem;
 }
 
 .social_links {
-  padding: 0 0.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.10rem 0.4rem;
+  border-radius: 5px;
+  background-color: var(--main-fg-color);
+  width: fit-content;
+  color: var(--main-bg-color);
+}
+
+.social_links h6 {
+  font: inherit;
 }
 
 #social_links_list,
@@ -153,10 +169,16 @@ strong {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+}
+
+#bluesky_feed {
+  flex-direction: column;
+  gap: 1rem;
 }
 
 #social_links_list {
-  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 0.15rem;
@@ -169,50 +191,100 @@ strong {
 
 .nav-link {
   border-radius: 5%;
-  margin: 0.15rem 0 0;
+  margin: 0.5rem 0 0;
   display: inline-block;
   font-weight: bold;
 }
 
-/* keep subtitle visually consistent while using correct h2 heading level */
-header > section > h2 {
-  font-size: 1.5rem;
+.nav-link-right {
+  text-align: right;
+}
+
+#top_header .tagline {
   line-height: 1.75rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
   font-weight: 700;
+  padding-left: 0.33rem;
 }
 
 /* header */
 header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 0px 3rem;
+}
+
+#top_header {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 3rem 0px 3rem;
 }
 
-header>section {
+#top_header .title_block {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: flex-start;
-  gap: 0.35rem;
+  gap: 1rem;
 }
 
-header>section>nav {
+#bottom_header {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.10rem 0.4rem;
-  border-radius: 5px;
-  background-color: var(--main-fg-color);
-  width: fit-content;
-  color: var(--main-bg-color);
+  width: 100%;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  html {
+    font-size: 12px;
+  }
+
+  header {
+    padding: 2.25rem 0px 2.25rem;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  #top_header {
+    gap: 0.5rem;
+  }
+
+  #top_header .title_block {
+    gap: 0.5rem;
+  }
+
+  #bottom_header {
+    width: 75%;
+  }
+
+  h1.website_header {
+    font-size: 6.375rem;
+    padding-top: 0.5625rem;
+    padding-bottom: 0.375rem;
+  }
+
+  .logo_wrapper {
+    width: 7.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .social_links {
+    padding: 0.075rem 0.3rem;
+  }
+
+  #top_header .tagline {
+    padding-left: 0.2475rem;
+  }
+
+  .buymecoffee_wrapper {
+    padding: 0 0.75rem 1.5rem 0;
+  }
 }
 
 /* main content */
@@ -275,12 +347,6 @@ header>section>nav {
   gap: 1.25rem;
 }
 
-li.post_link a {
-  min-height: 24px;
-  display: flex;
-  align-items: center;
-}
-
 .post_link span:first-child {
   min-width: 90px;
   max-width: 110px;
@@ -301,7 +367,74 @@ main>article {
 }
 
 section dt+dd {
-  padding-bottom: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+dl,
+#bluesky_feed {
+  padding: 1rem;
+  background: black;
+  border-radius: 2%;
+  color: white;
+  font-size: 0.75rem;
+}
+
+dl a,
+#bluesky_feed a {
+  color: var(--accent-color);
+}
+
+dl dd,
+.card_content_text,
+.card_handle {
+  color: #cccccc;
+}
+
+.posts_list dt {
+  color: #cccccc;
+}
+
+.posts_list dd {
+  color: white;
+}
+
+.post_title {
+  text-transform: capitalize;
+}
+
+.card_content_text {
+  padding-left: 1rem;
+}
+
+.card_embed_item {
+  text-align: center;
+  padding-top: 0.33rem;
+  padding-bottom: 0.33rem;
+  position: relative;
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.card_embed_item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Creates a fine 2px mesh grid over the image */
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 2px, 6px 100%;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.card_embed_img {
+  image-rendering: pixelated;
+  filter: contrast(1.2) saturate(1.5);
 }
 
 @media screen and (max-width: 250px) {
@@ -312,49 +445,7 @@ section dt+dd {
   }
 }
 
-@media screen and (max-width: 350px) {
-  .hide_on_mobile {
-    display: none;
-  }
-
-  h1.website_header {
-    font-size: 3.5rem;
-    line-height: 2rem !important;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  header {
-    padding: 0 1rem;
-    margin: 1rem 0;
-  }
-
-  header>section {
-    position: relative;
-    z-index: 1;
-    background-color: var(--secondary-bg-color);
-    border-radius: 0.5rem 0 0 0.5rem;
-  }
-
-  h1.website_header {
-    line-height: 3.5rem;
-  }
-
-  .buymecoffee_wrapper {
-    width: 10rem;
-    align-self: flex-end;
-  }
-
-  .logo_wrapper {
-    width: 8rem;
-  }
-}
-
 @media screen and (min-width: 500px) {
-  h1.website_header {
-    font-size: 8.5rem;
-  }
-
   main>section,
   main>article {
     width: 450px;
@@ -363,64 +454,6 @@ section dt+dd {
   article pre {
     width: 100%;
   }
-}
-
-.card {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  padding: 1rem;
-  border-radius: 0px 5px 0px 0px;
-  background-color: var(--tertiary-bg-color);
-  max-width: 100%;
-}
-
-.card+.card {
-  margin-top: 1.25rem;
-}
-
-.card_content {
-  display: flex;
-  gap: 1.25rem;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  flex: 3;
-  white-space: pre-line;
-}
-
-.card_content a {
-  text-decoration: underline;
-}
-
-.card_embed_img {
-  filter: contrast(2.5) saturate(12.5) grayscale(0.8);
-  width: 60%;
-  max-width: 60%;
-  height: auto;
-  border-radius: .25rem;
-  margin: 0 auto;
-}
-
-.card_header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-}
-
-.card_username {
-  white-space: pre-line;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.card_header .avatar {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 0.5rem;
-  filter: contrast(2.5) saturate(12.5) grayscale(0.8);
 }
 
 .custom-image {

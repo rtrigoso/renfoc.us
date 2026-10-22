@@ -13,16 +13,16 @@ export default async function Home() {
       <section>
         <h3>Latest Posts</h3>
         <LinkList content={posts.slice(0, 4)} />
-        <div><Link className="nav-link" href={'/posts'}>more posts... <ExternalLink /></Link></div>
+        <div className="nav-link-right"><Link className="nav-link" href={'/posts'}>view all posts... <ExternalLink /></Link></div>
       </section>
       <section>
-        <h3>Active Projects</h3>
+        <h3>Software Highlights</h3>
         <ProjectList />
       </section>
       <section>
         <h3>Bluesky Feed</h3>
         <BlueskyFeed />
-        <Link className="nav-link" target="_BLANK" href={'https://bsky.app/profile/ren-rocks.bsky.social'}>view feed... <ExternalLink /></Link>
+        <div className="nav-link-right"><Link className="nav-link" target="_BLANK" href={'https://bsky.app/profile/ren-rocks.bsky.social'}>view feed... <ExternalLink /></Link></div>
       </section>
     </>
   );

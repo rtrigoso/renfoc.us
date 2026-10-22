@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Fragment } from "react";
 import ExternalLink from "@/components/basic/ExternalLink";
-import { capitalize } from "@/utils/strings";
+import { capitalize, shortHash } from "@/utils/strings";
 
 const projects = [
     {
@@ -52,15 +52,18 @@ export default async function ProjectList() {
         return (
             <Fragment key={`project-${key}`}>
                 <dt>
+                    {capitalize(label)}
+                </dt>
+                <dd>
+                    {description}
+                    <br />
                     <Link
                         tabIndex={0}
                         className="link post_link"
                         href={link}>
-                        {`${capitalize(label)}: `} {!internal && <ExternalLink />}
+                        view more: {shortHash(link)}
+                        {' '}{!internal && <ExternalLink />}
                     </Link>
-                </dt>
-                <dd>
-                    {description}
                 </dd>
             </Fragment>
         );
