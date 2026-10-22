@@ -1,5 +1,6 @@
 import LinkList from "@/composites/PostsList";
 import { GetAllTags, GetLinksDataFromContentByTag } from "@/utils/content";
+import { formatTagLabel } from "@/utils/strings";
 import type { Metadata } from "next";
 
 interface TagParams {
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: TagParams): Promise<Metadata>
 export default async function TagPage({ params }: TagParams) {
     const { tag } = await params;
     const content = await GetLinksDataFromContentByTag(tag);
-    const label = tag.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase());
+    const label = formatTagLabel(tag);
 
     return (
         <section>

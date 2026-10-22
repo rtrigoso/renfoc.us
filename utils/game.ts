@@ -10,25 +10,12 @@ export interface Position {
     isPowerup?: boolean;
 }
 
-export interface OverlayScreenProps {
-    data: Record<string, unknown>;
-    onRestart: () => void;
-}
-
-export interface OverlayScreenConfig {
-    id: string;
-    component: React.ComponentType<OverlayScreenProps>;
-}
-
-export const OVERLAY_SCREENS: OverlayScreenConfig[] = [];
-
 const DIRECTION_RIGHT = 'right';
 const DIRECTION_LEFT = 'left';
 const PLAYER_SIZE = 10;
 const BASE_MAX_OBSTACLES = 10;
 const POWERUP_SHRINK_MS = 2000;
 
-type ShowScreenFn = (id: string, data: Record<string, unknown>) => void;
 type CanvasScreen = 'gameplay' | 'submit-score' | 'score-submitted';
 
 export class GameLoop {
@@ -64,7 +51,7 @@ export class GameLoop {
     }
 }
 
-export function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShowScreen?: ShowScreenFn, onSaveScore?: (name: string, score: number) => Promise<void>, mobileInput?: HTMLInputElement): () => void {
+export function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onSaveScore?: (name: string, score: number) => Promise<void>, mobileInput?: HTMLInputElement): () => void {
     let obstacles: Position[] = [];
     let isGameOver = false;
     let canvasScreen: CanvasScreen = 'gameplay';
@@ -86,7 +73,7 @@ export function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onShow
 
     function restart() {
         cleanup();
-        setup(canvas, true, onShowScreen, onSaveScore, mobileInput);
+        setup(canvas, true, onSaveScore, mobileInput);
     }
 
     function closeSubmitScreen() {

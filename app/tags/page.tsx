@@ -1,4 +1,5 @@
 import { GetAllTags } from "@/utils/content";
+import { formatTagLabel } from "@/utils/strings";
 import Link from "next/link";
 
 export default async function TagsPage() {
@@ -12,7 +13,7 @@ export default async function TagsPage() {
                 {sorted.map(tag => (
                     <li key={tag}>
                         <Link href={`/tags/${tag}`}>
-                            {tag.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase())}
+                            {formatTagLabel(tag)}
                         </Link>
                     </li>
                 ))}

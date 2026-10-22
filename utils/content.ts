@@ -67,6 +67,16 @@ export async function readDataContent(slug: string, currentPath: string): Promis
     return data;
 }
 
+function parseFilenameMeta(filename: string) {
+    const slug = parse(filename).name;
+    const titleMatch = filename.match(/^\d+-(.+)\.md$/);
+    const title = titleMatch ? titleMatch[1].replaceAll('_', ' ') : slug;
+    const creationDate = parseInt(filename.split('-')[0]) * 1000;
+    const creationDateString = PrintContentReadableCreationTime(filename);
+
+    return { slug, title, creationDate, creationDateString };
+}
+
 export function ExtractDescriptionComment(raw: string): string {
     const match = raw.match(/\{\/\*description\n([\s\S]*?)\n\*\/\}/);
     return match ? match[1].trim() : '';
@@ -89,18 +99,14 @@ export async function GetLinksDataFromContent(): Promise<PostItem[]> {
     const files = await ReadContentDirectory();
     const dataPromise = files
         .map(async f => {
-            const filename = parse(f.name).name
-            const titleMatch = f.name.match(/^\d+-(.+)\.md$/);
-            const title = titleMatch ? titleMatch[1].replaceAll('_', ' ') : filename;
-            const creationDate = parseInt(f.name.split('-')[0]) * 1000;
-            const creationDateString = PrintContentReadableCreationTime(f.name);
-            if (!process.env.PWD) return { path: `/posts/${filename}`, title, creationDateString, creationDate };
-            const raw = await readDataContent(filename, process.env.PWD);
+            const { slug, title, creationDate, creationDateString } = parseFilenameMeta(f.name);
+            if (!process.env.PWD) return { path: `/posts/${slug}`, title, creationDateString, creationDate };
+            const raw = await readDataContent(slug, process.env.PWD);
             const description = ExtractDescriptionComment(raw);
             const tags = ExtractTags(raw);
 
             return ({
-                path: `/posts/${filename}`,
+                path: `/posts/${slug}`,
                 title: title,
                 creationDateString,
                 creationDate,
@@ -128,37 +134,15 @@ export async function GetAllTags(): Promise<string[]> {
     return unique;
 }
 
-export async function GetLatestTags(limit: number = 5): Promise<string[]> {
-    if (!process.env.PWD) return [];
-    const files = await ReadContentDirectory();
-    const sorted = [...files].sort((a, b) =>
-        parseInt(b.name.split('-')[0]) - parseInt(a.name.split('-')[0])
-    );
-    const seen: string[] = [];
-    for (const f of sorted) {
-        const slug = parse(f.name).name;
-        const raw = await readDataContent(slug, process.env.PWD!);
-        for (const tag of ExtractTags(raw)) {
-            if (!seen.includes(tag)) seen.push(tag);
-            if (seen.length >= limit) return seen;
-        }
-    }
-    return seen;
-}
-
 export async function GetLinksDataFromContentByTag(tag: string): Promise<PostItem[]> {
     if (!process.env.PWD) return [];
     const files = await ReadContentDirectory();
     const dataPromise: Promise<PostItem | null>[] = files.map(async f => {
-        const slug = parse(f.name).name;
+        const { slug, title, creationDate, creationDateString } = parseFilenameMeta(f.name);
         const raw = await readDataContent(slug, process.env.PWD!);
         const tags = ExtractTags(raw);
         if (!tags.includes(tag)) return null;
 
-        const titleMatch = f.name.match(/^\d+-(.+)\.md$/);
-        const title = titleMatch ? titleMatch[1].replaceAll('_', ' ') : slug;
-        const creationDate = parseInt(f.name.split('-')[0]) * 1000;
-        const creationDateString = PrintContentReadableCreationTime(f.name);
         const description = ExtractDescriptionComment(raw);
 
         return { path: `/posts/${slug}`, title, creationDateString, creationDate, description };
