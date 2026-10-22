@@ -18,10 +18,7 @@ export default async function LinkList({ content }: LinkListParams) {
 
         return (
             <li className="post_link" key={`post-${creationDate}`}>
-                <span>
-                    {creationDateString}
-                </span>
-                <Link
+                {creationDateString} <Link
                     tabIndex={0}
                     className="link post_link"
                     href={path}>

@@ -6,6 +6,7 @@
   --main-fg-color: #222222;
   --secondary-fg-color: #002293;
   --tertiary-fg-color: #870D38;
+  --accent-color: #E69375;
 }
 
 /*
@@ -53,6 +54,7 @@ h1 {
 
 h1.website_header {
   width: min-content;
+  font-size: 8.5rem;
 }
 
 h2 {
@@ -142,7 +144,7 @@ strong {
 
 .logo_wrapper {
   width: 10rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
 }
 
 .social_links {
@@ -226,6 +228,53 @@ header {
   align-items: center;
   width: 100%;
   gap: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  html {
+    font-size: 12px;
+  }
+
+  header {
+    padding: 2.25rem 0px 2.25rem;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  #top_header {
+    gap: 0.5rem;
+  }
+
+  #top_header .title_block {
+    gap: 0.5rem;
+  }
+
+  #bottom_header {
+    width: 75%;
+  }
+
+  h1.website_header {
+    font-size: 6.375rem;
+    padding-top: 0.5625rem;
+    padding-bottom: 0.375rem;
+  }
+
+  .logo_wrapper {
+    width: 7.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .social_links {
+    padding: 0.075rem 0.3rem;
+  }
+
+  #top_header .tagline {
+    padding-left: 0.2475rem;
+  }
+
+  .buymecoffee_wrapper {
+    padding: 0 0.75rem 1.5rem 0;
+  }
 }
 
 /* main content */
@@ -317,6 +366,30 @@ section dt+dd {
   padding-bottom: 0.5rem;
 }
 
+dl {
+  padding: 1rem;
+  background: black;
+  border-radius: 2%;
+  color: white;
+  font-size: 0.75rem;
+}
+
+dl a {
+  color: var(--accent-color);
+}
+
+dl dd {
+  color: #cccccc;
+}
+
+.link_url_short {
+  display: inline;
+}
+
+.link_url_full {
+  display: none;
+}
+
 @media screen and (max-width: 250px) {
 
   main>section,
@@ -325,49 +398,7 @@ section dt+dd {
   }
 }
 
-@media screen and (max-width: 350px) {
-  .hide_on_mobile {
-    display: none;
-  }
-
-  h1.website_header {
-    font-size: 3.5rem;
-    line-height: 2rem !important;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  header {
-    padding: 0 1rem;
-    margin: 1rem 0;
-  }
-
-  #top_header .title_block {
-    position: relative;
-    z-index: 1;
-    background-color: var(--secondary-bg-color);
-    border-radius: 0.5rem 0 0 0.5rem;
-  }
-
-  h1.website_header {
-    line-height: 3.5rem;
-  }
-
-  .buymecoffee_wrapper {
-    width: 10rem;
-    align-self: flex-end;
-  }
-
-  .logo_wrapper {
-    width: 8rem;
-  }
-}
-
 @media screen and (min-width: 500px) {
-  h1.website_header {
-    font-size: 8.5rem;
-  }
-
   main>section,
   main>article {
     width: 450px;
@@ -375,6 +406,14 @@ section dt+dd {
 
   article pre {
     width: 100%;
+  }
+
+  .link_url_short {
+    display: none;
+  }
+
+  .link_url_full {
+    display: inline;
   }
 }
 

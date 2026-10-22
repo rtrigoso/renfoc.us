@@ -13,10 +13,10 @@ export default async function Home() {
       <section>
         <h3>Latest Posts</h3>
         <LinkList content={posts.slice(0, 4)} />
-        <div><Link className="nav-link" href={'/posts'}>more posts... <ExternalLink /></Link></div>
+        <div><Link className="nav-link" href={'/posts'}>view all posts... <ExternalLink /></Link></div>
       </section>
       <section>
-        <h3>Active Projects</h3>
+        <h3>Software Highlights</h3>
         <ProjectList />
       </section>
       <section>

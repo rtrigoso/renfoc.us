@@ -52,15 +52,25 @@ export default async function ProjectList() {
         return (
             <Fragment key={`project-${key}`}>
                 <dt>
+                    {capitalize(label)}
+                </dt>
+                <dd>
+                    {description}
+                    <br />
                     <Link
                         tabIndex={0}
                         className="link post_link"
                         href={link}>
-                        {`${capitalize(label)}: `} {!internal && <ExternalLink />}
+                        {link.length > 55 || link.includes('-')
+                            ? <span>link</span>
+                            : (
+                                <>
+                                    <span className="link_url_full">{link}</span>
+                                    <span className="link_url_short">link</span>
+                                </>
+                            )}
+                        {' '}{!internal && <ExternalLink />}
                     </Link>
-                </dt>
-                <dd>
-                    {description}
                 </dd>
             </Fragment>
         );
