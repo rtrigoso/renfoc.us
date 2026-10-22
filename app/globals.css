@@ -398,6 +398,26 @@ dl dd,
   color: white;
 }
 
+.most_used_tags_list {
+  border: solid thin var(--main-bg-color);
+  padding: 1rem;
+  background-color: var(--tertiary-bg-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+
+.most_used_tags_list_item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.most_used_tags_list_item label {
+  text-transform: uppercase;
+}
+
 .post_title {
   text-transform: capitalize;
 }
