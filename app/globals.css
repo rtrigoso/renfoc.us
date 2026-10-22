@@ -142,10 +142,24 @@ strong {
 
 .logo_wrapper {
   width: 10rem;
+  padding-bottom: 1rem;
 }
 
 .social_links {
-  padding: 0 0.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.10rem 0.4rem;
+  border-radius: 5px;
+  background-color: var(--main-fg-color);
+  width: fit-content;
+  color: var(--main-bg-color);
+}
+
+.social_links h6 {
+  font: inherit;
 }
 
 #social_links_list,
@@ -174,45 +188,44 @@ strong {
   font-weight: bold;
 }
 
-/* keep subtitle visually consistent while using correct h2 heading level */
-header > section > h2 {
-  font-size: 1.5rem;
+#top_header .tagline {
   line-height: 1.75rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
   font-weight: 700;
+  padding-left: 0.33rem;
 }
 
 /* header */
 header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 0px 3rem;
+}
+
+#top_header {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 3rem 0px 3rem;
 }
 
-header>section {
+#top_header .title_block {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: flex-start;
-  gap: 0.35rem;
+  gap: 1rem;
 }
 
-header>section>nav {
+#bottom_header {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.10rem 0.4rem;
-  border-radius: 5px;
-  background-color: var(--main-fg-color);
-  width: fit-content;
-  color: var(--main-bg-color);
+  width: 100%;
+  gap: 1rem;
 }
 
 /* main content */
@@ -329,7 +342,7 @@ section dt+dd {
     margin: 1rem 0;
   }
 
-  header>section {
+  #top_header .title_block {
     position: relative;
     z-index: 1;
     background-color: var(--secondary-bg-color);

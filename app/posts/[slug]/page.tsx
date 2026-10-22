@@ -36,7 +36,7 @@ const components = {
     'youtube-embed': YoutubeEmbed
 }
 
-export default async function Posts({ params }: PostsParams) {
+export default async function Post({ params }: PostsParams) {
     const { slug } = await params
 
     if (!process.env.PWD) return <></>;
