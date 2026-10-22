@@ -1,6 +1,6 @@
 'use client';
 
-import { useGame } from "@/composites/useGame";
+import { useGame } from "./useGame";
 
 export default function Game() {
     const { ref, mobileInputRef, isScoreboard } = useGame();

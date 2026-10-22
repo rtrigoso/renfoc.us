@@ -1,5 +1,5 @@
 import Card from "./Card"
-import { getFeedPosts, getFirstEmbed } from "@/utils/blueskyFeed"
+import { getFeedPosts, getFirstEmbed } from "./api"
 
 export default async function BlueskyFeed() {
     const posts = await getFeedPosts('ren-rocks.bsky.social');

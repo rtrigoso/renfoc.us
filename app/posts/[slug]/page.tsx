@@ -1,7 +1,7 @@
 import { GetPostDescription, ReadContentDirectory, readDataContent, ExtractTags } from "@/utils/content";
 import { rehypeUnwrapImages, rehypeYoutubeEmbed } from "@/utils/mdx";
-import CustomImage from "@/composites/CustomImage";
-import YoutubeEmbed from "@/composites/YoutubeEmbed";
+import CustomImage from "@/components/basic/CustomImage";
+import YoutubeEmbed from "@/components/composite/YoutubeEmbed/YoutubeEmbed";
 import { capitalize, formatTagLabel } from "@/utils/strings";
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { parse } from "path";

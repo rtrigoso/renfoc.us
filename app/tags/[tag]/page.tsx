@@ -1,4 +1,4 @@
-import LinkList from "@/composites/PostsList";
+import LinkList from "@/components/composite/Lists/PostsList";
 import { GetAllTags, GetLinksDataFromContentByTag } from "@/utils/content";
 import { formatTagLabel } from "@/utils/strings";
 import type { Metadata } from "next";

@@ -3,12 +3,12 @@ import Link from 'next/link';
 import CustomImage from './CustomImage';
 import { usePathname } from 'next/navigation';
 import SocialLink from './SocialLink';
-import CoffeeCupIcon from './icons/CoffeeCupIcon';
-import LinkedinIcon from './icons/LinkedinIcon';
-import GithubIcon from './icons/GithubIcon';
-import EmailIcon from './icons/EmailIcon';
-import RSSIcon from './icons/RSSIcon';
-import BskyIcon from './icons/BskyIcon';
+import CoffeeCupIcon from '@/components/icons/CoffeeCupIcon';
+import LinkedinIcon from '@/components/icons/LinkedinIcon';
+import GithubIcon from '@/components/icons/GithubIcon';
+import EmailIcon from '@/components/icons/EmailIcon';
+import RSSIcon from '@/components/icons/RSSIcon';
+import BskyIcon from '@/components/icons/BskyIcon';
 
 export default function Header() {
     const pathname = usePathname();
@@ -31,7 +31,7 @@ export default function Header() {
                     <br />
                 </div>
                 <Link href="/" aria-current={pathname === '/' ? 'page' : undefined}>
-                    <h1 className="glitch website_header" data-text="Ren's blog">Ren's blog</h1>
+                    <h1 className="glitch website_header" data-text="Ren's blog">Ren&apos;s blog</h1>
                 </Link>
                 <h2>Metaphysics, tunes, and code</h2>
                 <nav id="social_links" className="social_links">

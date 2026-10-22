@@ -3,7 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import localFont from 'next/font/local';
 import { Jersey_25 } from 'next/font/google';
-import SiteChrome from '@/composites/SiteChrome';
+import SiteChrome from '@/components/basic/SiteChrome';
 
 export const metadata: Metadata = {
   title: "renfoc.us",

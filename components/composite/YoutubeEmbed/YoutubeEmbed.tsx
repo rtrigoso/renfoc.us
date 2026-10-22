@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import PlayIcon from './icons/PlayIcon';
+import PlayIcon from '@/components/icons/PlayIcon';
 
 type Props = {
     'data-video-id': string;

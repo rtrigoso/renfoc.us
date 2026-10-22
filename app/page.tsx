@@ -1,9 +1,9 @@
-import BlueskyFeed from "@/composites/BlueskyFeed";
-import LinkList from "@/composites/PostsList";
-import ProjectList from "@/composites/ProjectsList";
+import BlueskyFeed from "@/components/composite/BlueskyFeed/BlueskyFeed";
+import LinkList from "@/components/composite/Lists/PostsList";
+import ProjectList from "@/components/composite/Lists/ProjectsList";
 import { GetLinksDataFromContent, generateRSSFeed } from "@/utils/content";
 import Link from "next/link";
-import ExternalLink from "@/composites/ExternalLink";
+import ExternalLink from "@/components/basic/ExternalLink";
 
 export default async function Home() {
   const posts = await GetLinksDataFromContent();

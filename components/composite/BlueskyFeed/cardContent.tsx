@@ -1,4 +1,4 @@
-import ExternalLink from "@/composites/ExternalLink";
+import ExternalLink from "@/components/basic/ExternalLink";
 
 export function renderHashtag(part: string, i: number) {
     const match = part.match(/^(#\w+)(.*)/);

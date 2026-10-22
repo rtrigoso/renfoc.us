@@ -2,8 +2,8 @@
 
 import { useRef, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
-import { saveScore } from "@/utils/scoreboard";
-import { setup } from "@/utils/game";
+import { saveScore } from "./scoreboard";
+import { setup } from "./engine";
 
 export function useGame() {
     const ref = useRef<HTMLCanvasElement>(null);

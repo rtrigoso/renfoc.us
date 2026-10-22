@@ -1,6 +1,6 @@
 import PostCardEmbed from './PostCardEmbed';
-import { renderContent } from '@/utils/cardContent';
-import ExternalLink from "@/composites/ExternalLink";
+import { renderContent } from './cardContent';
+import ExternalLink from "@/components/basic/ExternalLink";
 
 interface CardProps {
     avatarURL: string;

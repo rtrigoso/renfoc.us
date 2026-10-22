@@ -1,4 +1,4 @@
-import { ThrottleError } from '@/utils/scoreboard';
+import { ThrottleError } from './scoreboard';
 
 export interface Position {
     x: number;
@@ -60,7 +60,7 @@ export function setup(canvas: HTMLCanvasElement, skipStartScreen = false, onSave
     let activeClickables: { bounds: { x: number; y: number; w: number; h: number }; onClick: () => void; text: string; syncFn?: () => void }[] = [];
     let flashingText = '';
     let clickThrottled = false;
-    let state = {
+    const state = {
         direction: '',
         position: { x: canvas.width / 2 - 1, y: canvas.height - 10, w: PLAYER_SIZE, h: PLAYER_SIZE },
         score: 0,
