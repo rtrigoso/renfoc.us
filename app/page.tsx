@@ -1,5 +1,6 @@
 import BlueskyFeed from "@/components/composite/BlueskyFeed/BlueskyFeed";
 import LinkList from "@/components/composite/Lists/PostsList";
+import MostUsedTagsList from "@/components/composite/Lists/MostUsedTagsList";
 import ProjectList from "@/components/composite/Lists/ProjectsList";
 import { GetLinksDataFromContent } from "@/utils/content";
 import Link from "next/link";
@@ -14,6 +15,10 @@ export default async function Home() {
         <h3>Latest Posts</h3>
         <LinkList content={posts.slice(0, 4)} />
         <div className="nav-link-right"><Link className="nav-link" href={'/posts'}>view all posts... <ExternalLink /></Link></div>
+      </section>
+      <section>
+        <h3>Frequent Topics</h3>
+        <MostUsedTagsList content={posts} />
       </section>
       <section>
         <h3>Software Highlights</h3>
