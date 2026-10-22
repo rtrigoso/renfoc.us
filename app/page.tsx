@@ -1,13 +1,12 @@
 import BlueskyFeed from "@/components/composite/BlueskyFeed/BlueskyFeed";
 import LinkList from "@/components/composite/Lists/PostsList";
 import ProjectList from "@/components/composite/Lists/ProjectsList";
-import { GetLinksDataFromContent, generateRSSFeed } from "@/utils/content";
+import { GetLinksDataFromContent } from "@/utils/content";
 import Link from "next/link";
 import ExternalLink from "@/components/basic/ExternalLink";
 
 export default async function Home() {
   const posts = await GetLinksDataFromContent();
-  generateRSSFeed(posts);
 
   return (
     <>
