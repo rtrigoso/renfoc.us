@@ -27,7 +27,7 @@ export default async function LinkList({ content }: LinkListParams) {
                     <Link
                         tabIndex={0}
                         className="link post_link"
-                        href={path}>
+                        href={`${path}#main_content`}>
                         read here: {shortHash(path)}
                     </Link>
                 </dd>
