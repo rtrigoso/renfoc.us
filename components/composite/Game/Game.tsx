@@ -1,9 +1,9 @@
 'use client';
 
-import { useGame } from "@/composites/useGame";
+import { useGame } from "./useGame";
 
 export default function Game() {
-    const { ref, mobileInputRef, isScoreboard, activeScreen, activeScreenConfig, handleRestart } = useGame();
+    const { ref, mobileInputRef, isScoreboard } = useGame();
 
     return (
         <>
@@ -17,12 +17,6 @@ export default function Game() {
                     tabIndex={-1}
                 />
                 <canvas ref={ref} id="game_container" height={250} aria-label="Arcade game. Requires clicking the screen to play." />
-                {activeScreen && activeScreenConfig && (
-                    <activeScreenConfig.component
-                        data={activeScreen.data}
-                        onRestart={handleRestart}
-                    />
-                )}
             </div>
         </>
     );

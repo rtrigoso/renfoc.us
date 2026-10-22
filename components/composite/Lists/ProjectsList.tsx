@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Fragment } from "react";
-import ExternalLink from "@/composites/ExternalLink";
+import ExternalLink from "@/components/basic/ExternalLink";
 import { capitalize } from "@/utils/strings";
 
 const projects = [

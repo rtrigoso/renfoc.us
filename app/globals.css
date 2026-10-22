@@ -267,10 +267,6 @@ header>section>nav {
   pointer-events: none;
 }
 
-.mobile_score_input_hidden {
-  display: none;
-}
-
 /* posts */
 .post_link {
   display: flex;

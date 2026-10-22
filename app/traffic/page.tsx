@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from "react";
-import { getScores, ScoreEntry } from "@/utils/scoreboard";
+import { getScores, ScoreEntry } from "@/components/composite/Game/scoreboard";
 
 export default function Page() {
     const [scores, setScores] = useState<ScoreEntry[]>([]);

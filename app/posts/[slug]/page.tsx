@@ -1,8 +1,8 @@
 import { GetPostDescription, ReadContentDirectory, readDataContent, ExtractTags } from "@/utils/content";
 import { rehypeUnwrapImages, rehypeYoutubeEmbed } from "@/utils/mdx";
-import CustomImage from "@/composites/CustomImage";
-import YoutubeEmbed from "@/composites/YoutubeEmbed";
-import { capitalize } from "@/utils/strings";
+import CustomImage from "@/components/basic/CustomImage";
+import YoutubeEmbed from "@/components/composite/YoutubeEmbed/YoutubeEmbed";
+import { capitalize, formatTagLabel } from "@/utils/strings";
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { parse } from "path";
 import type { Metadata } from "next";
@@ -57,7 +57,7 @@ export default async function Posts({ params }: PostsParams) {
                     {tags.map((tag, i) => (
                         <span key={tag}>
                             <a href={`/tags/${tag}`} rel="tag">
-                                {tag.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase())}
+                                {formatTagLabel(tag)}
                             </a>
                             {i < tags.length - 1 ? ',' : ''}
                         </span>

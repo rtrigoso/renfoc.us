@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@next/mdx": "^15.2.2",
-    "@supabase/supabase-js": "^2.99.2",
     "@types/mdx": "^2.0.13",
     "markdown-text-editor": "^1.5.4",
     "next": "^15.3.5",

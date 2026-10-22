@@ -1,7 +1,7 @@
 'use client';
 
 import { FormEvent, useCallback, useEffect, useState } from 'react';
-import MarkdownEditorField from '@/composites/MarkdownEditorField';
+import MarkdownEditorField from '@/components/composite/MarkdownEditorField/MarkdownEditorField';
 import styles from './page.module.css';
 
 type PostSummary = {

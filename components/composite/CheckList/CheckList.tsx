@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import CheckItem from "@/composites/CheckItem";
+import CheckItem from "@/components/basic/CheckItem";
 
 interface CheckListProps {
     prefix: string;

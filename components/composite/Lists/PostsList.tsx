@@ -1,7 +1,7 @@
 import { PostItem } from "@/utils/content";
 import { capitalize } from "@/utils/strings";
 import Link from "next/link";
-import ExternalLink from "@/composites/ExternalLink";
+import ExternalLink from "@/components/basic/ExternalLink";
 
 interface LinkListParams {
     content: PostItem[]

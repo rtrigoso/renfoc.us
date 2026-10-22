@@ -1,5 +1,5 @@
-import Game from '@/composites/Game';
+import Game from '@/components/composite/Game/Game';
 
-export default async function Page() {
+export default function Page() {
     return <Game />;
 }

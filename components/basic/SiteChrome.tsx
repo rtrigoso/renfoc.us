@@ -1,7 +1,7 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import Header from './Header';
-import Game from './Game';
+import Game from '@/components/composite/Game/Game';
 
 export default function SiteChrome() {
     const pathname = usePathname();
