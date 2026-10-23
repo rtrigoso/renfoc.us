@@ -246,6 +246,10 @@ header {
     font-size: 12px;
   }
 
+  main>article {
+    width: 90%;
+  }
+
   header {
     padding: 2.25rem 0px 2.25rem;
     max-width: 250px;
