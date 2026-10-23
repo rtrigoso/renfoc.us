@@ -9,7 +9,7 @@ tutorial
 This tutorial explains how to build a browser game loop using requestAnimationFrame, which syncs rendering with the display refresh rate and automatically pauses when the tab is hidden. It walks through a reusable GameLoop class that uses delta time to limit frame rate and keep game speed consistent across different displays, then shows how to plug it into a canvas game and integrate it with React via useEffect. The pattern separates rendering logic from game state updates and provides a clean mechanism to stop the loop when the game ends.
 */}
 
-###### 12/02/25
+<time className="post_date">12/02/25</time>
 ## Building a JS Game Loop: A Practical Guide
 
 Game development in the browser has come a long way, and at the heart of smooth, performant games is the `requestAnimationFrame` API. In this post, we'll explore how to build a proper game loop using `requestAnimationFrame`, complete with frame rate limiting and state management—all based on a real working example.

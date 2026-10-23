@@ -1,5 +1,5 @@
 import { GetPostDescription, ReadContentDirectory, readDataContent, ExtractTags } from "@/utils/content";
-import { rehypeUnwrapImages, rehypeYoutubeEmbed } from "@/utils/mdx";
+import { rehypeUnwrapImages, rehypeYoutubeEmbed, rehypeAddPostDateTime, rehypeAddCodeLineNumbers } from "@/utils/mdx";
 import CustomImage from "@/components/basic/CustomImage";
 import YoutubeEmbed from "@/components/composite/YoutubeEmbed/YoutubeEmbed";
 import { capitalize, formatTagLabel } from "@/utils/strings";
@@ -43,27 +43,30 @@ export default async function Post({ params }: PostsParams) {
 
     const data = await readDataContent(slug, process.env.PWD);
     const tags = ExtractTags(data);
+    const creationDate = new Date(parseInt(slug.split('-')[0]) * 1000);
 
     return (
         <article>
-            <MDXRemote
-                source={`${data}`}
-                components={components}
-                options={{ mdxOptions: { rehypePlugins: [rehypeUnwrapImages, rehypeYoutubeEmbed] } }}
-            />
-            {tags.length > 0 && (
-                <div className="tags-container">
-                    <h6 className="tags-header">Tags:</h6>
-                    {tags.map((tag, i) => (
-                        <span key={tag}>
-                            <a href={`/tags/${tag}`} rel="tag">
-                                {formatTagLabel(tag)}
-                            </a>
-                            {i < tags.length - 1 ? ',' : ''}
-                        </span>
-                    ))}
-                </div>
-            )}
+            <div className="article_content">
+                <MDXRemote
+                    source={`${data}`}
+                    components={components}
+                    options={{ mdxOptions: { rehypePlugins: [rehypeUnwrapImages, rehypeYoutubeEmbed, [rehypeAddPostDateTime, creationDate.toISOString()], rehypeAddCodeLineNumbers] } }}
+                />
+                {tags.length > 0 && (
+                    <div className="tags-container">
+                        <h6 className="tags-header">Tags:</h6>
+                        {tags.map((tag, i) => (
+                            <span key={tag}>
+                                <a href={`/tags/${tag}`} rel="tag">
+                                    {formatTagLabel(tag)}
+                                </a>
+                                {i < tags.length - 1 ? ',' : ''}
+                            </span>
+                        ))}
+                    </div>
+                )}
+            </div>
         </article>
     )
 }  

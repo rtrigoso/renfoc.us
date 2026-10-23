@@ -9,7 +9,7 @@ tutorial
 This tutorial walks through setting up a Supabase backend project using Terraform for infrastructure as code, so that all cloud resources are version controlled, reproducible, and free of hardcoded secrets. It covers writing the provider and project resource configuration, managing environment variables safely, and running terraform init, plan, and apply to provision the project. The post then continues with linking the Supabase CLI to the new project, initializing local configuration, and creating the first database migration.
 */}
 
-###### 11-18-2025
+<time className="post_date">11-18-2025</time>
 ## Starting a Supabase Project
 
 I want to build a new version of my HN aggregator (a tool that collects and organizes Hacker News posts) with a lot more features, so I did a bit of research. After a few minutes, I decided on [Supabase](https://supabase.com/) to handle the backend. Supabase has a nice pricing plan that simply stops you from creating a new project if you are exceeding your account tier level; Supabase has a free tier. For a personal project like this one, where I am mostly testing new things, not having overdraft fees on serverless is ideal. We do not want to end up like others who have faced surprise AWS Lambda bills in the thousands. It took a few minutes to get my project all setup - [Terraform](https://www.terraform.io/), Supabase CLI, and some other requirements took a little reading to decipher.
