@@ -7,6 +7,7 @@
   --secondary-fg-color: #002293;
   --tertiary-fg-color: #870D38;
   --accent-color: #E69375;
+  --dark-bg-color: #242424;
 }
 
 /*
@@ -358,12 +359,45 @@ header {
 
 /* main section */
 
+main>section {
+  width: 90%;
+}
+
 main>section,
 main>article {
-  width: 90%;
   padding-bottom: 2rem;
   line-height: 1.5rem;
   margin: 0 auto;
+}
+
+.article_content {
+  padding: 1rem;
+  background: var(--dark-bg-color);
+  color: white;
+  border-radius: 5px;
+}
+
+.article_content a {
+  color: var(--accent-color);
+}
+
+.article_content .tags-header,
+.article_content .post_date,
+.article_content p {
+  color: #ccc;
+}
+
+.post_date {
+  display: block;
+  font-family: var(--font-header), serif;
+  font-size: 0.9rem;
+  line-height: 1.15rem;
+  font-weight: 500;
+}
+
+.article_content picture {
+  background: var(--main-bg-color);
+  border-radius: 2%;
 }
 
 section dt+dd {
@@ -373,7 +407,7 @@ section dt+dd {
 dl,
 #bluesky_feed {
   padding: 1rem;
-  background: black;
+  background: var(--dark-bg-color);
   border-radius: 2%;
   color: white;
   font-size: 0.75rem;
@@ -468,11 +502,7 @@ dl dd,
 @media screen and (min-width: 500px) {
   main>section,
   main>article {
-    width: 450px;
-  }
-
-  article pre {
-    width: 100%;
+    max-width: 450px;
   }
 }
 
@@ -529,7 +559,7 @@ article figcaption {
   display: block;
   padding: 0;
   border: 0;
-  background: #000;
+  background: var(--dark-bg-color);
   cursor: pointer;
 }
 
@@ -588,26 +618,31 @@ article blockquote {
 }
 
 article pre {
-  background-color: var(--tertiary-bg-color);
+  background-color: #000;
+  color: var(--main-bg-color);
   padding: 1rem;
   border-radius: 0 10px 0 0;
   overflow: scroll;
   overflow-wrap: break-word;
   margin-bottom: 1rem;
-  white-space: no-wrap;
+  white-space: pre-wrap;
   word-wrap: break-word;
 }
 
 code {
+  font-family: monospace;
   color: #4F4F4F;
 }
 
+p code {
+  color: var(--main-bg-color);
+}
+
 article pre code {
-  font-family: var(--font-mono), "Courier New", monospace;
-  letter-spacing: 0.1rem;
+  font-family: monospace;
   font-size: 0.75rem;
   font-weight: 300;
-  color: #4F4F4F;
+  color: var(--main-bg-color);
 }
 
 /* checklist */

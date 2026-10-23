@@ -4,6 +4,8 @@ type HastNode = {
     properties?: Record<string, unknown>;
     value?: string;
     children?: HastNode[];
+    name?: string;
+    attributes?: { type: string; name: string; value?: string }[];
 };
 
 function unwrapImageParagraphs(node: HastNode): void {
@@ -29,6 +31,35 @@ function unwrapImageParagraphs(node: HastNode): void {
 export function rehypeUnwrapImages() {
     return (tree: HastNode) => {
         unwrapImageParagraphs(tree);
+    };
+}
+
+function isTimeJsxElement(node: HastNode): boolean {
+    return (node.type === 'mdxJsxFlowElement' || node.type === 'mdxJsxTextElement') && node.name === 'time';
+}
+
+function withoutDateTimeAttribute(attributes: HastNode['attributes']): NonNullable<HastNode['attributes']> {
+    return (attributes ?? []).filter((attr) => attr.name !== 'dateTime');
+}
+
+function setDateTimeAttribute(node: HastNode, dateTime: string): void {
+    node.attributes = [
+        ...withoutDateTimeAttribute(node.attributes),
+        { type: 'mdxJsxAttribute', name: 'dateTime', value: dateTime },
+    ];
+}
+
+function applyDateTimeToTimeTags(node: HastNode, dateTime: string): void {
+    if (isTimeJsxElement(node)) {
+        setDateTimeAttribute(node, dateTime);
+    }
+
+    node.children?.forEach((child) => applyDateTimeToTimeTags(child, dateTime));
+}
+
+export function rehypeAddPostDateTime(dateTime: string) {
+    return (tree: HastNode) => {
+        applyDateTimeToTimeTags(tree, dateTime);
     };
 }
 

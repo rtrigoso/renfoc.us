@@ -9,7 +9,7 @@ tutorial
 This tutorial walks JavaScript developers through using Hugging Face's pretrained models to add AI features to their projects without training models from scratch. It explains the pipeline abstraction, which handles data ingestion, model inference, and output in a single call, and surveys common pipeline types like summarization, translation, and text classification. By the end, any JS developer should feel equipped to incorporate machine learning into their work using Hugging Face's JavaScript library.
 */}
 
-###### 5-26-2025
+<time className="post_date">5-26-2025</time>
 ## AI is Easy with Huggingface
 During my most recent job search, I kept seeing AI mentioned everywhere—in job posts, company goals, and interviews—showing just how focused everyone is on AI and machine learning right now. I’m surprised more people aren’t using [Hugging Face](https://huggingface.co), a platform that makes machine learning much easier by offering pre-trained models, especially for language and text. It saves time by skipping the heavy data training, so you can focus on actually building your project. This post will walk any javascript dev through the steps of using prebuilt models on their projects. 
 Fun fact: Hugging Face started as a chatbot app before becoming the go-to platform for AI models! It offers [a JavaScript library](https://huggingface.co/docs/huggingface.js/index) that lets you use its machine learning models both on the front end and back end. While there are several alternatives, Hugging Face stands out because it’s well-supported and growing fast—its community has millions of users sharing models and tools, making it one of the most active hubs for AI development today.

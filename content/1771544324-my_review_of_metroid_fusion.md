@@ -9,7 +9,7 @@ atmosphere
 Metroid Fusion is reviewed as essential context for understanding Metroid Dread, praised for threading the needle between freedom and frustration, telling its story entirely through environmental details rather than exposition, and accomplishing remarkable atmosphere within the constraints of GBA hardware. The review pushes back on the common argument that Dread made Fusion obsolete, arguing instead that Dread's improvements are best understood as a conversation with Fusion, not a replacement for it. Two honest caveats are offered: a difficulty spike in the late game that punishes precision on the small handheld form factor, and a few isolated pacing missteps that stand out against an otherwise tightly controlled experience.
 */}
 
-###### 02-19-2026
+<time className="post_date">02-19-2026</time>
 ## Metroid Fusion: The Game Dread Was Built On
 
 I've played Metroid Fusion before. I knew how it ended. I knew where the save rooms were, roughly, and I knew the SA-X was coming. And yet, booting it up again, I found myself doing something I didn't expect: slowing down. Looking at the walls. Trying to piece things together.

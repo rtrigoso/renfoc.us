@@ -9,7 +9,7 @@ self-cultivation
 The media backlog is examined as both a monument to the impossible and a meaningful act of self-cultivation: technology has removed the physical limits on accumulation, making it easier than ever to collect more books, games, and films than one could consume in a lifetime. Seneca's warning that we waste the time we have sits alongside Aristotle's virtue ethics, which frames the act of curating a backlog as a practice that builds discernment, temperance, and practical wisdom. The post lands on a balanced view where the backlog is worth having for the preserved choice and self-knowledge it offers, as long as organizing it does not replace actually engaging with the art.
 */}
 
-###### 1-23-2026
+<time className="post_date">1-23-2026</time>
 ## The Backlog and Existence
 
 There is something very human about accumulating more books/games/music than one could consume over our remaining lifetime. Every hour, new media pops up and our schedule forces us into a pact with our own happiness: I will make time for this later. We believe that the backlog is formed to give us a fighting chance against our finitude. We want to experience everyting that we might find meaningful, but we can't, and then we realize the backlog is simple a monument to the imposible.

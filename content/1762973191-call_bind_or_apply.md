@@ -9,7 +9,7 @@ binding
 JavaScript functions have three methods for controlling what "this" refers to inside them: call, apply, and bind. Call and apply both invoke a function immediately with a specified "this" value, differing only in how extra arguments are passed (individually for call, as an array for apply). Bind does not invoke the function at all but returns a new function with "this" permanently locked to the given value, ready to be called later.
 */}
 
-###### 11-12-2025
+<time className="post_date">11-12-2025</time>
 ## Bind, call, and apply
 
 Javascript functions have access to three methods: call, bind, and apply.
