@@ -1,5 +1,5 @@
 import { GetPostDescription, ReadContentDirectory, readDataContent, ExtractTags } from "@/utils/content";
-import { rehypeUnwrapImages, rehypeYoutubeEmbed, rehypeAddPostDateTime } from "@/utils/mdx";
+import { rehypeUnwrapImages, rehypeYoutubeEmbed, rehypeAddPostDateTime, rehypeAddCodeLineNumbers } from "@/utils/mdx";
 import CustomImage from "@/components/basic/CustomImage";
 import YoutubeEmbed from "@/components/composite/YoutubeEmbed/YoutubeEmbed";
 import { capitalize, formatTagLabel } from "@/utils/strings";
@@ -51,7 +51,7 @@ export default async function Post({ params }: PostsParams) {
                 <MDXRemote
                     source={`${data}`}
                     components={components}
-                    options={{ mdxOptions: { rehypePlugins: [rehypeUnwrapImages, rehypeYoutubeEmbed, [rehypeAddPostDateTime, creationDate.toISOString()]] } }}
+                    options={{ mdxOptions: { rehypePlugins: [rehypeUnwrapImages, rehypeYoutubeEmbed, [rehypeAddPostDateTime, creationDate.toISOString()], rehypeAddCodeLineNumbers] } }}
                 />
                 {tags.length > 0 && (
                     <div className="tags-container">

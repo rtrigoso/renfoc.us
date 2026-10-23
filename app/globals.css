@@ -643,6 +643,24 @@ article pre code {
   font-size: 0.75rem;
   font-weight: 300;
   color: var(--main-bg-color);
+  counter-reset: code-line;
+}
+
+article pre code .code-line {
+  counter-increment: code-line;
+  display: block;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+article pre code .code-line::before {
+  content: counter(code-line, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  width: auto;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.4);
+  user-select: none;
 }
 
 /* checklist */

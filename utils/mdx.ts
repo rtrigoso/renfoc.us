@@ -63,6 +63,45 @@ export function rehypeAddPostDateTime(dateTime: string) {
     };
 }
 
+function getNodeText(node: HastNode): string {
+    if (node.type === 'text') return node.value ?? '';
+    return (node.children ?? []).map(getNodeText).join('');
+}
+
+function toCodeLineSpan(line: string): HastNode {
+    return {
+        type: 'element',
+        tagName: 'span',
+        properties: { className: ['code-line'] },
+        children: [{ type: 'text', value: line.length > 0 ? line : ' ' }],
+    };
+}
+
+function isCodeBlock(node: HastNode): node is HastNode & { children: [HastNode] } {
+    return node.type === 'element' && node.tagName === 'pre'
+        && node.children?.length === 1 && node.children[0].tagName === 'code';
+}
+
+function splitCodeBlockIntoLines(preNode: HastNode & { children: [HastNode] }): void {
+    const codeNode = preNode.children[0];
+    const lines = getNodeText(codeNode).replace(/\n$/, '').split('\n');
+
+    codeNode.children = lines.map(toCodeLineSpan);
+}
+
+function addCodeLineNumbers(node: HastNode): void {
+    node.children?.forEach((child) => {
+        if (isCodeBlock(child)) splitCodeBlockIntoLines(child);
+        addCodeLineNumbers(child);
+    });
+}
+
+export function rehypeAddCodeLineNumbers() {
+    return (tree: HastNode) => {
+        addCodeLineNumbers(tree);
+    };
+}
+
 const YOUTUBE_URL_PATTERN = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})(?:[?&#]\S*)?$/;
 
 /**
