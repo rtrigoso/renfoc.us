@@ -107,8 +107,8 @@ function buildGifEmbed(external: BlueskyExternal): BlueskyImage {
     };
 }
 
-function buildPostLink(uri: string): string {
-    return `https://bsky.app/profile/ren-rocks.bsky.social/post/${uri.split('/').at(-1)}`;
+function buildPostLink(uri: string, handle: string): string {
+    return `https://bsky.app/profile/${handle}/post/${uri.split('/').at(-1)}`;
 }
 
 function mapEmbed(image: BlueskyImage): PostCardEmbed {
@@ -129,7 +129,7 @@ function transformPost(post: BlueskyPost): PostCardPost {
     }
 
     return {
-        link: buildPostLink(post.uri),
+        link: buildPostLink(post.uri, post.author.handle),
         displayName: formatDisplayName(post.author.displayName),
         handle: post.author.handle,
         content: post.record.text,
