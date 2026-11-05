@@ -15,7 +15,7 @@ interface BlueskyExternal {
 
 interface BlueskyImage {
     alt: string
-    aspectRatio: BlueskyImageAspectRatio
+    aspectRatio?: BlueskyImageAspectRatio
     thumb: string
 }
 
@@ -112,10 +112,12 @@ function buildPostLink(uri: string, handle: string): string {
 }
 
 function mapEmbed(image: BlueskyImage): PostCardEmbed {
+    const { width, height } = image.aspectRatio || { width: 4, height: 3 };
+
     return {
         alt: image.alt,
         type: 'image',
-        aspectRatio: `${image.aspectRatio.width}/${image.aspectRatio.height}`,
+        aspectRatio: `${width}/${height}`,
         link: image.thumb
     };
 }
